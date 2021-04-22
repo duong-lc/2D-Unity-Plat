@@ -1,0 +1,87 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - ground
+  - Enemy-Skeleton
+  - Enemy-FireWorm
+  - Enemy-Goblin
+  - Player-Katana
+  - _TutorialListManager
+  - _TutCollider
+  - PickUp-Health
+  - PickUp-Heavy
+  - PickUp-Mage
+  - Player-Archer
+  - Player-Heavy
+  - Player-Mage
+  - Enemy-Slime
+  - Spike
+  - Enemy-FlyingEye
+  - Enemy-Mushroom
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - ground
+  - enemies
+  - player
+  - DamageToPlayerObj
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Background
+    uniqueID: 1210068409
+    locked: 0
+  - name: Midground
+    uniqueID: 3634892665
+    locked: 0
+  - name: houses-foreground
+    uniqueID: 667128203
+    locked: 0
+  - name: ground foreground
+    uniqueID: 2417436701
+    locked: 0
+  - name: props-foreground
+    uniqueID: 2799951385
+    locked: 0
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: projectiles
+    uniqueID: 3715237233
+    locked: 0
+  - name: enemies
+    uniqueID: 1099318751
+    locked: 0
+  - name: players
+    uniqueID: 3314440999
+    locked: 0
+  - name: on-screen UI
+    uniqueID: 1391533629
+    locked: 0
