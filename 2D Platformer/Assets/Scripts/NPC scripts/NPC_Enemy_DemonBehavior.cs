@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Threading.Tasks;
+using System;
 
 public class NPC_Enemy_DemonBehavior : MonoBehaviour
 {   
@@ -37,16 +38,21 @@ public class NPC_Enemy_DemonBehavior : MonoBehaviour
     private bool isDead = false;
     private bool isFrozen = false;
 
+    public GameObject Fire_GameObj;
+    public Animator Fire_Animator;
 
 
 
-    void Start()
+
+    void Awake()
     {
         //groundCheck = Physics2D.OverlapCircleAll(groundCollider.transform.position, colliderRadius, 0f, GroundLayer);
         //Physics2D.IgnoreCollision(groundCollider.GetComponent<CircleCollider2D>(), GameObject.Find("Player").GetComponent<CapsuleCollider2D>());
         
         playerBehaviorScript = GameObject.Find("Player").GetComponent<PlayerBehavior>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
+
+        Physics2D.IgnoreCollision(player.GetComponent<Collider2D>(), GetComponent<Collider2D>());
 
         rb = this.gameObject.GetComponent<Rigidbody2D>();
         rb.freezeRotation = true;//freezing rotation
@@ -57,6 +63,16 @@ public class NPC_Enemy_DemonBehavior : MonoBehaviour
 
     private void Update() 
     {
+        try{
+            player_ArcherBehaviorScript = GameObject.Find("Player").transform.Find("Player-Archer").GetComponent<Player_ArcherBehavior>();
+            player_KatanaBehaviorScript = GameObject.Find("Player").transform.Find("Player-Katana").GetComponent<Player_KatanaBehavior>();
+            player_HeavyBehaviorScript = GameObject.Find("Player").transform.Find("Player-Heavy").GetComponent<Player_HeavyBehavior>();
+            player_MageBehaviorScript = GameObject.Find("Player").transform.Find("Player-Mage").GetComponent<Player_MageBehavior>();
+        }catch(Exception e){
+            ;
+        }
+
+
         playerCollider = Physics2D.OverlapBox(attackZone.position, attackBox, 0f, PlayerLayer);
         
         if (isStagger == false && isFrozen == false && isDead == false)
@@ -78,7 +94,6 @@ public class NPC_Enemy_DemonBehavior : MonoBehaviour
             {
                 AttackPlayerAnim();
                 elapsedTime = Time.time + attackIntervalSec;
-                Debug.Log("ready");
             }
             
             animator.SetTrigger("isIdle");
@@ -91,12 +106,47 @@ public class NPC_Enemy_DemonBehavior : MonoBehaviour
         {
             if (playerCollider.gameObject.tag == "Player")
             {
-                Debug.Log("atk anim");
                 animator.SetTrigger("isAttack");
             }
-        }else if(playerCollider == null)
-            Debug.Log("don't see player");
+        }
         
+    }
+
+    void ShootOutFire()
+    {
+        Fire_GameObj.SetActive(true);
+        Fire_Animator.Play("Demon-Fire", 0, 0f);
+    }
+
+    void StopFire()
+    {
+        Fire_GameObj.SetActive(false);
+        //Fire_Animator.Play("Demon-Fire", 0, 0f);
+    }
+
+    public void AttackPlayer()//Set up as an event in the attack animation in animation
+    {
+        if(playerCollider != null)
+        {
+            if (playerBehaviorScript.currentCharacter == 2)
+            {
+                Debug.Log("archer taking dam");
+                player_ArcherBehaviorScript.TakingDamage(attackDamage);
+            }
+            else if (playerBehaviorScript.currentCharacter == 1)
+            {
+                Debug.Log("katana taking dam");
+                player_KatanaBehaviorScript.TakingDamage(attackDamage);
+            }
+            else if(playerBehaviorScript.currentCharacter == 3)
+            {
+                player_HeavyBehaviorScript.TakingDamage(attackDamage);
+            }
+            else if(playerBehaviorScript.currentCharacter == 4)
+            {
+                player_MageBehaviorScript.TakingDamage(attackDamage);
+            }
+        }
     }
 
     void LookAtPlayer()

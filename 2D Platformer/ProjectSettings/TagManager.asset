@@ -21,6 +21,7 @@ TagManager:
   - Spike
   - Enemy-FlyingEye
   - Enemy-Mushroom
+  - Enemy-Demon
   layers:
   - Default
   - TransparentFX

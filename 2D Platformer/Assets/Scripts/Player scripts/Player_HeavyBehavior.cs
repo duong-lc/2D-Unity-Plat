@@ -117,6 +117,8 @@ public class Player_HeavyBehavior : MonoBehaviour
                 enemy.GetComponent<NPC_Enemy_FlyingEyeBehavior>().TakeDamage(attackDamage1);
             else if (enemy.gameObject.tag == "Enemy-Mushroom")
                 enemy.GetComponent<NPC_Enemy_MushroomBehavior>().TakeDamage(attackDamage1);
+            else if (enemy.gameObject.tag == "Enemy-Demon")
+                enemy.GetComponent<NPC_Enemy_DemonBehavior>().TakeDamage(attackDamage1);
 
             KnockBackEnemy(enemy, 1f);
         }
@@ -138,6 +140,9 @@ public class Player_HeavyBehavior : MonoBehaviour
                 enemy.GetComponent<NPC_Enemy_FlyingEyeBehavior>().TakeDamage(attackDamage2);
             else if (enemy.gameObject.tag == "Enemy-Mushroom")
                 enemy.GetComponent<NPC_Enemy_MushroomBehavior>().TakeDamage(attackDamage2);
+            else if (enemy.gameObject.tag == "Enemy-Demon")
+                enemy.GetComponent<NPC_Enemy_DemonBehavior>().TakeDamage(attackDamage2);
+
             KnockBackEnemy(enemy, 1.3f);
         }
     }
@@ -158,6 +163,9 @@ public class Player_HeavyBehavior : MonoBehaviour
                 enemy.GetComponent<NPC_Enemy_FlyingEyeBehavior>().TakeDamage(attackDamage3);
             else if (enemy.gameObject.tag == "Enemy-Mushroom")
                 enemy.GetComponent<NPC_Enemy_MushroomBehavior>().TakeDamage(attackDamage3);
+            else if (enemy.gameObject.tag == "Enemy-Demon")
+                enemy.GetComponent<NPC_Enemy_DemonBehavior>().TakeDamage(attackDamage3);
+ 
             KnockBackEnemy(enemy, 1.5f);
             
         }
@@ -167,13 +175,17 @@ public class Player_HeavyBehavior : MonoBehaviour
         Vector2 difference = enemy.transform.position - parent_Player.transform.position;
         if(enemy.gameObject.tag == "Enemy-FlyingEye")
             enemy.gameObject.GetComponent<Rigidbody2D>().gravityScale = 1.5f;
-
+        
+            
         enemy.gameObject.GetComponent<Rigidbody2D>().AddForce(70f * multiplier * difference.normalized, ForceMode2D.Impulse);
         enemy.gameObject.GetComponent<Rigidbody2D>().AddForce(enemy.transform.up * 80f * multiplier, ForceMode2D.Impulse);
+    
+        
 
         await Task.Delay(1000);
         if(enemy.gameObject.tag == "Enemy-FlyingEye")
             enemy.gameObject.GetComponent<Rigidbody2D>().gravityScale = 1f;
+        
 
     }
 
