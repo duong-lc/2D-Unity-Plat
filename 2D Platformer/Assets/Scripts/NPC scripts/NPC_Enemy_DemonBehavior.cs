@@ -84,6 +84,18 @@ public class NPC_Enemy_DemonBehavior : MonoBehaviour
 
     void FollowAndAttackPlayer()
     {
+        //player height +5
+        Vector2 anchor = new Vector2(player.position.x, player.position.y + 3);
+        if(Vector2.Distance(anchor, transform.position) >= 0)
+        {
+            if(transform.position.y > anchor.y)
+                transform.position += -transform.up * runSpeed * Time.deltaTime;
+            if(transform.position.y < anchor.y)
+                transform.position -= -transform.up * runSpeed * Time.deltaTime;
+        }
+
+
+
         if (Vector2.Distance(transform.position, player.position) >= attackBox.x)//Keep closing in until player in attack zone
         {
             transform.position += transform.right * runSpeed * Time.deltaTime;
