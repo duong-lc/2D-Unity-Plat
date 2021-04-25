@@ -42,7 +42,7 @@ public class NPC_Enemy_FireWormBehavior : MonoBehaviour
     private bool isFrozen;
     private bool keepMoving = false;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         playerBehaviorScript = GameObject.Find("Player").GetComponent<PlayerBehavior>();

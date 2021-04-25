@@ -89,9 +89,9 @@ public class NPC_Enemy_DemonBehavior : MonoBehaviour
         if(Vector2.Distance(anchor, transform.position) >= 0)
         {
             if(transform.position.y > anchor.y)
-                transform.position += -transform.up * runSpeed * Time.deltaTime;
+                transform.position += -transform.up * runSpeed * Time.deltaTime/3;
             if(transform.position.y < anchor.y)
-                transform.position -= -transform.up * runSpeed * Time.deltaTime;
+                transform.position -= -transform.up * runSpeed * Time.deltaTime/3;
         }
 
 
@@ -142,12 +142,10 @@ public class NPC_Enemy_DemonBehavior : MonoBehaviour
         {
             if (playerBehaviorScript.currentCharacter == 2)
             {
-                Debug.Log("archer taking dam");
                 player_ArcherBehaviorScript.TakingDamage(attackDamage);
             }
             else if (playerBehaviorScript.currentCharacter == 1)
             {
-                Debug.Log("katana taking dam");
                 player_KatanaBehaviorScript.TakingDamage(attackDamage);
             }
             else if(playerBehaviorScript.currentCharacter == 3)
@@ -174,7 +172,7 @@ public class NPC_Enemy_DemonBehavior : MonoBehaviour
             healthBar.Flip();
 		}
 		else if (transform.position.x < player.position.x && !isFlipped)
-		{
+		{   
 			transform.localScale = flipped;
 			transform.Rotate(0f, 180f, 0f);
 			isFlipped = !isFlipped;
@@ -186,17 +184,18 @@ public class NPC_Enemy_DemonBehavior : MonoBehaviour
     {
         if(isDead == false)
         {
-            isStagger = true;
+            //isStagger = true;
             currentHealth -= DamageTaken;
             //animator.SetBool("isWalking", false);
             //maybe a set trigger reset here
-            animator.SetTrigger("TakeHit");
-
-            if(isFrozen == false)
+            //animator.SetTrigger("TakeHit");
+            if(isFrozen == false)//For some reason the demon does not change to red tint then back to red, Debugging say
+            //the sprite is red then white after 0.3s but no changes were made on the actual sprite.
             {
                 this.gameObject.GetComponent<SpriteRenderer>().color = Color.red;
                 await Task.Delay(300);
                 this.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+
             }
             else if (isFrozen == true)
             {
@@ -206,8 +205,8 @@ public class NPC_Enemy_DemonBehavior : MonoBehaviour
 
             healthBar.SetHealth(currentHealth);
 
-            await Task.Delay(500);
-            isStagger = false; 
+            //await Task.Delay(500);
+            //isStagger = false; 
         }
         
         if (currentHealth <= 0)
@@ -221,10 +220,7 @@ public class NPC_Enemy_DemonBehavior : MonoBehaviour
     {
         isDead = true;
 
-        /*
-        Red tint to the sprite renderer
-        play the idle animation but fade into transparent and disappear in 3 sec
-        */
+        animator.SetTrigger("Death");
 
         rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY;
         GetComponent<Collider2D>().enabled = false;

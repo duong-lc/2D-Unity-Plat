@@ -39,7 +39,7 @@ public class NPC_Enemy_MushroomBehavior : MonoBehaviour
     private bool isFrozen = false;
     private bool cycleAtkAnim = false;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         playerBehaviorScript = GameObject.Find("Player").GetComponent<PlayerBehavior>();
         player = GameObject.FindGameObjectWithTag("Player").transform;

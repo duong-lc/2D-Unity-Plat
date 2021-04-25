@@ -46,7 +46,7 @@ public class NPC_Enemy_GoblinBehavior : MonoBehaviour
     private bool isFrozen = false;
     public GameObject cooldown;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         playerBehaviorScript = GameObject.Find("Player").GetComponent<PlayerBehavior>();
         player = GameObject.FindGameObjectWithTag("Player").transform;

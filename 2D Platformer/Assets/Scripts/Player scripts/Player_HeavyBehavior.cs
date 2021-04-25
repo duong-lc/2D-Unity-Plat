@@ -172,19 +172,23 @@ public class Player_HeavyBehavior : MonoBehaviour
     }
 
     async private void KnockBackEnemy(Collider2D enemy, float multiplier){
-        Vector2 difference = enemy.transform.position - parent_Player.transform.position;
-        if(enemy.gameObject.tag == "Enemy-FlyingEye")
-            enemy.gameObject.GetComponent<Rigidbody2D>().gravityScale = 1.5f;
+        if(enemy.gameObject.tag != "Enemy-Demon")
+        {
+            Vector2 difference = enemy.transform.position - parent_Player.transform.position;
+            if(enemy.gameObject.tag == "Enemy-FlyingEye")
+                enemy.gameObject.GetComponent<Rigidbody2D>().gravityScale = 1.5f;
+            
+                
+            enemy.gameObject.GetComponent<Rigidbody2D>().AddForce(70f * multiplier * difference.normalized, ForceMode2D.Impulse);
+            enemy.gameObject.GetComponent<Rigidbody2D>().AddForce(enemy.transform.up * 80f * multiplier, ForceMode2D.Impulse);
         
             
-        enemy.gameObject.GetComponent<Rigidbody2D>().AddForce(70f * multiplier * difference.normalized, ForceMode2D.Impulse);
-        enemy.gameObject.GetComponent<Rigidbody2D>().AddForce(enemy.transform.up * 80f * multiplier, ForceMode2D.Impulse);
-    
-        
 
-        await Task.Delay(1000);
-        if(enemy.gameObject.tag == "Enemy-FlyingEye")
-            enemy.gameObject.GetComponent<Rigidbody2D>().gravityScale = 1f;
+            await Task.Delay(1000);
+            if(enemy.gameObject.tag == "Enemy-FlyingEye")
+                enemy.gameObject.GetComponent<Rigidbody2D>().gravityScale = 1f;
+        }
+        
         
 
     }

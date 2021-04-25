@@ -59,7 +59,7 @@ public class NPC_Enemy_FlyingEyeBehavior : MonoBehaviour
     private Collider2D[] groundCheck;*/
     private float currHeight;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         //groundCheck = Physics2D.OverlapCircleAll(groundCollider.transform.position, colliderRadius, 0f, GroundLayer);
         //Physics2D.IgnoreCollision(groundCollider.GetComponent<CircleCollider2D>(), GameObject.Find("Player").GetComponent<CapsuleCollider2D>());

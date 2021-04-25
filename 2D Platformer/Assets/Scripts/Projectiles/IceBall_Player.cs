@@ -67,6 +67,11 @@ public class IceBall_Player : MonoBehaviour
                 enemy.GetComponent<NPC_Enemy_MushroomBehavior>().Take_Spell_Frozen(freezePeriod);
                 Destroy(this.gameObject);
             }
+            else if (enemy.gameObject.tag == "Enemy-Demon")
+            {
+                enemy.GetComponent<NPC_Enemy_DemonBehavior>().Take_Spell_Frozen(freezePeriod);
+                Destroy(this.gameObject);
+            }
         }
         Destroy(this.gameObject);
     }

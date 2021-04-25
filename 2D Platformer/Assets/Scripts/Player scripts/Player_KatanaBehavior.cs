@@ -195,10 +195,7 @@ public class Player_KatanaBehavior : MonoBehaviour
                 else if (enemy.gameObject.tag == "Enemy-Mushroom")
                     enemy.GetComponent<NPC_Enemy_MushroomBehavior>().TakeDamage(attackDamage);
                 else if (enemy.gameObject.tag == "Enemy-Demon")
-                {
-                    Debug.Log("lmaoxd");
                     enemy.GetComponent<NPC_Enemy_DemonBehavior>().TakeDamage(attackDamage);
-                }
                     
             
             }

@@ -89,6 +89,10 @@ public class FireBall_Player : MonoBehaviour
                 enemy.GetComponent<NPC_Enemy_MushroomBehavior>().Take_Spell_Damage_Burn(burnInterval, burnDamage, totalBurnTime_Loop);
                 Destroy(this.gameObject);
             }
+            else if(enemy.tag == "Enemy-Demon"){
+                enemy.GetComponent<NPC_Enemy_DemonBehavior>().Take_Spell_Damage_Burn(burnInterval, burnDamage, totalBurnTime_Loop);
+                Destroy(this.gameObject);
+            }
                 
         }
         Destroy(this.gameObject);

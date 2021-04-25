@@ -65,6 +65,11 @@ public class Arrow : MonoBehaviour
                 contact.GetComponent<NPC_Enemy_MushroomBehavior>().TakeDamage(attackDamage);
                 Destroy(this.gameObject);
             }
+            else if (contact.gameObject.tag == "Enemy-Demon")
+            {
+                contact.GetComponent<NPC_Enemy_DemonBehavior>().TakeDamage(attackDamage);
+                Destroy(this.gameObject);
+            }
             else if (contact.gameObject.tag == "ground")
             {
                 Destroy(this.gameObject);
