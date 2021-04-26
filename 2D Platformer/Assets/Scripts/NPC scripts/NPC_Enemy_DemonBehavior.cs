@@ -41,6 +41,8 @@ public class NPC_Enemy_DemonBehavior : MonoBehaviour
     public GameObject Fire_GameObj;
     public Animator Fire_Animator;
 
+    private bool isRedTint = false;
+    private bool isCyanTint = false;
 
 
 
@@ -61,8 +63,25 @@ public class NPC_Enemy_DemonBehavior : MonoBehaviour
         healthBar.SetMaxHealth(maxHealth);
     }
 
+    private void LateUpdate() {
+        //this.gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+
+        if(isRedTint)
+        {
+            this.gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+        }
+        if(isCyanTint)
+        {
+            this.gameObject.GetComponent<SpriteRenderer>().color = Color.cyan;
+        }
+        if(!isCyanTint && !isRedTint)
+        {
+            this.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+        }
+    }
     private void Update() 
     {
+        
         try{
             player_ArcherBehaviorScript = GameObject.Find("Player").transform.Find("Player-Archer").GetComponent<Player_ArcherBehavior>();
             player_KatanaBehaviorScript = GameObject.Find("Player").transform.Find("Player-Katana").GetComponent<Player_KatanaBehavior>();
@@ -192,14 +211,17 @@ public class NPC_Enemy_DemonBehavior : MonoBehaviour
             if(isFrozen == false)//For some reason the demon does not change to red tint then back to red, Debugging say
             //the sprite is red then white after 0.3s but no changes were made on the actual sprite.
             {
-                this.gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+                //this.gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+                isRedTint = true;
                 await Task.Delay(300);
-                this.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+                //this.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+                isRedTint = false;
 
             }
             else if (isFrozen == true)
             {
-                this.gameObject.GetComponent<SpriteRenderer>().color = Color.cyan;
+                //this.gameObject.GetComponent<SpriteRenderer>().color = Color.cyan;
+                isCyanTint = true;
             }
             
 
@@ -249,7 +271,8 @@ public class NPC_Enemy_DemonBehavior : MonoBehaviour
 
         isStagger = true;
         isFrozen = true;
-        this.gameObject.GetComponent<SpriteRenderer>().color = Color.cyan;
+        //this.gameObject.GetComponent<SpriteRenderer>().color = Color.cyan;
+        isCyanTint = true;
         animator.speed = 0.001f;
 
         await Task.Delay((int)(freezePeriod*1000f));
@@ -257,7 +280,8 @@ public class NPC_Enemy_DemonBehavior : MonoBehaviour
         isStagger = false;
         isFrozen = false;
         animator.speed = 1f;
-        this.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+        //this.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+        isCyanTint = false;
     }
 
     void OnDrawGizmosSelected()

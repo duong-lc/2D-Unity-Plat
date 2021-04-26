@@ -5,7 +5,7 @@ using UnityEngine;
 public class TutorialScript : MonoBehaviour
 {
     private TutorialListManagerScript tutorialListManagerScript;
-    void Start()
+    void Awake()
     {
         tutorialListManagerScript = GameObject.FindGameObjectWithTag("_TutorialListManager").GetComponent<TutorialListManagerScript>();
         tutorialListManagerScript.tutorialGameObjectList.Add(this.gameObject);
