@@ -31,7 +31,9 @@ public class IceBall_Player : MonoBehaviour
         subjectsToBePurgedArray = Physics2D.OverlapCircleAll(anchor.position, freezeRadius, EnemyLayer);
         Collider = Physics2D.OverlapCircle(anchor.position, colliderRadius);
 
-        if(Collider != null && Collider.gameObject.tag != "_TutCollider" && Collider.gameObject.tag != "PickUp-Heavy" && Collider.gameObject.tag != "PickUp-Health" && Collider.gameObject.tag != "PickUp-Mage")
+        if(Collider != null && Collider.gameObject.tag != "_TutCollider" && Collider.gameObject.tag != "PickUp-Heavy"
+         && Collider.gameObject.tag != "PickUp-Health" && Collider.gameObject.tag != "PickUp-Mage" 
+         && Collider.gameObject.tag != "ignoreCol")
         {
             animator.SetTrigger("Impact");
             this.gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;

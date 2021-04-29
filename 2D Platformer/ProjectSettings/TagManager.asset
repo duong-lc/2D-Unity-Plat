@@ -22,6 +22,9 @@ TagManager:
   - Enemy-FlyingEye
   - Enemy-Mushroom
   - Enemy-Demon
+  - ignoreCol
+  - fireball
+  - trapDoorRoom1
   layers:
   - Default
   - TransparentFX
@@ -35,7 +38,7 @@ TagManager:
   - enemies
   - player
   - DamageToPlayerObj
-  - 
+  - FireBall
   - 
   - 
   - 

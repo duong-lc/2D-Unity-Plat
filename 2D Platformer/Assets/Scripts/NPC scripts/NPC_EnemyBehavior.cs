@@ -35,7 +35,7 @@ public class NPC_EnemyBehavior : MonoBehaviour
     private Player_HeavyBehavior player_HeavyBehaviorScript;
     private Player_MageBehavior player_MageBehaviorScript;
 
-    private bool isDead = false;
+    public bool isDead = false;
     private bool isFrozen = false;
     // Start is called before the first frame update
     void Awake()

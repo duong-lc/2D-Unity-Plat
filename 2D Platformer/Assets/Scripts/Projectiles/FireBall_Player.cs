@@ -34,7 +34,9 @@ public class FireBall_Player : MonoBehaviour
         subjectsToBePurgedArray = Physics2D.OverlapCircleAll(anchor.position, burnRadius, EnemyLayer);
         Collider = Physics2D.OverlapCircle(anchor.position, colliderRadius);
 
-        if(Collider != null && Collider.gameObject.tag != "_TutCollider" && Collider.gameObject.tag != "PickUp-Heavy" && Collider.gameObject.tag != "PickUp-Health" && Collider.gameObject.tag != "PickUp-Mage")
+        if(Collider != null && Collider.gameObject.tag != "_TutCollider" && Collider.gameObject.tag != "PickUp-Heavy" && 
+            Collider.gameObject.tag != "PickUp-Health" && Collider.gameObject.tag != "PickUp-Mage"
+            && Collider.gameObject.tag != "ignoreCol")
         {
             //Directhit damaging
             if(callOnce_1 == true){
@@ -61,6 +63,8 @@ public class FireBall_Player : MonoBehaviour
             Collider.GetComponent<NPC_Enemy_FlyingEyeBehavior>().TakeDamage(directHitDamage);
         else if (Collider.gameObject.tag == "Enemy-Mushroom")
             Collider.GetComponent<NPC_Enemy_MushroomBehavior>().TakeDamage(directHitDamage);
+        else if (Collider.gameObject.tag == "trapDoorRoom1")
+            Collider.GetComponent<TrapRoomDoorScript>().isActivated = true;
         
         callOnce_1 = false;
     }
