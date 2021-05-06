@@ -38,6 +38,7 @@ public class TrapRoomScript : MonoBehaviour
             roof.SetActive(false);
             door1.SetActive(false);
             door2.SetActive(false);
+            spawner.SetActive(false);
         }
     }
 
