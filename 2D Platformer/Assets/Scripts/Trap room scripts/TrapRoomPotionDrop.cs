@@ -16,7 +16,7 @@ public class TrapRoomPotionDrop : MonoBehaviour
             spellPotionPrefab = GameObject.Find("_Spawner").GetComponent<TrapRoomSpawner>().spellPrefab;
             callOnce = true;
         }
-        if(this.gameObject.GetComponent<NPC_EnemyBehavior>().isDead)
+        if(this.gameObject.GetComponent<NPCVitalityHandler>().isDead)
         {
             if(!callOnce1)
             {

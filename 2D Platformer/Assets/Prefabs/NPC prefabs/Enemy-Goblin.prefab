@@ -532,6 +532,8 @@ GameObject:
   - component: {fileID: 4724364242057489241}
   - component: {fileID: 4724364242057489242}
   - component: {fileID: 4724364242057489243}
+  - component: {fileID: -6416131162864921845}
+  - component: {fileID: -1328054091314775069}
   m_Layer: 9
   m_Name: Enemy-Goblin
   m_TagString: Enemy-Goblin
@@ -690,10 +692,40 @@ MonoBehaviour:
   elapsedTime2: 0
   attackDamage: 10
   attackDamage2: 18
-  currentHealth: 0
-  maxHealth: 65
-  healthBar: {fileID: 4724364241416281565}
   cooldown: {fileID: 4724364242092225770}
+--- !u!114 &-6416131162864921845
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4724364242057489317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c072cbf1f0b59a144a35c8de5af123be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentHealth: 75
+  maxHealth: 75
+  healthBar: {fileID: 4724364241416281565}
+  isDead: 0
+  isFrozen: 0
+  isStagger: 0
+  bloodEffect: {fileID: 3242574928977728783, guid: 854bbd8d2acae244ea15dd81db67fce4, type: 3}
+  chunkEffect: {fileID: 1936493313332616412, guid: 47956b7bf90dd92488e1a03abe3f7471, type: 3}
+--- !u!114 &-1328054091314775069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4724364242057489317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 969c51db973a36845acaa9df63e193fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  popUpText: {fileID: 5374052816094725060, guid: b04b858acdabd4f40bebac8556359c71, type: 3}
 --- !u!1 &4724364242092225770
 GameObject:
   m_ObjectHideFlags: 0
@@ -704,7 +736,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4724364242092225771}
   - component: {fileID: 4724364242092225773}
-  - component: {fileID: 4724364242092225772}
+  - component: {fileID: 2657842002928374884}
   m_Layer: 5
   m_Name: CoolDown
   m_TagString: Untagged
@@ -783,7 +815,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &4724364242092225772
+--- !u!114 &2657842002928374884
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -792,7 +824,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4724364242092225770}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8165f3f60bf6f834a816fe08a7ccbd9f, type: 3}
+  m_Script: {fileID: 11500000, guid: 6d4cf7c4f692612479e87c65fb107a8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   slider: {fileID: 4724364242092225773}
@@ -826,7 +858,10 @@ MonoBehaviour:
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
   fill: {fileID: 4724364241006162803}
-  parentObject: {fileID: 4724364242057489317}
+  EyeScript: {fileID: 0}
+  bossScript: {fileID: 0}
+  goblinScript: {fileID: 4724364242057489243}
+  parentMob: 0
 --- !u!1 &4724364242394965288
 GameObject:
   m_ObjectHideFlags: 0

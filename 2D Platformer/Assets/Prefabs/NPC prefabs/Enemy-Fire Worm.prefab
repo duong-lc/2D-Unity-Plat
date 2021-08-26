@@ -111,7 +111,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0.42, y: 0.82}
+  m_AnchoredPosition: {x: 0.549, y: 1.348}
   m_SizeDelta: {x: 150, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &4752547586501799983
@@ -406,7 +406,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4752547586817175100}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.83, y: 0.22, z: 0}
+  m_LocalPosition: {x: 4.56, y: 0.22, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4752547587620679990}
@@ -436,7 +436,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4752547587598415710}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.152, y: 0.178, z: 0}
+  m_LocalPosition: {x: 1.152, y: 0.472, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4752547587620679990}
@@ -456,6 +456,8 @@ GameObject:
   - component: {fileID: 4752547587620679988}
   - component: {fileID: 4752547587620679989}
   - component: {fileID: 4752547587620679987}
+  - component: {fileID: -6177122403026105548}
+  - component: {fileID: 1467369392649455400}
   m_Layer: 9
   m_Name: Enemy-Fire Worm
   m_TagString: Enemy-FireWorm
@@ -472,7 +474,7 @@ Transform:
   m_GameObject: {fileID: 4752547587620679993}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.54, y: -3.03, z: 0}
-  m_LocalScale: {x: 1.65, y: 1.65, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4752547586817175099}
   - {fileID: 4752547587598415709}
@@ -588,7 +590,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.8125, y: 2.8125}
+    oldSize: {x: 5.625, y: 5.625}
     newSize: {x: 0.9, y: 0.9}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -596,24 +598,24 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.65625, y: -0.34375}
-      - {x: 0.6875, y: -0.1875}
-      - {x: 0.78125, y: 0.125}
-      - {x: 0.78125, y: 0.25}
-      - {x: 0.71970963, y: 0.5469648}
-      - {x: 0.49463162, y: 0.6315077}
-      - {x: 0.22756703, y: 0.64224416}
-      - {x: -0.04966435, y: 0.49385166}
-      - {x: -0.15625, y: 0.375}
-      - {x: -0.375, y: 0.03125}
-      - {x: -0.625, y: 0}
-      - {x: -0.9375, y: -0.1875}
-      - {x: -0.9375, y: -0.39397967}
-      - {x: -0.90449715, y: -0.40915188}
-      - {x: -0.69977015, y: -0.40915173}
-      - {x: -0.47926745, y: -0.40861517}
-      - {x: -0.37324712, y: -0.4091517}
-      - {x: 0.5294972, y: -0.40915188}
+    - - {x: 1.1591077, y: -0.4582622}
+      - {x: 0.6177972, y: -0.058051586}
+      - {x: 1.0401471, y: 0.055297136}
+      - {x: 1.2741503, y: 0.3894062}
+      - {x: 1.1130346, y: 0.9153952}
+      - {x: 0.51454675, y: 0.9501503}
+      - {x: 0.20765181, y: 0.7667139}
+      - {x: -0.04966435, y: 0.54363966}
+      - {x: -0.106462, y: 0.14099693}
+      - {x: -0.29533935, y: -0.30730772}
+      - {x: -1.1278582, y: -0.2439611}
+      - {x: -1.599679, y: -0.45635438}
+      - {x: -1.7888734, y: -0.6130463}
+      - {x: -1.5816131, y: -0.81243384}
+      - {x: -1.2872674, y: -0.807455}
+      - {x: -0.7929312, y: -0.7969609}
+      - {x: -0.43797132, y: -0.7974974}
+      - {x: 1.057249, y: -0.817413}
 --- !u!114 &4752547587620679987
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -630,18 +632,48 @@ MonoBehaviour:
   player: {fileID: 0}
   runSpeed: 0.6
   attackZone: {fileID: 4752547586817175099}
-  attackBox: {x: 7, y: 1}
+  attackBox: {x: 10, y: 1}
   PlayerLayer:
     serializedVersion: 2
     m_Bits: 1024
-  currentHealth: 150
-  maxHealth: 150
-  healthBar: {fileID: 4752547586640567792}
   attackIntervalSec: 3
   fireBallPrefab: {fileID: 5473812636910722292, guid: c385ba7c6def0ed4ba1da61cf48f1edc, type: 3}
   shootingPoint: {fileID: 4752547587598415709}
   fireBallSpeed: 10
   fireBallDamage: 20
+--- !u!114 &-6177122403026105548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4752547587620679993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c072cbf1f0b59a144a35c8de5af123be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentHealth: 120
+  maxHealth: 120
+  healthBar: {fileID: 4752547586640567792}
+  isDead: 0
+  isFrozen: 0
+  isStagger: 0
+  bloodEffect: {fileID: 3242574928977728783, guid: 854bbd8d2acae244ea15dd81db67fce4, type: 3}
+  chunkEffect: {fileID: 1936493313332616412, guid: 47956b7bf90dd92488e1a03abe3f7471, type: 3}
+--- !u!114 &1467369392649455400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4752547587620679993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 969c51db973a36845acaa9df63e193fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  popUpText: {fileID: 5374052816094725060, guid: b04b858acdabd4f40bebac8556359c71, type: 3}
 --- !u!1 &4752547588117655679
 GameObject:
   m_ObjectHideFlags: 0

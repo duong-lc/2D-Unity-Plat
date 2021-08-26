@@ -77,11 +77,10 @@ public class PlayerInventorySystem : MonoBehaviour
 
                 ForceReviveEverything();
                 
-                katanaScript.Heals(amountHeals);
-                archerScript.Heals(amountHeals);
-                heavyScript.Heals(amountHeals);
-                mageScript.Heals(amountHeals);
-
+                katanaScript.gameObject.GetComponent<PlayerVitalityHandler>().Heals(amountHeals);
+                archerScript.gameObject.GetComponent<PlayerVitalityHandler>().Heals(amountHeals);
+                heavyScript.gameObject.GetComponent<PlayerVitalityHandler>().Heals(amountHeals);
+                mageScript.gameObject.GetComponent<PlayerVitalityHandler>().Heals(amountHeals);
 
             }
         }
@@ -130,11 +129,19 @@ public class PlayerInventorySystem : MonoBehaviour
         heavyScript.heavyCoolDownBar.SetActive(true);
         mageScript.mageCoolDownBarFire.SetActive(true);
         mageScript.mageCoolDownbarIce.SetActive(true);
+        
+        GameObject text = playerScript.gameObject.GetComponent<DamagePopUpSpawnScript>().SpawnDamagedText();
+        DamagePopUpTextScript textScript = text.GetComponent<DamagePopUpTextScript>();
+        textScript.SetText("Restored");
+        textScript.colorStart = Color.green;
+        textScript.colorEnd = Color.green;
+        textScript.colorEnd.a = 0;
+        textScript.fadeDuration = 0.9f;
 
-        for(int i = 0; i < playerScript.AliveList.Count; i++)
-        {
-            playerScript.AliveList[i] = true;
-        }
+        // for(int i = 0; i < playerScript.AliveList.Count; i++)
+        // {
+        //     playerScript.AliveList[i] = true;
+        // }
     }
 
     private void OnTriggerEnter2D(Collider2D other)

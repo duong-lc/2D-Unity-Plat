@@ -3,19 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.Threading.Tasks;
+using UnityEngine.SceneManagement;
 
 public class PlayerBehavior : MonoBehaviour
 {
-    private GameObject playerKatana;
-    private GameObject playerArcher;
-    private GameObject playerHeavy;
-    private GameObject playerMage;
+    private GameObject playerKatana, playerArcher, playerHeavy, playerMage;
     public float moveInput;
-    private Player_KatanaBehavior playerKatanaScript;
-    private Player_ArcherBehavior playerArcherScript;
-    private Player_HeavyBehavior playerHeavyScript;
-    private Player_MageBehavior playerMageScript;
-
     public Rigidbody2D playerRB;
 
     //Vars for checking ground contact and Jumping Mechanic
@@ -27,12 +20,8 @@ public class PlayerBehavior : MonoBehaviour
 
     public int currentCharacter;
 
-    public bool isKatanaAlive = true;
-    public bool isArcherAlive = true;
-    public bool isHeavyAlive = true;
-    public bool isMageAlive = true;
-
-    public List<bool> AliveList = new List<bool>();
+    public bool isKatanaAlive = true, isArcherAlive = true, isHeavyAlive = true, isMageAlive = true;
+    //public List<bool> AliveList = new List<bool>();
 
     public Transform collisionBox;
     public Vector2 colBoxDimension;
@@ -42,14 +31,16 @@ public class PlayerBehavior : MonoBehaviour
 
     public Character_Select_UI character_Select_UI;
 
+    public bool isShootingArrow = false, isInDeathAnim = false;
+    public int katanaTakeDamageDelayMS, archerTakeDamageDelayMS, heavyTakeDamageDelayMS, mageTakeDamageDelayMS, katanaDeathDelayMS, archerDeathDelayMS, heavyDeathDelayMS, mageDeathDelayMS;
 
     // Start is called before the first frame update
     void Start()
     {
-        AliveList.Add(isKatanaAlive);
-        AliveList.Add(isArcherAlive);
-        AliveList.Add(isHeavyAlive);
-        AliveList.Add(isMageAlive);
+        // AliveList.Add(isKatanaAlive);
+        // AliveList.Add(isArcherAlive);
+        // AliveList.Add(isHeavyAlive);
+        // AliveList.Add(isMageAlive);
 
         currentCharacter = 1;
         
@@ -81,18 +72,21 @@ public class PlayerBehavior : MonoBehaviour
         playerRB.freezeRotation = true;
         //setting isGrounded to whether the overlap circle has overlapped with layer "ground"
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, GroundLayer);
-        moveInput = Input.GetAxis("Horizontal");
-        //y_Velocity = playerRB.velocity.y;
+
+        if(!isShootingArrow || !isInDeathAnim){
+            moveInput = Input.GetAxis("Horizontal");
+            PlayerJumping();
+        }else if(isShootingArrow)
+            moveInput = 0;
         
-        PlayerJumping();
+        
         PlayerRunning();
         SwitchingCharacter();
 
-        //if(objectCollidedWith!= null)
-           // ScanContact();
-
-           
-        
+        if(!isKatanaAlive && !isArcherAlive && !isHeavyAlive && !isMageAlive)//when all characters have died
+        {
+            SceneManager.LoadScene("Stage 1");
+        }
     }
 
 
@@ -107,24 +101,24 @@ public class PlayerBehavior : MonoBehaviour
         try{
             if (currentCharacter == 1)
             {
-                jumpForce = playerKatanaScript.jumpForce;
-                playerKatanaScript.PlayerJumping();
+                jumpForce = playerKatana.GetComponent<Player_KatanaBehavior>().jumpForce;
+                playerKatana.GetComponent<PlayerMovementAnimHandler>().PlayerJumping();
 
             }
             else if (currentCharacter == 2)
             {
-                jumpForce = playerArcherScript.jumpForce;
-                playerArcherScript.PlayerJumping();
+                jumpForce = playerArcher.GetComponent<Player_ArcherBehavior>().jumpForce;
+                playerArcher.GetComponent<PlayerMovementAnimHandler>().PlayerJumping();
             }
             else if (currentCharacter == 3)
             {
-                jumpForce = playerHeavyScript.jumpForce;
-                playerHeavyScript.PlayerJumping();
+                jumpForce = playerHeavy.GetComponent<Player_HeavyBehavior>().jumpForce;
+                playerHeavy.GetComponent<PlayerMovementAnimHandler>().PlayerJumping();
             }
             else if (currentCharacter == 4)
             {
-                jumpForce = playerMageScript.jumpForce;
-                playerMageScript.PlayerJumping();
+                jumpForce = playerMage.GetComponent<Player_MageBehavior>().jumpForce;
+                playerMage.GetComponent<PlayerMovementAnimHandler>().PlayerJumping();
             }
         }catch (Exception e){;}
         
@@ -132,59 +126,61 @@ public class PlayerBehavior : MonoBehaviour
 
     void PlayerRunning()
     {
-        if (currentCharacter == 1){
-            playerKatanaScript = playerKatana.GetComponent<Player_KatanaBehavior>();
-            //move left and right
-            playerRB.velocity = new Vector2(moveInput * playerKatanaScript.speed,  playerRB.velocity.y);
-            playerKatanaScript.PlayerRunning();   
-        }
-        else if (currentCharacter == 2){
-            playerArcherScript = playerArcher.GetComponent<Player_ArcherBehavior>();
-            //move left and right
-            playerRB.velocity = new Vector2(moveInput * playerArcherScript.speed,  playerRB.velocity.y);
-            playerArcherScript.PlayerRunning();
-        }else if (currentCharacter == 3){
-            playerHeavyScript = playerHeavy.GetComponent<Player_HeavyBehavior>();
-            //move left and right
-            playerRB.velocity = new Vector2(moveInput * playerHeavyScript.speed,  playerRB.velocity.y);
-            playerHeavyScript.PlayerRunning();
-        }else if (currentCharacter == 4){
-            playerMageScript = playerMage.GetComponent<Player_MageBehavior>();
-            //move left and right
-            playerRB.velocity = new Vector2(moveInput * playerMageScript.speed,  playerRB.velocity.y);
-            playerMageScript.PlayerRunning();
-        }
+        if(!isInDeathAnim){
+            if (currentCharacter == 1){
+                //move left and right
+                playerRB.velocity = new Vector2(moveInput * playerKatana.GetComponent<Player_KatanaBehavior>().speed,  playerRB.velocity.y);
+                playerKatana.GetComponent<PlayerMovementAnimHandler>().PlayerRunning();   
+            }
+            else if (currentCharacter == 2){
+                //move left and right
+                playerRB.velocity = new Vector2(moveInput * playerArcher.GetComponent<Player_ArcherBehavior>().speed,  playerRB.velocity.y);
+                playerArcher.GetComponent<PlayerMovementAnimHandler>().PlayerRunning();
+            }else if (currentCharacter == 3){
+                //move left and right
+                playerRB.velocity = new Vector2(moveInput * playerHeavy.GetComponent<Player_HeavyBehavior>().speed,  playerRB.velocity.y);
+                playerHeavy.GetComponent<PlayerMovementAnimHandler>().PlayerRunning();
+            }else if (currentCharacter == 4){
+                //move left and right
+                playerRB.velocity = new Vector2(moveInput * playerMage.GetComponent<Player_MageBehavior>().speed,  playerRB.velocity.y);
+                playerMage.GetComponent<PlayerMovementAnimHandler>().PlayerRunning();
+            }
+        }  
     }
 
     void SwitchingCharacter()
     {   
-        if (isKatanaAlive == true){
-            if (Input.GetKeyDown(KeyCode.Alpha1)){
-                ActivateKatanaOnly();
-                currentCharacter = 1;
+        if(!isInDeathAnim)
+        {
+            if (isKatanaAlive == true){
+                if (Input.GetKeyDown(KeyCode.Alpha1)){
+                    ActivateKatanaOnly();
+                    currentCharacter = 1;
+                }
             }
-        }
-       
-        if (isArcherAlive == true){
-            if (Input.GetKeyDown(KeyCode.Alpha2)){
-                ActivateArcherOnly();
-                currentCharacter = 2;
+        
+            if (isArcherAlive == true){
+                if (Input.GetKeyDown(KeyCode.Alpha2)){
+                    ActivateArcherOnly();
+                    currentCharacter = 2;
+                }
             }
-        }
 
-        if (isHeavyAlive == true){
-            if (Input.GetKeyDown(KeyCode.Alpha3)){
-                ActivateHeavyOnly();
-                currentCharacter = 3;
+            if (isHeavyAlive == true){
+                if (Input.GetKeyDown(KeyCode.Alpha3)){
+                    ActivateHeavyOnly();
+                    currentCharacter = 3;
+                }
             }
-        }
 
-        if(isMageAlive == true){
-            if (Input.GetKeyDown(KeyCode.Alpha4)){
-                ActivateMageOnly();
-                currentCharacter = 4;
+            if(isMageAlive == true){
+                if (Input.GetKeyDown(KeyCode.Alpha4)){
+                    ActivateMageOnly();
+                    currentCharacter = 4;
+                }
             }
         }
+        
 
         character_Select_UI.SwitchCharacter();
     }
@@ -192,27 +188,44 @@ public class PlayerBehavior : MonoBehaviour
     {
         if(isArcherAlive == true || isKatanaAlive == true || isHeavyAlive == true || isMageAlive == true)
         {
-            for (int i = 0; i < 4; i++)
-            {
-                if(AliveList[i] == true)
-                {
-                    if(i == 0){
-                        currentCharacter = 1;
-                        ActivateKatanaOnly();
-                    }
-                    else if(i==1){
-                        currentCharacter = 2;
-                        ActivateArcherOnly();
-                    }
-                    else if(i==2){
-                        currentCharacter = 3;
-                        ActivateHeavyOnly();
-                    }
-                    else if(i==3){
-                        currentCharacter = 4;
-                        ActivateMageOnly();
-                    }
-                }
+            // for (int i = 0; i < 4; i++)
+            // {
+            //     if(AliveList[i] == true)
+            //     {
+            //         if(i == 0){
+            //             currentCharacter = 1;
+            //             ActivateKatanaOnly();
+            //             break;
+            //         }
+            //         else if(i==1){
+            //             currentCharacter = 2;
+            //             ActivateArcherOnly();
+            //             break;
+            //         }
+            //         else if(i==2){
+            //             currentCharacter = 3;
+            //             ActivateHeavyOnly();
+            //             break;
+            //         }
+            //         else if(i==3){
+            //             currentCharacter = 4;
+            //             ActivateMageOnly();
+            //             break;
+            //         }
+            //     }
+            // }
+            if(isKatanaAlive){
+                currentCharacter = 1;
+                ActivateKatanaOnly();
+            }else if (isArcherAlive){
+                currentCharacter = 2;
+                ActivateArcherOnly();
+            }else if (isHeavyAlive){
+                currentCharacter = 3;
+                ActivateHeavyOnly();
+            }else if (isMageAlive){
+                currentCharacter = 4;
+                ActivateMageOnly();
             }
         }
         else if (isArcherAlive == false && isKatanaAlive == false && isHeavyAlive == false && isMageAlive == false){
@@ -291,10 +304,44 @@ public class PlayerBehavior : MonoBehaviour
 
     private IEnumerator ForceAdd()
     {
-        for(int i = 0; i < 24; i++)
+        for(int i = 0; i < 10; i++)
         {
             playerRB.AddForce(this.gameObject.transform.up * 7f, ForceMode2D.Impulse);
             yield return new WaitForSeconds(0.001f);
         }
+    }
+
+    public void CallDamage(float damageReceived)
+    {   
+        if(damageReceived!= 0)
+            SpawnDamageText(damageReceived.ToString(), Color.red, 0.65f);
+            
+        switch (currentCharacter)
+        {
+            case 1:
+                playerKatana.GetComponent<PlayerVitalityHandler>().TakingDamage(damageReceived);
+                break;
+            case 2:
+                playerArcher.GetComponent<PlayerVitalityHandler>().TakingDamage(damageReceived);
+                break;
+            case 3:
+                playerHeavy.GetComponent<PlayerVitalityHandler>().TakingDamage(damageReceived);
+                break;
+            case 4:
+                playerMage.GetComponent<PlayerVitalityHandler>().TakingDamage(damageReceived);
+                break;
+        }
+    }
+
+    public void SpawnDamageText(string strText, Color color, float duration){
+        GameObject text = this.gameObject.GetComponent<DamagePopUpSpawnScript>().SpawnDamagedText();
+        DamagePopUpTextScript scriptText = text.GetComponent<DamagePopUpTextScript>();
+
+        text.transform.position = this.transform.position;
+        scriptText.SetText(strText);
+        scriptText.colorStart = color;
+        scriptText.colorEnd = color;
+        scriptText.colorEnd.a = 0;
+        scriptText.fadeDuration = duration;
     }
 }

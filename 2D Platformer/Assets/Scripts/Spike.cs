@@ -20,15 +20,7 @@ public class Spike : MonoBehaviour
         if(other.gameObject.tag == "Player")
         {
             playerScript.Contact();
-
-            if(playerScript.currentCharacter == 1)
-                katana.GetComponent<Player_KatanaBehavior>().TakingDamage(playerScript.SpikeDamageToPlayer);
-            else if(playerScript.currentCharacter == 2)
-                archer.GetComponent<Player_ArcherBehavior>().TakingDamage(playerScript.SpikeDamageToPlayer);
-            else if(playerScript.currentCharacter == 3)
-                heavy.GetComponent<Player_HeavyBehavior>().TakingDamage(playerScript.SpikeDamageToPlayer);
-            else if(playerScript.currentCharacter == 4)
-                mage.GetComponent<Player_MageBehavior>().TakingDamage(playerScript.SpikeDamageToPlayer);
+            player.GetComponent<PlayerBehavior>().CallDamage(playerScript.SpikeDamageToPlayer);
         }
     }
 }

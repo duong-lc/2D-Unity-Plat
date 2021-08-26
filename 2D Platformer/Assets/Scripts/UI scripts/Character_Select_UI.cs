@@ -16,7 +16,7 @@ public class Character_Select_UI : MonoBehaviour
         
     }
 
-    private void Update() 
+    private void LateUpdate() 
     {
         if(!playerScript.isKatanaAlive)
             katanaText.color = Color.red;

@@ -312,7 +312,10 @@ MonoBehaviour:
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
   fill: {fileID: 6712752643219171725}
-  parentObject: {fileID: 6712752643778970340}
+  EyeScript: {fileID: 6712752643778970336}
+  bossScript: {fileID: 0}
+  goblinScript: {fileID: 0}
+  parentMob: 1
 --- !u!1 &6712752643616536866
 GameObject:
   m_ObjectHideFlags: 0
@@ -503,6 +506,8 @@ GameObject:
   - component: {fileID: 6712752643778970338}
   - component: {fileID: 6712752643778970337}
   - component: {fileID: 6712752643778970339}
+  - component: {fileID: -6872270545715896086}
+  - component: {fileID: -4960280859052493459}
   m_Layer: 9
   m_Name: Enemy-Flying Eye
   m_TagString: Enemy-FlyingEye
@@ -627,9 +632,6 @@ MonoBehaviour:
   elapsedTime2: 0
   attackDamage: 10
   attackDamage2: 13
-  currentHealth: 0
-  maxHealth: 50
-  healthBar: {fileID: 6712752644723759193}
   cooldown: {fileID: 6712752643597665743}
 --- !u!50 &6712752643778970338
 Rigidbody2D:
@@ -687,6 +689,39 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   damping: 5
+--- !u!114 &-6872270545715896086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6712752643778970340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c072cbf1f0b59a144a35c8de5af123be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentHealth: 50
+  maxHealth: 50
+  healthBar: {fileID: 6712752644723759193}
+  isDead: 0
+  isFrozen: 0
+  isStagger: 0
+  bloodEffect: {fileID: 3242574928977728783, guid: 854bbd8d2acae244ea15dd81db67fce4, type: 3}
+  chunkEffect: {fileID: 1936493313332616412, guid: 47956b7bf90dd92488e1a03abe3f7471, type: 3}
+--- !u!114 &-4960280859052493459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6712752643778970340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 969c51db973a36845acaa9df63e193fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  popUpText: {fileID: 5374052816094725060, guid: b04b858acdabd4f40bebac8556359c71, type: 3}
 --- !u!1 &6712752643908207800
 GameObject:
   m_ObjectHideFlags: 0

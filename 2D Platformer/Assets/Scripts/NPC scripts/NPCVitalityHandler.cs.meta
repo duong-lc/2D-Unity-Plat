@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: c072cbf1f0b59a144a35c8de5af123be
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - healthBar: {instanceID: 0}
+  - bloodEffect: {fileID: 3242574928977728783, guid: 854bbd8d2acae244ea15dd81db67fce4, type: 3}
+  - chunkEffect: {fileID: 1936493313332616412, guid: 47956b7bf90dd92488e1a03abe3f7471, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

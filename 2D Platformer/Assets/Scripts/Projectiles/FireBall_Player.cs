@@ -11,7 +11,7 @@ public class FireBall_Player : MonoBehaviour
     public float colliderRadius;
     public LayerMask EnemyLayer;
     private Collider2D[] subjectsToBePurgedArray;
-    private Collider2D Collider;
+    private Collider2D[] Collider;
     public float directHitDamage;//attack damage
 
     public float totalBurnTime_Loop;
@@ -32,37 +32,40 @@ public class FireBall_Player : MonoBehaviour
     void Update()
     {
         subjectsToBePurgedArray = Physics2D.OverlapCircleAll(anchor.position, burnRadius, EnemyLayer);
-        Collider = Physics2D.OverlapCircle(anchor.position, colliderRadius);
+        Collider = Physics2D.OverlapCircleAll(anchor.position, colliderRadius);
 
-        if(Collider != null && Collider.gameObject.tag != "_TutCollider" && Collider.gameObject.tag != "PickUp-Heavy" && 
+        //if(Collider!= null)
+        //    Debug.Log(Collider.tag);
+
+        /*if(Collider != null && Collider.gameObject.tag != "_TutCollider" && Collider.gameObject.tag != "PickUp-Heavy" && 
             Collider.gameObject.tag != "PickUp-Health" && Collider.gameObject.tag != "PickUp-Mage"
-            && Collider.gameObject.tag != "ignoreCol")
+            && Collider.gameObject.tag != "ignoreCol")*/
+        //if(subjectsToBePurgedArray != null)
+
+        foreach (Collider2D col in Collider)
         {
-            //Directhit damaging
-            if(callOnce_1 == true){
-                DirectHit();
-            } 
-            animator.SetTrigger("Explosion");
-            this.gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
-            if (callOnce == true){
-                ScaleUp();
-            }    
+            if(col != null && col.gameObject.tag != "_TutCollider" && col.gameObject.tag != "PickUp-Heavy" && 
+            col.gameObject.tag != "PickUp-Health" && col.gameObject.tag != "PickUp-Mage"
+            && col.gameObject.tag != "ignoreCol")
+            {
+                //Directhit damaging
+                if(callOnce_1 == true){
+                    DirectHit(col);
+                } 
+                animator.SetTrigger("Explosion");
+                this.gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+                if (callOnce == true){
+                    ScaleUp();
+                }    
+            }
         }
     }
 
-    private void DirectHit(){
-        if (Collider.tag == "Enemy-FireWorm")
-            Collider.GetComponent<NPC_Enemy_FireWormBehavior>().TakeDamage(directHitDamage);
-        else if(Collider.tag == "Enemy-Skeleton")
-            Collider.GetComponent<NPC_EnemyBehavior>().TakeDamage(directHitDamage, false);
-        else if(Collider.tag == "Enemy-Goblin")
-            Collider.GetComponent<NPC_Enemy_GoblinBehavior>().TakeDamage(directHitDamage, false);
-        else if(Collider.tag == "Enemy-Slime")
-            Collider.GetComponent<NPC_Enemy_SlimeBehavior>().TakeDamage(directHitDamage);
-        else if (Collider.gameObject.tag == "Enemy-FlyingEye")
-            Collider.GetComponent<NPC_Enemy_FlyingEyeBehavior>().TakeDamage(directHitDamage);
-        else if (Collider.gameObject.tag == "Enemy-Mushroom")
-            Collider.GetComponent<NPC_Enemy_MushroomBehavior>().TakeDamage(directHitDamage);
+    private void DirectHit(Collider2D Collider){
+        //Debug.Log(Collider.gameObject.name);
+        if(Collider.gameObject.GetComponent<NPCVitalityHandler>()){
+            Collider.gameObject.GetComponent<NPCVitalityHandler>().TakeDamage(directHitDamage, false);
+        }
         else if (Collider.gameObject.tag == "trapDoorRoom1")
             Collider.GetComponent<TrapRoomDoorScript>().isActivated = true;
         
@@ -73,28 +76,36 @@ public class FireBall_Player : MonoBehaviour
     {
         foreach(Collider2D enemy in subjectsToBePurgedArray)
         {
-            if (enemy.tag == "Enemy-FireWorm"){
-                enemy.GetComponent<NPC_Enemy_FireWormBehavior>().Take_Spell_Damage_Burn(burnInterval, burnDamage, totalBurnTime_Loop);
-                Destroy(this.gameObject);
-            }   
-            else if(enemy.tag == "Enemy-Skeleton"){
-                enemy.GetComponent<NPC_EnemyBehavior>().Take_Spell_Damage_Burn(burnInterval, burnDamage, totalBurnTime_Loop);
-                Destroy(this.gameObject);
-            }
-            else if(enemy.tag == "Enemy-Goblin"){
-                enemy.GetComponent<NPC_Enemy_GoblinBehavior>().Take_Spell_Damage_Burn(burnInterval, burnDamage, totalBurnTime_Loop);
-                Destroy(this.gameObject);
-            }
-            else if(enemy.tag == "Enemy-Slime"){
-                enemy.GetComponent<NPC_Enemy_SlimeBehavior>().Take_Spell_Damage_Burn(burnInterval, burnDamage, totalBurnTime_Loop);
-                Destroy(this.gameObject);
-            }
-            else if(enemy.tag == "Enemy-Mushroom"){
-                enemy.GetComponent<NPC_Enemy_MushroomBehavior>().Take_Spell_Damage_Burn(burnInterval, burnDamage, totalBurnTime_Loop);
-                Destroy(this.gameObject);
-            }
-            else if(enemy.tag == "Enemy-Demon"){
-                enemy.GetComponent<NPC_Enemy_DemonBehavior>().Take_Spell_Damage_Burn(burnInterval, burnDamage, totalBurnTime_Loop);
+            // if (enemy.tag == "Enemy-FireWorm"){
+            //     enemy.GetComponent<NPC_Enemy_FireWormBehavior>().Take_Spell_Damage_Burn(burnInterval, burnDamage, totalBurnTime_Loop);
+            //     Destroy(this.gameObject);
+            // }   
+            // else if(enemy.tag == "Enemy-Skeleton"){
+            //     enemy.GetComponent<NPC_EnemyBehavior>().Take_Spell_Damage_Burn(burnInterval, burnDamage, totalBurnTime_Loop);
+            //     Destroy(this.gameObject);
+            // }
+            // else if(enemy.tag == "Enemy-Goblin"){
+            //     enemy.GetComponent<NPC_Enemy_GoblinBehavior>().Take_Spell_Damage_Burn(burnInterval, burnDamage, totalBurnTime_Loop);
+            //     Destroy(this.gameObject);
+            // }
+            // else if(enemy.tag == "Enemy-Slime"){
+            //     enemy.GetComponent<NPC_Enemy_SlimeBehavior>().Take_Spell_Damage_Burn(burnInterval, burnDamage, totalBurnTime_Loop);
+            //     Destroy(this.gameObject);
+            // }
+            // else if(enemy.tag == "Enemy-Mushroom"){
+            //     enemy.GetComponent<NPC_Enemy_MushroomBehavior>().Take_Spell_Damage_Burn(burnInterval, burnDamage, totalBurnTime_Loop);
+            //     Destroy(this.gameObject);
+            // }
+            // else if(enemy.tag == "Enemy-Demon"){
+            //     enemy.GetComponent<NPC_Enemy_DemonBehavior>().Take_Spell_Damage_Burn(burnInterval, burnDamage, totalBurnTime_Loop);
+            //     Destroy(this.gameObject);
+            // }
+            // else if(enemy.tag == "Enemy-FlyingEye"){
+            //     enemy.GetComponent<NPC_Enemy_FlyingEyeBehavior>().Take_Spell_Damage_Burn(burnInterval, burnDamage, totalBurnTime_Loop);
+            //     Destroy(this.gameObject);
+            // }
+            if(enemy.gameObject.GetComponent<NPCVitalityHandler>()){
+                enemy.gameObject.GetComponent<NPCVitalityHandler>().Take_Spell_Damage_Burn(burnInterval, burnDamage, totalBurnTime_Loop);
                 Destroy(this.gameObject);
             }
                 

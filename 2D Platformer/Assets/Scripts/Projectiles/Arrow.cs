@@ -35,40 +35,24 @@ public class Arrow : MonoBehaviour
     {   
         foreach(Collider2D contact in hitArray)
         {
-            if(contact.gameObject.tag == "Enemy-Skeleton")
-            {
-                contact.GetComponent<NPC_EnemyBehavior>().TakeDamage(attackDamage, true);
-                Destroy(this.gameObject);
-            }
-            else if(contact.gameObject.tag == "Enemy-FireWorm")
-            {
-                contact.GetComponent<NPC_Enemy_FireWormBehavior>().TakeDamage(attackDamage);
-                Destroy(this.gameObject);
-            }
-            else if(contact.gameObject.tag == "Enemy-Goblin")
-            {
-                contact.GetComponent<NPC_Enemy_GoblinBehavior>().TakeDamage(attackDamage, false);
-                Destroy(this.gameObject);
-            }
-            else if (contact.gameObject.tag == "Enemy-Slime")
-            {
-                contact.GetComponent<NPC_Enemy_SlimeBehavior>().TakeDamage(attackDamage);
-                Destroy(this.gameObject);
-            }
-            else if (contact.gameObject.tag == "Enemy-FlyingEye")
-            {
-                contact.GetComponent<NPC_Enemy_FlyingEyeBehavior>().TakeDamage(attackDamage);
-                Destroy(this.gameObject);
-            }
-            else if (contact.gameObject.tag == "Enemy-Mushroom")
-            {
-                contact.GetComponent<NPC_Enemy_MushroomBehavior>().TakeDamage(attackDamage);
-                Destroy(this.gameObject);
-            }
-            else if (contact.gameObject.tag == "Enemy-Demon")
-            {
-                contact.GetComponent<NPC_Enemy_DemonBehavior>().TakeDamage(attackDamage);
-                Destroy(this.gameObject);
+            if(contact.gameObject.GetComponent<NPCVitalityHandler>()){
+                if(contact.gameObject.tag == "Enemy-Skeleton" || contact.gameObject.tag == "Enemy-Goblin"){
+                    contact.gameObject.GetComponent<NPCVitalityHandler>().TakeDamage(attackDamage, true);
+                    Destroy(this.gameObject);
+                }
+                else if (contact.gameObject.tag == "Enemy-Boss"){
+                    contact.gameObject.GetComponent<NPCVitalityHandler>().TakeDamage(attackDamage, true);
+                    if(contact.gameObject.GetComponent<BossScript>().dodgeState != BossScript.avoidState.roll ||
+                    contact.gameObject.GetComponent<NPCVitalityHandler>().isFrozen==true){
+                        Destroy(this.gameObject);
+                    }
+                }
+                else{
+                    contact.gameObject.GetComponent<NPCVitalityHandler>().TakeDamage(attackDamage, false);
+                    Destroy(this.gameObject);
+                }
+                    
+                
             }
             else if (contact.gameObject.tag == "ground")
             {

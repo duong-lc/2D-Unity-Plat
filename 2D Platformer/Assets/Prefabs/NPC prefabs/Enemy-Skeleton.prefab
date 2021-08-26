@@ -426,6 +426,8 @@ GameObject:
   - component: {fileID: 1331267506284551691}
   - component: {fileID: 1331267506284551688}
   - component: {fileID: 1331267506284551695}
+  - component: {fileID: -6652095592961566104}
+  - component: {fileID: -5418076101157654012}
   m_Layer: 9
   m_Name: Enemy-Skeleton
   m_TagString: Enemy-Skeleton
@@ -578,9 +580,40 @@ MonoBehaviour:
     m_Bits: 1024
   attackIntervalSec: 1
   attackDamage: 12
-  currentHealth: 100
-  maxHealth: 100
+  isDead: 0
+--- !u!114 &-6652095592961566104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1331267506284551689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c072cbf1f0b59a144a35c8de5af123be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentHealth: 125
+  maxHealth: 125
   healthBar: {fileID: 1331267505705191110}
+  isDead: 0
+  isFrozen: 0
+  isStagger: 0
+  bloodEffect: {fileID: 3242574928977728783, guid: 854bbd8d2acae244ea15dd81db67fce4, type: 3}
+  chunkEffect: {fileID: 1936493313332616412, guid: 47956b7bf90dd92488e1a03abe3f7471, type: 3}
+--- !u!114 &-5418076101157654012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1331267506284551689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 969c51db973a36845acaa9df63e193fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  popUpText: {fileID: 5374052816094725060, guid: b04b858acdabd4f40bebac8556359c71, type: 3}
 --- !u!1 &1331267506754893983
 GameObject:
   m_ObjectHideFlags: 0

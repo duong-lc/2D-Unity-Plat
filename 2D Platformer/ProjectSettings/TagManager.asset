@@ -25,6 +25,10 @@ TagManager:
   - ignoreCol
   - fireball
   - trapDoorRoom1
+  - playerArrow
+  - portalProjectile
+  - portal
+  - Enemy-Boss
   layers:
   - Default
   - TransparentFX
@@ -39,8 +43,8 @@ TagManager:
   - player
   - DamageToPlayerObj
   - FireBall
-  - 
-  - 
+  - camBox
+  - portalProjectile
   - 
   - 
   - 

@@ -188,6 +188,8 @@ GameObject:
   - component: {fileID: 6406218804648102717}
   - component: {fileID: 6406218804648102716}
   - component: {fileID: 6406218804648102713}
+  - component: {fileID: 2184197000372670146}
+  - component: {fileID: -3932816038786945977}
   m_Layer: 9
   m_Name: Enemy-Mushroom
   m_TagString: Enemy-Mushroom
@@ -340,9 +342,39 @@ MonoBehaviour:
     m_Bits: 1024
   attackIntervalSec: 1.2
   attackDamage: 11
-  currentHealth: 75
-  maxHealth: 75
+--- !u!114 &2184197000372670146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6406218804648102719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c072cbf1f0b59a144a35c8de5af123be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentHealth: 85
+  maxHealth: 85
   healthBar: {fileID: 6406218805694998215}
+  isDead: 0
+  isFrozen: 0
+  isStagger: 0
+  bloodEffect: {fileID: 3242574928977728783, guid: 854bbd8d2acae244ea15dd81db67fce4, type: 3}
+  chunkEffect: {fileID: 1936493313332616412, guid: 47956b7bf90dd92488e1a03abe3f7471, type: 3}
+--- !u!114 &-3932816038786945977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6406218804648102719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 969c51db973a36845acaa9df63e193fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  popUpText: {fileID: 5374052816094725060, guid: b04b858acdabd4f40bebac8556359c71, type: 3}
 --- !u!1 &6406218805193400151
 GameObject:
   m_ObjectHideFlags: 0

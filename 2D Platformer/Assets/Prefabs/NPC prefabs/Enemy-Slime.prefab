@@ -119,6 +119,8 @@ GameObject:
   - component: {fileID: 2334897509714377423}
   - component: {fileID: 2334897509714377422}
   - component: {fileID: 2334897509714377421}
+  - component: {fileID: 5497774780808694273}
+  - component: {fileID: 2433223860406582831}
   m_Layer: 9
   m_Name: Enemy-Slime
   m_TagString: Enemy-Slime
@@ -135,7 +137,7 @@ Transform:
   m_GameObject: {fileID: 2334897509714377457}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -5.429, y: -3.8, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 0}
   m_Children:
   - {fileID: 2334897509613989778}
   - {fileID: 2334897510723623786}
@@ -246,18 +248,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.00000017881393, y: -0.07980004}
+  m_Offset: {x: 0.0024032593, y: -0.28409746}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 0.78125}
+    oldSize: {x: 2, y: 1.5625}
     newSize: {x: 1, y: 0.78125}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.88252366, y: 0.56291133}
+  m_Size: {x: 1.7525902, y: 0.88498026}
   m_EdgeRadius: 0
 --- !u!114 &2334897509714377421
 MonoBehaviour:
@@ -281,9 +283,39 @@ MonoBehaviour:
     m_Bits: 1024
   attackIntervalSec: 1.2
   attackDamage: 10
-  currentHealth: 50
-  maxHealth: 50
+--- !u!114 &5497774780808694273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2334897509714377457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c072cbf1f0b59a144a35c8de5af123be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentHealth: 65
+  maxHealth: 65
   healthBar: {fileID: 2334897510836653117}
+  isDead: 0
+  isFrozen: 0
+  isStagger: 0
+  bloodEffect: {fileID: 3242574928977728783, guid: 854bbd8d2acae244ea15dd81db67fce4, type: 3}
+  chunkEffect: {fileID: 1936493313332616412, guid: 47956b7bf90dd92488e1a03abe3f7471, type: 3}
+--- !u!114 &2433223860406582831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2334897509714377457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 969c51db973a36845acaa9df63e193fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  popUpText: {fileID: 5374052816094725060, guid: b04b858acdabd4f40bebac8556359c71, type: 3}
 --- !u!1 &2334897510441646551
 GameObject:
   m_ObjectHideFlags: 0
@@ -387,7 +419,7 @@ RectTransform:
   m_GameObject: {fileID: 2334897510723623785}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 49.76542}
-  m_LocalScale: {x: 0.0055555557, y: 0.0055555557, z: 0.01}
+  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_Children:
   - {fileID: 2334897510836653118}
   m_Father: {fileID: 2334897509714377458}
@@ -395,7 +427,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0.027, y: 0.246}
+  m_AnchoredPosition: {x: 0, y: 0.394}
   m_SizeDelta: {x: 150, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &2334897510723623781

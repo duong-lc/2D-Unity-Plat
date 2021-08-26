@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 1061477742094517674}
   - component: {fileID: 5665799357037285460}
   - component: {fileID: 8611408318591973983}
+  - component: {fileID: -5242016866479114499}
   m_Layer: 0
   m_Name: Arrow
-  m_TagString: Untagged
+  m_TagString: playerArrow
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -121,6 +122,32 @@ MonoBehaviour:
   attackZone: {fileID: 3659433813328603926}
   attackBox: {x: 0.83, y: 0.11, z: 0}
   attackDamage: 5
+--- !u!61 &-5242016866479114499
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2585590561809099888}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.75, y: 0.15625}
+    newSize: {x: 0.75, y: 0.15625}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.75, y: 0.15625}
+  m_EdgeRadius: 0
 --- !u!1 &6982661614785225716
 GameObject:
   m_ObjectHideFlags: 0

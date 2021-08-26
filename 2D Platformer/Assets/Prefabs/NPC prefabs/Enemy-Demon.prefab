@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 4577636780440724017}
   - component: {fileID: 4577636780440724016}
   - component: {fileID: 4577636780440724029}
+  - component: {fileID: 3923591508647589177}
+  - component: {fileID: -1966168349543950889}
   m_Layer: 9
   m_Name: Enemy-Demon
   m_TagString: Enemy-Demon
@@ -167,11 +169,43 @@ MonoBehaviour:
     m_Bits: 1024
   attackIntervalSec: 5
   attackDamage: 10
-  currentHealth: 0
-  maxHealth: 100
-  healthBar: {fileID: 4577636782354766908}
   Fire_GameObj: {fileID: 4577636781056673013}
   Fire_Animator: {fileID: 4577636781056673008}
+  isRedTint: 0
+  isCyanTint: 0
+--- !u!114 &3923591508647589177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4577636780440724023}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c072cbf1f0b59a144a35c8de5af123be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentHealth: 100
+  maxHealth: 100
+  healthBar: {fileID: 4577636782354766908}
+  isDead: 0
+  isFrozen: 0
+  isStagger: 0
+  bloodEffect: {fileID: 3242574928977728783, guid: 854bbd8d2acae244ea15dd81db67fce4, type: 3}
+  chunkEffect: {fileID: 1936493313332616412, guid: 47956b7bf90dd92488e1a03abe3f7471, type: 3}
+--- !u!114 &-1966168349543950889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4577636780440724023}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 969c51db973a36845acaa9df63e193fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  popUpText: {fileID: 5374052816094725060, guid: b04b858acdabd4f40bebac8556359c71, type: 3}
 --- !u!1 &4577636780454787650
 GameObject:
   m_ObjectHideFlags: 0
@@ -213,7 +247,7 @@ GameObject:
   - component: {fileID: 4577636780479229102}
   - component: {fileID: 4577636780479229096}
   - component: {fileID: 4577636780479229103}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -390,7 +424,7 @@ GameObject:
   - component: {fileID: 4577636781096523677}
   - component: {fileID: 4577636781096523679}
   - component: {fileID: 4577636781096523678}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Border
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -564,7 +598,7 @@ GameObject:
   - component: {fileID: 4577636782305053637}
   - component: {fileID: 4577636782305053636}
   - component: {fileID: 4577636782305053691}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -639,7 +673,7 @@ GameObject:
   - component: {fileID: 4577636782354766909}
   - component: {fileID: 4577636782354766910}
   - component: {fileID: 4577636782354766908}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Health Bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -11,7 +11,7 @@ public class NPC_Enemy_FireWormBehavior : MonoBehaviour
     public Transform player;
 	private bool isFlipped = true;
     public float runSpeed;
-    private bool isStagger = false;
+    //private bool isStagger = false;
 
     public Transform attackZone;
     public Vector2 attackBox;
@@ -19,9 +19,9 @@ public class NPC_Enemy_FireWormBehavior : MonoBehaviour
     private Collider2D playerCollider;
 
     //Health system and health UI
-    public float currentHealth;
-    public float maxHealth;
-    public HealthBar healthBar;
+    // public float currentHealth;
+    // public float maxHealth;
+    // public HealthBar healthBar;
 
     //Attack speed
     public float attackIntervalSec;
@@ -38,8 +38,8 @@ public class NPC_Enemy_FireWormBehavior : MonoBehaviour
     public int fireBallSpeed;
     public float fireBallDamage;
 
-    private bool isDead;
-    private bool isFrozen;
+    // private bool isDead;
+    // private bool isFrozen;
     private bool keepMoving = false;
     // Start is called before the first frame update
     void Awake()
@@ -52,8 +52,8 @@ public class NPC_Enemy_FireWormBehavior : MonoBehaviour
         rb = this.gameObject.GetComponent<Rigidbody2D>();
         rb.freezeRotation = true;//freezing rotation
 
-        currentHealth = maxHealth;
-        healthBar.SetMaxHealth(maxHealth);
+        // currentHealth = maxHealth;
+        // healthBar.SetMaxHealth(maxHealth);
     }
 
     // Update is called once per frame
@@ -61,15 +61,15 @@ public class NPC_Enemy_FireWormBehavior : MonoBehaviour
     {
         playerCollider = Physics2D.OverlapBox(attackZone.position, attackBox, 0f, PlayerLayer);
 
-        if (isStagger == false && isFrozen == false && isDead == false)
+        if (this.gameObject.GetComponent<NPCVitalityHandler>().isStagger == false && this.gameObject.GetComponent<NPCVitalityHandler>().isFrozen == false && this.gameObject.GetComponent<NPCVitalityHandler>().isDead == false)
         {
             LookAtPlayer();
             FollowAndAttackPlayer();
         }
 
-        if (isFrozen ==true){
-            this.gameObject.GetComponent<SpriteRenderer>().color = Color.cyan;
-        }
+        // if (isFrozen ==true){
+        //     this.gameObject.GetComponent<SpriteRenderer>().color = Color.cyan;
+        // }
     }
 
     public void Attack()
@@ -127,65 +127,65 @@ public class NPC_Enemy_FireWormBehavior : MonoBehaviour
 			transform.localScale = flipped;
 			transform.Rotate(0f, 180f, 0f);
 			isFlipped = !isFlipped;
-            healthBar.Flip();
+            this.gameObject.GetComponent<NPCVitalityHandler>().healthBar.Flip();
 		}
 		else if (transform.position.x < player.position.x && !isFlipped)
 		{
 			transform.localScale = flipped;
 			transform.Rotate(0f, 180f, 0f);
 			isFlipped = !isFlipped;
-            healthBar.Flip();
+            this.gameObject.GetComponent<NPCVitalityHandler>().healthBar.Flip();
 		}
 	}
 
-    public async void TakeDamage(float DamageTaken)
-    {
-        if(isDead == false)
-        {
-            isStagger = true;
-            currentHealth -= DamageTaken;
-            animator.SetBool("isWalking", false);
-            animator.SetTrigger("TakeHit");
+    // public async void TakeDamage(float DamageTaken)
+    // {
+    //     if(isDead == false)
+    //     {
+    //         isStagger = true;
+    //         currentHealth -= DamageTaken;
+    //         animator.SetBool("isWalking", false);
+    //         animator.SetTrigger("TakeHit");
 
-            if(isFrozen == false)
-            {
-                this.gameObject.GetComponent<SpriteRenderer>().color = Color.red;
-                await Task.Delay(300);
-                this.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
-            }
-            else if (isFrozen == true)
-            {
-                this.gameObject.GetComponent<SpriteRenderer>().color = Color.cyan;
-            }
+    //         if(isFrozen == false)
+    //         {
+    //             this.gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+    //             await Task.Delay(300);
+    //             this.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+    //         }
+    //         else if (isFrozen == true)
+    //         {
+    //             this.gameObject.GetComponent<SpriteRenderer>().color = Color.cyan;
+    //         }
             
 
-            healthBar.SetHealth(currentHealth);
+    //         healthBar.SetHealth(currentHealth);
 
-            await Task.Delay(500);
-            isStagger = false; 
-        }
+    //         await Task.Delay(500);
+    //         isStagger = false; 
+    //     }
         
-        if (currentHealth <= 0)
-        {
-            healthBar.gameObject.SetActive(false);
-            Death();
-        }
+    //     if (currentHealth <= 0)
+    //     {
+    //         healthBar.gameObject.SetActive(false);
+    //         Death();
+    //     }
         
-    }
+    // }
 
-    void Death()
-    {
-        isDead = true;
-        animator.SetBool("isWalking", false);
-        animator.SetBool("isDead", true);
-        //Debug.Log("dead");
+    // void Death()
+    // {
+    //     isDead = true;
+    //     animator.SetBool("isWalking", false);
+    //     animator.SetBool("isDead", true);
+    //     //Debug.Log("dead");
 
-        rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY;
-        GetComponent<Collider2D>().enabled = false;
+    //     rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY;
+    //     GetComponent<Collider2D>().enabled = false;
         
-        isStagger = true;
-        Destroy(this.gameObject, 5f);
-    }
+    //     isStagger = true;
+    //     Destroy(this.gameObject, 5f);
+    // }
 
     void OnDrawGizmosSelected()
     {    
@@ -196,25 +196,25 @@ public class NPC_Enemy_FireWormBehavior : MonoBehaviour
         Gizmos.DrawWireCube(attackZone.position, attackBox);
     }
 
-    public void Take_Spell_Damage_Burn(float burnInterval, float burnDamage, float totalBurnTime_Loop){
-        StartCoroutine(WaitAndBurn(burnInterval, burnDamage, totalBurnTime_Loop));
-    }
+    // public void Take_Spell_Damage_Burn(float burnInterval, float burnDamage, float totalBurnTime_Loop){
+    //     StartCoroutine(WaitAndBurn(burnInterval, burnDamage, totalBurnTime_Loop));
+    // }
 
-    async public void Take_Spell_Frozen(float freezePeriod){
-        //StartCoroutine(WaitAndFreeze(freezePeriod));    
+    // async public void Take_Spell_Frozen(float freezePeriod){
+    //     //StartCoroutine(WaitAndFreeze(freezePeriod));    
 
-        isStagger = true;
-        isFrozen = true;
-        this.gameObject.GetComponent<SpriteRenderer>().color = Color.cyan;
-        animator.speed = 0.001f;
+    //     isStagger = true;
+    //     isFrozen = true;
+    //     this.gameObject.GetComponent<SpriteRenderer>().color = Color.cyan;
+    //     animator.speed = 0.001f;
 
-        await Task.Delay((int)(freezePeriod*1000f));
+    //     await Task.Delay((int)(freezePeriod*1000f));
 
-        isStagger = false;
-        isFrozen = false;
-        animator.speed = 1f;
-        this.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
-    }
+    //     isStagger = false;
+    //     isFrozen = false;
+    //     animator.speed = 1f;
+    //     this.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+    // }
 
     //WaitAndFreeze is inconsistent and seemed to be canceled out by fireball-player attack which is strange
     //so I ended up using task.delay which uses system counter instead
@@ -233,12 +233,12 @@ public class NPC_Enemy_FireWormBehavior : MonoBehaviour
         this.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
     }
     */
-    private IEnumerator WaitAndBurn(float burnInterval, float burnDamage, float totalBurnTime_Loop)
-    {
-        for(float i = 0; i < totalBurnTime_Loop; i++)
-        {
-            TakeDamage(burnDamage);
-            yield return new WaitForSeconds(burnInterval);
-        }
-    }
+    // private IEnumerator WaitAndBurn(float burnInterval, float burnDamage, float totalBurnTime_Loop)
+    // {
+    //     for(float i = 0; i < totalBurnTime_Loop; i++)
+    //     {
+    //         TakeDamage(burnDamage);
+    //         yield return new WaitForSeconds(burnInterval);
+    //     }
+    // }
 }
