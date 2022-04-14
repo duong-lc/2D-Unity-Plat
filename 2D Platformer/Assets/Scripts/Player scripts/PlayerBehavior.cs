@@ -34,28 +34,27 @@ public class PlayerBehavior : MonoBehaviour
     public bool isShootingArrow = false, isInDeathAnim = false;
     public int katanaTakeDamageDelayMS, archerTakeDamageDelayMS, heavyTakeDamageDelayMS, mageTakeDamageDelayMS, katanaDeathDelayMS, archerDeathDelayMS, heavyDeathDelayMS, mageDeathDelayMS;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        // AliveList.Add(isKatanaAlive);
-        // AliveList.Add(isArcherAlive);
-        // AliveList.Add(isHeavyAlive);
-        // AliveList.Add(isMageAlive);
-
-        currentCharacter = 1;
-        
-        playerRB = this.gameObject.GetComponent<Rigidbody2D>();
-        
-        try{
-            playerKatana = GameObject.Find("Player-Katana").gameObject;
-            playerArcher = GameObject.Find("Player-Archer").gameObject;
-            playerHeavy = GameObject.Find("Player-Heavy").gameObject;
-            playerMage = GameObject.Find("Player-Mage").gameObject;
+        try
+        {
+            playerKatana = GetComponent<Player_KatanaBehavior>().gameObject;
+            playerArcher = GetComponent<Player_ArcherBehavior>().gameObject;
+            playerHeavy = GetComponent<Player_HeavyBehavior>().gameObject;
+            playerMage = GetComponent<Player_MageBehavior>().gameObject;
         }
         catch(Exception e)
         {
-            ;
+            Debug.LogError("can't get individual characters");
         }
+        
+        playerRB = GetComponent<Rigidbody2D>();
+    }
+    
+    // Start is called before the first frame update
+    void Start()
+    {
+        currentCharacter = 1;
         
         //refreshing the system at start
         ActivateKatanaOnly();
@@ -188,32 +187,6 @@ public class PlayerBehavior : MonoBehaviour
     {
         if(isArcherAlive == true || isKatanaAlive == true || isHeavyAlive == true || isMageAlive == true)
         {
-            // for (int i = 0; i < 4; i++)
-            // {
-            //     if(AliveList[i] == true)
-            //     {
-            //         if(i == 0){
-            //             currentCharacter = 1;
-            //             ActivateKatanaOnly();
-            //             break;
-            //         }
-            //         else if(i==1){
-            //             currentCharacter = 2;
-            //             ActivateArcherOnly();
-            //             break;
-            //         }
-            //         else if(i==2){
-            //             currentCharacter = 3;
-            //             ActivateHeavyOnly();
-            //             break;
-            //         }
-            //         else if(i==3){
-            //             currentCharacter = 4;
-            //             ActivateMageOnly();
-            //             break;
-            //         }
-            //     }
-            // }
             if(isKatanaAlive){
                 currentCharacter = 1;
                 ActivateKatanaOnly();
@@ -229,10 +202,6 @@ public class PlayerBehavior : MonoBehaviour
             }
         }
         else if (isArcherAlive == false && isKatanaAlive == false && isHeavyAlive == false && isMageAlive == false){
-           /* if(this.gameObject.tag != null){
-                this.gameObject.tag = null;
-            }*/
-            
             this.gameObject.GetComponent<Collider2D>().enabled = false;
             playerRB.constraints = RigidbodyConstraints2D.FreezeAll;
             this.enabled = false;
