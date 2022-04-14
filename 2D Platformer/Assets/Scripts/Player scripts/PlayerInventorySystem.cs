@@ -146,21 +146,21 @@ public class PlayerInventorySystem : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "PickUp-Mage")
+        if (other.gameObject.CompareTag("PickUp-Mage"))
         {
             Destroy(other.gameObject);
             currentMageAmount+=1;
             MageRefillAmount.text = currentMageAmount + "";
             
         }   
-        else if (other.gameObject.tag == "PickUp-Heavy")
+        else if (other.gameObject.CompareTag("PickUp-Heavy"))
         {
             Destroy(other.gameObject);
             currentHeavyAmount+=1;
             HeavyRefillAmount.text = currentHeavyAmount + "";
             
         }
-        else if (other.gameObject.tag == "PickUp-Health")
+        else if (other.gameObject.CompareTag("PickUp-Health"))
         {
             Destroy(other.gameObject);
             currentHealthAmount+=1;

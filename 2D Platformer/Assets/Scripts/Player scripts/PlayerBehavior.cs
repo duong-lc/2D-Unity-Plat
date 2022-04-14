@@ -7,16 +7,17 @@ using UnityEngine.SceneManagement;
 
 public class PlayerBehavior : MonoBehaviour
 {
-    private GameObject playerKatana, playerArcher, playerHeavy, playerMage;
-    public float moveInput;
+    private GameObject _playerKatana, _playerArcher, _playerHeavy, _playerMage;
+    
     public Rigidbody2D playerRB;
+    public float moveInput;
 
     //Vars for checking ground contact and Jumping Mechanic
     public bool isGrounded;
     public Transform groundCheck; //transform of gameobject attached to the foot of player sprite to see if it has came in contact with the ground or not
     public float checkRadius; //check radius for that gameobject
     public LayerMask GroundLayer;//telling the ground check gameobject what to check for
-    private float jumpForce;
+    private float _jumpForce;
 
     public int currentCharacter;
 
@@ -25,7 +26,7 @@ public class PlayerBehavior : MonoBehaviour
 
     public Transform collisionBox;
     public Vector2 colBoxDimension;
-    public Collider2D[] objectCollidedWith;
+    //public Collider2D[] objectCollidedWith;
     public LayerMask enemiesLayer;
     public float SpikeDamageToPlayer;
 
@@ -38,10 +39,10 @@ public class PlayerBehavior : MonoBehaviour
     {
         try
         {
-            playerKatana = GetComponent<Player_KatanaBehavior>().gameObject;
-            playerArcher = GetComponent<Player_ArcherBehavior>().gameObject;
-            playerHeavy = GetComponent<Player_HeavyBehavior>().gameObject;
-            playerMage = GetComponent<Player_MageBehavior>().gameObject;
+            _playerKatana = GetComponent<Player_KatanaBehavior>().gameObject;
+            _playerArcher = GetComponent<Player_ArcherBehavior>().gameObject;
+            _playerHeavy = GetComponent<Player_HeavyBehavior>().gameObject;
+            _playerMage = GetComponent<Player_MageBehavior>().gameObject;
         }
         catch(Exception e)
         {
@@ -67,7 +68,7 @@ public class PlayerBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        objectCollidedWith = Physics2D.OverlapBoxAll(collisionBox.position, colBoxDimension, 0f, enemiesLayer);
+        //objectCollidedWith = Physics2D.OverlapBoxAll(collisionBox.position, colBoxDimension, 0f, enemiesLayer);
         playerRB.freezeRotation = true;
         //setting isGrounded to whether the overlap circle has overlapped with layer "ground"
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, GroundLayer);
@@ -93,31 +94,30 @@ public class PlayerBehavior : MonoBehaviour
     {
         if((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) && isGrounded)
         {
-            playerRB.velocity = Vector2.up * jumpForce;  
+            playerRB.velocity = Vector2.up * _jumpForce;  
         }
 
         
         try{
             if (currentCharacter == 1)
             {
-                jumpForce = playerKatana.GetComponent<Player_KatanaBehavior>().jumpForce;
-                playerKatana.GetComponent<PlayerMovementAnimHandler>().PlayerJumping();
-
+                _jumpForce = _playerKatana.GetComponent<Player_KatanaBehavior>().jumpForce;
+                _playerKatana.GetComponent<PlayerMovementAnimHandler>().PlayerJumping();
             }
             else if (currentCharacter == 2)
             {
-                jumpForce = playerArcher.GetComponent<Player_ArcherBehavior>().jumpForce;
-                playerArcher.GetComponent<PlayerMovementAnimHandler>().PlayerJumping();
+                _jumpForce = _playerArcher.GetComponent<Player_ArcherBehavior>().jumpForce;
+                _playerArcher.GetComponent<PlayerMovementAnimHandler>().PlayerJumping();
             }
             else if (currentCharacter == 3)
             {
-                jumpForce = playerHeavy.GetComponent<Player_HeavyBehavior>().jumpForce;
-                playerHeavy.GetComponent<PlayerMovementAnimHandler>().PlayerJumping();
+                _jumpForce = _playerHeavy.GetComponent<Player_HeavyBehavior>().jumpForce;
+                _playerHeavy.GetComponent<PlayerMovementAnimHandler>().PlayerJumping();
             }
             else if (currentCharacter == 4)
             {
-                jumpForce = playerMage.GetComponent<Player_MageBehavior>().jumpForce;
-                playerMage.GetComponent<PlayerMovementAnimHandler>().PlayerJumping();
+                _jumpForce = _playerMage.GetComponent<Player_MageBehavior>().jumpForce;
+                _playerMage.GetComponent<PlayerMovementAnimHandler>().PlayerJumping();
             }
         }catch (Exception e){;}
         
@@ -128,21 +128,21 @@ public class PlayerBehavior : MonoBehaviour
         if(!isInDeathAnim){
             if (currentCharacter == 1){
                 //move left and right
-                playerRB.velocity = new Vector2(moveInput * playerKatana.GetComponent<Player_KatanaBehavior>().speed,  playerRB.velocity.y);
-                playerKatana.GetComponent<PlayerMovementAnimHandler>().PlayerRunning();   
+                playerRB.velocity = new Vector2(moveInput * _playerKatana.GetComponent<Player_KatanaBehavior>().speed,  playerRB.velocity.y);
+                _playerKatana.GetComponent<PlayerMovementAnimHandler>().PlayerRunning();   
             }
             else if (currentCharacter == 2){
                 //move left and right
-                playerRB.velocity = new Vector2(moveInput * playerArcher.GetComponent<Player_ArcherBehavior>().speed,  playerRB.velocity.y);
-                playerArcher.GetComponent<PlayerMovementAnimHandler>().PlayerRunning();
+                playerRB.velocity = new Vector2(moveInput * _playerArcher.GetComponent<Player_ArcherBehavior>().speed,  playerRB.velocity.y);
+                _playerArcher.GetComponent<PlayerMovementAnimHandler>().PlayerRunning();
             }else if (currentCharacter == 3){
                 //move left and right
-                playerRB.velocity = new Vector2(moveInput * playerHeavy.GetComponent<Player_HeavyBehavior>().speed,  playerRB.velocity.y);
-                playerHeavy.GetComponent<PlayerMovementAnimHandler>().PlayerRunning();
+                playerRB.velocity = new Vector2(moveInput * _playerHeavy.GetComponent<Player_HeavyBehavior>().speed,  playerRB.velocity.y);
+                _playerHeavy.GetComponent<PlayerMovementAnimHandler>().PlayerRunning();
             }else if (currentCharacter == 4){
                 //move left and right
-                playerRB.velocity = new Vector2(moveInput * playerMage.GetComponent<Player_MageBehavior>().speed,  playerRB.velocity.y);
-                playerMage.GetComponent<PlayerMovementAnimHandler>().PlayerRunning();
+                playerRB.velocity = new Vector2(moveInput * _playerMage.GetComponent<Player_MageBehavior>().speed,  playerRB.velocity.y);
+                _playerMage.GetComponent<PlayerMovementAnimHandler>().PlayerRunning();
             }
         }  
     }
@@ -212,31 +212,31 @@ public class PlayerBehavior : MonoBehaviour
 
     private void ActivateKatanaOnly()
     {
-        playerKatana.SetActive(true);
-        playerArcher.SetActive(false);
-        playerHeavy.SetActive(false);
-        playerMage.SetActive(false);
+        _playerKatana.SetActive(true);
+        _playerArcher.SetActive(false);
+        _playerHeavy.SetActive(false);
+        _playerMage.SetActive(false);
     }
     private void ActivateArcherOnly()
     {
-        playerKatana.SetActive(false);
-        playerArcher.SetActive(true);
-        playerHeavy.SetActive(false);
-        playerMage.SetActive(false);
+        _playerKatana.SetActive(false);
+        _playerArcher.SetActive(true);
+        _playerHeavy.SetActive(false);
+        _playerMage.SetActive(false);
     }
     private void ActivateHeavyOnly()
     {
-        playerKatana.SetActive(false);
-        playerArcher.SetActive(false);
-        playerHeavy.SetActive(true);
-        playerMage.SetActive(false);
+        _playerKatana.SetActive(false);
+        _playerArcher.SetActive(false);
+        _playerHeavy.SetActive(true);
+        _playerMage.SetActive(false);
     }
     private void ActivateMageOnly()
     {
-        playerKatana.SetActive(false);
-        playerArcher.SetActive(false);
-        playerHeavy.SetActive(false);
-        playerMage.SetActive(true);
+        _playerKatana.SetActive(false);
+        _playerArcher.SetActive(false);
+        _playerHeavy.SetActive(false);
+        _playerMage.SetActive(true);
     }
 
     void OnDrawGizmosSelected()
@@ -288,16 +288,16 @@ public class PlayerBehavior : MonoBehaviour
         switch (currentCharacter)
         {
             case 1:
-                playerKatana.GetComponent<PlayerVitalityHandler>().TakingDamage(damageReceived);
+                _playerKatana.GetComponent<PlayerVitalityHandler>().TakingDamage(damageReceived);
                 break;
             case 2:
-                playerArcher.GetComponent<PlayerVitalityHandler>().TakingDamage(damageReceived);
+                _playerArcher.GetComponent<PlayerVitalityHandler>().TakingDamage(damageReceived);
                 break;
             case 3:
-                playerHeavy.GetComponent<PlayerVitalityHandler>().TakingDamage(damageReceived);
+                _playerHeavy.GetComponent<PlayerVitalityHandler>().TakingDamage(damageReceived);
                 break;
             case 4:
-                playerMage.GetComponent<PlayerVitalityHandler>().TakingDamage(damageReceived);
+                _playerMage.GetComponent<PlayerVitalityHandler>().TakingDamage(damageReceived);
                 break;
         }
     }
