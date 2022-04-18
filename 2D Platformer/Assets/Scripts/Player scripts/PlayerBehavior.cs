@@ -137,6 +137,7 @@ public class PlayerBehavior : MonoBehaviour
     void PlayerRunning()
     {
         if(!isInDeathAnim){
+            GetCurrentCharacter().
             if (currentCharacter == 1){
                 //move left and right
                 playerRB.velocity = new Vector2(moveInput * _playerKatana.GetComponent<Player_KatanaBehavior>().speed,  playerRB.velocity.y);

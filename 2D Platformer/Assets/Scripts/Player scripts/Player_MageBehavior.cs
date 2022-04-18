@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Threading.Tasks;
 
-public class Player_MageBehavior : MonoBehaviour
+public class Player_MageBehavior : Player_BaseBehavior
 {
-    public float speed; //movement speed (left and right)
-    public float jumpForce; //jump force (up)
-    public Animator animator;//getting animator to set conditions for animation transitions
+    // public float speed; //movement speed (left and right)//7.5
+    // public float jumpForce; //jump force (up)///8.5
+    // public Animator animator;//getting animator to set conditions for animation transitions
 
     //Attack speed of player-archer
     public float elapsedTimeFireBall = 0, elapsedTimeIceBall = 0, attackIntervalFireBallSec, attackIntervalIceBallSec;
     //reference to parent player game obj
-    private PlayerBehavior parent_PlayerBehaviorScript;
-    private GameObject parent_Player;
+    // private PlayerBehavior parent_PlayerBehaviorScript;
+    // private GameObject parent_Player;
 
     //shooting arrow mechanics configurations
     public GameObject fireBall_playerPrefab;

@@ -3,14 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Threading.Tasks;
 
-public class Player_HeavyBehavior : MonoBehaviour
+public class Player_HeavyBehavior : Player_BaseBehavior
 {
-    public float speed; //movement speed (left and right)
-    public float jumpForce; //jump force (up)
-    public Animator animator;//getting animator to set conditions for animation transitions
-
-    private bool facingRight = true; //bool value to determine the direction the player sprite is facing
-
+    // public float speed; //movement speed (left and right)//5.75
+    // public float jumpForce; //jump force (up)//7.5
+    // public Animator animator;//getting animator to set conditions for animation transitions
+    
     //Vars for checking attack zone
     public Transform attackZone1, attackZone2, attackZone3;
     public Vector2 attackBox1, attackBox2, attackBox3;
@@ -19,14 +17,14 @@ public class Player_HeavyBehavior : MonoBehaviour
     public float attackDamage1, attackDamage2, attackDamage3;
 
     public float elapsedTime = 0, attackIntervalSec;
-    private PlayerBehavior parent_PlayerBehaviorScript;
-    private GameObject parent_Player;
+    // private PlayerBehavior parent_PlayerBehaviorScript;
+    // private GameObject parent_Player;
 
     public GameObject heavyCoolDownBar;
-    void Start(){
-        parent_PlayerBehaviorScript = GameObject.Find("Player").GetComponent<PlayerBehavior>();
-        parent_Player = GameObject.Find("Player");
-    }
+    // void Start(){
+    //     parent_PlayerBehaviorScript = GameObject.Find("Player").GetComponent<PlayerBehavior>();
+    //     parent_Player = GameObject.Find("Player");
+    // }
 
 
     void Update(){

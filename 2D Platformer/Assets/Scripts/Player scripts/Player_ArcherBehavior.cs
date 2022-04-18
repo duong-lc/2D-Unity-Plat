@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Threading.Tasks;
 
-public class Player_ArcherBehavior : MonoBehaviour
+public class Player_ArcherBehavior : Player_BaseBehavior
 {
     
-        public float speed; //movement speed (left and right)
-        public float jumpForce; //jump force (up)
-        public Animator animator;//getting animator to set conditions for animation transitions
+        // public float speed; //movement speed (left and right)//8
+        // public float jumpForce; //jump force (up)//10.5
+        // public Animator animator;//getting animator to set conditions for animation transitions
         //private bool facingRight = true; //bool value to determine the direction the player sprite is facing
 
         //Attack speed of player-archer
@@ -16,12 +16,11 @@ public class Player_ArcherBehavior : MonoBehaviour
         public float attackIntervalSec;
 
         //reference to parent player game obj
-        private PlayerBehavior parent_PlayerBehaviorScript;
-        private GameObject parent_Player;
+        // private PlayerBehavior parent_PlayerBehaviorScript;
+        // private GameObject parent_Player;
 
         //shooting arrow mechanics configurations
         public GameObject arrowPrefab;
-        private GameObject arrow;
         public Transform shootingPoint;
         public int arrowSpeed;
         public float arrowDamage;
@@ -59,7 +58,7 @@ public class Player_ArcherBehavior : MonoBehaviour
 
         public void Attack()//Attack funciton is linked to attack1 and attack2 event as animation event and trigger when anim is played
         {   
-            arrow = Instantiate(arrowPrefab, shootingPoint.position, Quaternion.identity);
+            GameObject arrow = Instantiate(arrowPrefab, shootingPoint.position, Quaternion.identity);
 
             if(this.gameObject.GetComponent<PlayerMovementAnimHandler>().facingRight == true){
                 arrow.GetComponent<Rigidbody2D>().velocity = transform.TransformDirection(Vector2.right * arrowSpeed);

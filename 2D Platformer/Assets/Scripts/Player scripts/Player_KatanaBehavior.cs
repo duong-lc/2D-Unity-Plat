@@ -4,13 +4,11 @@ using UnityEngine;
 using System.Threading.Tasks;
 using System;
 
-public class Player_KatanaBehavior : MonoBehaviour
+public class Player_KatanaBehavior : Player_BaseBehavior
 {
-        public float speed; //movement speed (left and right)
-        public float jumpForce; //jump force (up)
-        public Animator animator;//getting animator to set conditions for animation transitions
-
-        //public bool facingRight = true; //bool value to determine the direction the player sprite is facing
+        // public float speed; //movement speed (left and right)//7.5
+        // public float jumpForce; //jump force (up)//9.5
+        // public Animator animator;//getting animator to set conditions for animation transitions
 
         private int count = 1;//counter to cycle through attack animation
         //private bool isPlayerTakingDamage = false;//bool value to see if player taking damage
@@ -25,8 +23,8 @@ public class Player_KatanaBehavior : MonoBehaviour
         private float elapsedTime = 0;//time stamp since play for next attack to be valid to attack
         public float attackIntervalSec;//cooldown time between each attack of player
 
-        private PlayerBehavior parent_PlayerBehaviorScript;//script of player object that is a parent of all 4 controllable characters 
-        private GameObject parent_Player;//game object of parent player
+        // private PlayerBehavior parent_PlayerBehaviorScript;//script of player object that is a parent of all 4 controllable characters 
+        // private GameObject parent_Player;//game object of parent player
 
 
         public GameObject instanceAfterImage;
