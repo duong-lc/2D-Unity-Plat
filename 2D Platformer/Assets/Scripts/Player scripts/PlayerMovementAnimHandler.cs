@@ -2,18 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovementAnimHandler : MonoBehaviour
+public class PlayerMovementAnimHandler : Player_BaseBehavior
 {
-    private Animator animator;
     private PlayerBehavior parent_PlayerBehaviorScript;
     public bool facingRight = true;
     private void Start() {
-        animator = this.gameObject.GetComponent<Animator>();
+        Animator = this.gameObject.GetComponent<Animator>();
         parent_PlayerBehaviorScript = this.gameObject.transform.parent.GetComponent<PlayerBehavior>();
     }
 
     public void PlayerRunning(){
-        animator.SetFloat("Speed", Mathf.Abs(parent_PlayerBehaviorScript.moveInput));
+        Animator.SetFloat("Speed", Mathf.Abs(parent_PlayerBehaviorScript.moveInput));
 
         if(!parent_PlayerBehaviorScript.isInDeathAnim){
                 //Flip player facing direction based on key pressing
@@ -38,21 +37,21 @@ public class PlayerMovementAnimHandler : MonoBehaviour
         if (this.gameObject.GetComponent<PlayerVitalityHandler>().isPlayerTakingDamage == false){
             //Check vertical velocity to play falling animation
             if (parent_PlayerBehaviorScript.playerRB.velocity.y > 0){
-                animator.SetBool("IsFalling", false);
+                Animator.SetBool("IsFalling", false);
             }else if (parent_PlayerBehaviorScript.playerRB.velocity.y < 0){
-                animator.SetBool("IsFalling", true);
+                Animator.SetBool("IsFalling", true);
             }
 
             //Check to see player on ground to play jump animation
             if (parent_PlayerBehaviorScript.isGrounded == false){
-                animator.SetBool("IsJumping", true);
+                Animator.SetBool("IsJumping", true);
             }else if (parent_PlayerBehaviorScript.isGrounded == true){
-                animator.SetBool("IsJumping", false);
+                Animator.SetBool("IsJumping", false);
             }
         }
         else if (this.gameObject.GetComponent<PlayerVitalityHandler>().isPlayerTakingDamage == true){
-            animator.SetBool("IsFalling", false);
-            animator.SetBool("IsJumping", false);
+            Animator.SetBool("IsFalling", false);
+            Animator.SetBool("IsJumping", false);
         }
     }
     public void Flip(){

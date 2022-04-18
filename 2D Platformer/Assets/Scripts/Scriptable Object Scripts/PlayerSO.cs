@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/BasePlayerScriptableObject", order = 1)]
-public class PlayerScriptableObject : ScriptableObject
+[CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/BasePlayerScriptableObject", order = 0)]
+public class PlayerSO : ScriptableObject
 {
     [Header("Ground Check Values")]
     public float groundCheckRadius = 0.2f;

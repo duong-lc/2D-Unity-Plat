@@ -32,6 +32,7 @@ public class Player_KatanaBehavior : Player_BaseBehavior
         private bool isDashing;
         public float dashTime, dashSpeed, dashCoolDown, ghostDelay;
         private float dashTimeLeft, lastDash = 0, ghostDelaySeconds;
+        private static readonly int Attack2 = Animator.StringToHash("Attack2");
 
 
         void Start(){
@@ -114,11 +115,11 @@ public class Player_KatanaBehavior : Player_BaseBehavior
             count++;
             if (count % 2 == 0)
             {
-                animator.SetTrigger("Attack1"); 
+                Animator.SetTrigger("Attack1"); 
             }
             else if (count % 2 != 0)
             {
-                animator.SetTrigger("Attack2"); 
+                Animator.SetTrigger(Attack2); 
             }     
         }
 
@@ -153,7 +154,14 @@ public class Player_KatanaBehavior : Player_BaseBehavior
             }
         }
 
-
+        public override void OnCharacterDeath()
+        {
+            DeathDelay();
+            parent_PlayerBehaviorScript.isKatanaAlive = false;
+            GetComponent<PlayerMovementAnimHandler>().enabled = false;
+            this.enabled = false;
+        }
+        
         void OnDrawGizmosSelected()
         {    
             if (attackZone == null)

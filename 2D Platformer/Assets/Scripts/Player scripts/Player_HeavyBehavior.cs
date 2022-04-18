@@ -43,9 +43,9 @@ public class Player_HeavyBehavior : Player_BaseBehavior
     
     void PlayAttackAnim()
     {    
-        animator.SetTrigger("Attack1");
-        animator.SetTrigger("Attack2");
-        animator.SetTrigger("Attack3");
+        Animator.SetTrigger("Attack1");
+        Animator.SetTrigger("Attack2");
+        Animator.SetTrigger("Attack3");
     }
 
     public void Attack1()//Attack funciton is linked to attack1 and attack2 event as animation event and trigger when anim is played

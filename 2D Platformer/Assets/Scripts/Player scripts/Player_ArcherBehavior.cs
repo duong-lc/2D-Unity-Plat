@@ -48,7 +48,7 @@ public class Player_ArcherBehavior : Player_BaseBehavior
         
         async void PlayAttackAnim()
         {      
-            animator.SetTrigger("Attack");   
+            Animator.SetTrigger("Attack");   
             if(parent_PlayerBehaviorScript.isGrounded == true){
                 parent_PlayerBehaviorScript.isShootingArrow = true;
                 await Task.Delay(650);//so that player can't move while shooting arrow

@@ -65,11 +65,11 @@ public class Player_MageBehavior : Player_BaseBehavior
     {   
         if(num==1)
         {
-            animator.SetTrigger("Attack1"); 
+            Animator.SetTrigger("Attack1"); 
         }
         else if(num==2)
         {
-            animator.SetTrigger("Attack2"); 
+            Animator.SetTrigger("Attack2"); 
         }
             
         if(parent_PlayerBehaviorScript.isGrounded == true){

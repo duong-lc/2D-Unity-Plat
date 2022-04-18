@@ -35,7 +35,7 @@ public class PlayerBehavior : MonoBehaviour
     public Character_Select_UI character_Select_UI;
 
     public bool isShootingArrow = false, isInDeathAnim = false;
-    public int katanaTakeDamageDelayMS, archerTakeDamageDelayMS, heavyTakeDamageDelayMS, mageTakeDamageDelayMS, katanaDeathDelayMS, archerDeathDelayMS, heavyDeathDelayMS, mageDeathDelayMS;
+    //public int katanaTakeDamageDelayMS, archerTakeDamageDelayMS, heavyTakeDamageDelayMS, mageTakeDamageDelayMS, katanaDeathDelayMS, archerDeathDelayMS, heavyDeathDelayMS, mageDeathDelayMS;
 
     private void Awake()
     {
@@ -112,22 +112,22 @@ public class PlayerBehavior : MonoBehaviour
         try{
             if (currentCharacter == CurrentCharacter.Katana)
             {
-                _jumpForce = _playerKatana.GetComponent<Player_KatanaBehavior>().jumpForce;
+                _jumpForce = _playerKatana.GetComponent<Player_KatanaBehavior>().JumpForce;
                 _playerKatana.GetComponent<PlayerMovementAnimHandler>().PlayerJumping();
             }
             else if (currentCharacter == CurrentCharacter.Archer)
             {
-                _jumpForce = _playerArcher.GetComponent<Player_ArcherBehavior>().jumpForce;
+                _jumpForce = _playerArcher.GetComponent<Player_ArcherBehavior>().JumpForce;
                 _playerArcher.GetComponent<PlayerMovementAnimHandler>().PlayerJumping();
             }
             else if (currentCharacter == CurrentCharacter.Heavy)
             {
-                _jumpForce = _playerHeavy.GetComponent<Player_HeavyBehavior>().jumpForce;
+                _jumpForce = _playerHeavy.GetComponent<Player_HeavyBehavior>().JumpForce;
                 _playerHeavy.GetComponent<PlayerMovementAnimHandler>().PlayerJumping();
             }
             else if (currentCharacter == CurrentCharacter.Mage)
             {
-                _jumpForce = _playerMage.GetComponent<Player_MageBehavior>().jumpForce;
+                _jumpForce = _playerMage.GetComponent<Player_MageBehavior>().JumpForce;
                 _playerMage.GetComponent<PlayerMovementAnimHandler>().PlayerJumping();
             }
         }catch (Exception e){;}
@@ -140,20 +140,20 @@ public class PlayerBehavior : MonoBehaviour
             GetCurrentCharacter().
             if (currentCharacter == 1){
                 //move left and right
-                playerRB.velocity = new Vector2(moveInput * _playerKatana.GetComponent<Player_KatanaBehavior>().speed,  playerRB.velocity.y);
+                playerRB.velocity = new Vector2(moveInput * _playerKatana.GetComponent<Player_KatanaBehavior>().Speed,  playerRB.velocity.y);
                 _playerKatana.GetComponent<PlayerMovementAnimHandler>().PlayerRunning();   
             }
             else if (currentCharacter == 2){
                 //move left and right
-                playerRB.velocity = new Vector2(moveInput * _playerArcher.GetComponent<Player_ArcherBehavior>().speed,  playerRB.velocity.y);
+                playerRB.velocity = new Vector2(moveInput * _playerArcher.GetComponent<Player_ArcherBehavior>().Speed,  playerRB.velocity.y);
                 _playerArcher.GetComponent<PlayerMovementAnimHandler>().PlayerRunning();
             }else if (currentCharacter == 3){
                 //move left and right
-                playerRB.velocity = new Vector2(moveInput * _playerHeavy.GetComponent<Player_HeavyBehavior>().speed,  playerRB.velocity.y);
+                playerRB.velocity = new Vector2(moveInput * _playerHeavy.GetComponent<Player_HeavyBehavior>().Speed,  playerRB.velocity.y);
                 _playerHeavy.GetComponent<PlayerMovementAnimHandler>().PlayerRunning();
             }else if (currentCharacter == 4){
                 //move left and right
-                playerRB.velocity = new Vector2(moveInput * _playerMage.GetComponent<Player_MageBehavior>().speed,  playerRB.velocity.y);
+                playerRB.velocity = new Vector2(moveInput * _playerMage.GetComponent<Player_MageBehavior>().Speed,  playerRB.velocity.y);
                 _playerMage.GetComponent<PlayerMovementAnimHandler>().PlayerRunning();
             }
         }  
@@ -223,7 +223,7 @@ public class PlayerBehavior : MonoBehaviour
         character_Select_UI.SwitchCharacter();
     }
 
-    private void ActivateCharacter(CurrentCharacter character)
+    private void ActivateOnlyCharacter(CurrentCharacter character)
     {
         for (int i = 0; i < characterList.Count; i++)
         {

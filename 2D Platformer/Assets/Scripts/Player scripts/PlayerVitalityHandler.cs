@@ -11,13 +11,13 @@ public class PlayerVitalityHandler : MonoBehaviour
     public bool isPlayerTakingDamage = false;
     //public int katanaTakeDamageDelayMS, archerTakeDamageDelayMS, heavyTakeDamageDelayMS, mageTakeDamageDelayMS, katanaDeathDelayMS, archerDeathDelayMS, heavyDeathDelayMS, mageDeathDelayMS;
 
-    private Animator animator;
+    private Animator _animator;
     private PlayerBehavior parent_PlayerBehaviorScript;
     //public GameObject popUpText;
     
     private void Start(){
         parent_PlayerBehaviorScript = this.gameObject.transform.parent.GetComponent<PlayerBehavior>();
-        animator = this.gameObject.GetComponent<Animator>();
+        _animator = this.gameObject.GetComponent<Animator>();
 
         //currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
@@ -26,26 +26,28 @@ public class PlayerVitalityHandler : MonoBehaviour
 
     public async void TakingDamage(float damageTaken){
         isPlayerTakingDamage = true;
-        animator.SetBool("isTakeHit", true);
+        _animator.SetBool("isTakeHit", true);
         this.gameObject.GetComponent<SpriteRenderer>().color = Color.red;
         
 
-        switch (parent_PlayerBehaviorScript.currentCharacter){
-            case 1:
-                await Task.Delay(parent_PlayerBehaviorScript.katanaTakeDamageDelayMS);
-                break;
-            case 2:
-                await Task.Delay(parent_PlayerBehaviorScript.archerTakeDamageDelayMS);
-                break;
-            case 3:
-                await Task.Delay(parent_PlayerBehaviorScript.heavyTakeDamageDelayMS);
-                break;
-            case 4:
-                await Task.Delay(parent_PlayerBehaviorScript.mageTakeDamageDelayMS);
-                break;
-        }
+        // switch (parent_PlayerBehaviorScript.currentCharacter){
+        //     case 1:
+        //         //await Task.Delay(parent_PlayerBehaviorScript.katanaTakeDamageDelayMS);
+        //         await Task.Delay(GetComponent<Player_BaseBehavior>().TakeDamageDelayMS);
+        //         break;
+        //     case 2:
+        //         await Task.Delay(parent_PlayerBehaviorScript.archerTakeDamageDelayMS);
+        //         break;
+        //     case 3:
+        //         await Task.Delay(parent_PlayerBehaviorScript.heavyTakeDamageDelayMS);
+        //         break;
+        //     case 4:
+        //         await Task.Delay(parent_PlayerBehaviorScript.mageTakeDamageDelayMS);
+        //         break;
+        // }
+        await Task.Delay(GetComponent<Player_BaseBehavior>().TakeDamageDelayMS);
         
-        animator.SetBool("isTakeHit", false);
+        _animator.SetBool("isTakeHit", false);
         this.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
         isPlayerTakingDamage = false;
 
@@ -59,7 +61,7 @@ public class PlayerVitalityHandler : MonoBehaviour
     }
     async public void Death(){
         currentHealth = 0;
-        animator.SetTrigger("Die");
+        _animator.SetTrigger("Die");
 
         parent_PlayerBehaviorScript.isInDeathAnim = true;
         parent_PlayerBehaviorScript.playerRB.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY;
@@ -95,7 +97,8 @@ public class PlayerVitalityHandler : MonoBehaviour
                     parent_PlayerBehaviorScript.isMageAlive = false;
                     break;
             }
-
+            
+            OnCharacterDeath();
             parent_PlayerBehaviorScript.playerRB.constraints = RigidbodyConstraints2D.None;
             parent_PlayerBehaviorScript.gameObject.GetComponent<Collider2D>().enabled = true;
 
