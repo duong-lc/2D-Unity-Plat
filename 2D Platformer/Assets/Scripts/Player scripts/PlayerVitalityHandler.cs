@@ -68,37 +68,35 @@ public class PlayerVitalityHandler : MonoBehaviour
         parent_PlayerBehaviorScript.gameObject.GetComponent<Collider2D>().enabled = false;
         
         try{
+            await Task.Delay(GetComponent<Player_BaseBehavior>().DeathDelayMS);
+            GetComponent<PlayerMovementAnimHandler>().enabled = false;
+           
             switch (parent_PlayerBehaviorScript.currentCharacter){
-                case 1:
-                    await Task.Delay(parent_PlayerBehaviorScript.katanaDeathDelayMS);
-                    this.gameObject.GetComponent<Player_KatanaBehavior>().enabled = false;
-                    this.gameObject.GetComponent<PlayerMovementAnimHandler>().enabled = false;
+                case CurrentCharacter.Katana:
+                    GetComponent<Player_KatanaBehavior>().enabled = false;
                     parent_PlayerBehaviorScript.isKatanaAlive = false;
                     break;
-                case 2:
-                    await Task.Delay(parent_PlayerBehaviorScript.archerDeathDelayMS);
-                    this.gameObject.GetComponent<Player_ArcherBehavior>().enabled = false;
-                    this.gameObject.GetComponent<PlayerMovementAnimHandler>().enabled = false;
+                case CurrentCharacter.Archer:
+                    //await Task.Delay(GetComponent<Player_BaseBehavior>().DeathDelayMS);
+                    GetComponent<Player_ArcherBehavior>().enabled = false;
                     parent_PlayerBehaviorScript.isArcherAlive = false;
                     break;
-                case 3:
-                    await Task.Delay(parent_PlayerBehaviorScript.heavyDeathDelayMS);
-                    this.gameObject.GetComponent<Player_HeavyBehavior>().enabled = false;
-                    this.gameObject.GetComponent<PlayerMovementAnimHandler>().enabled = false;
-                    this.gameObject.GetComponent<Player_HeavyBehavior>().heavyCoolDownBar.SetActive(false);
+                case CurrentCharacter.Heavy:
+                    //await Task.Delay(GetComponent<Player_BaseBehavior>().DeathDelayMS);
+                    GetComponent<Player_HeavyBehavior>().enabled = false;
+                    GetComponent<Player_HeavyBehavior>().heavyCoolDownBar.SetActive(false);
                     parent_PlayerBehaviorScript.isHeavyAlive = false;
                     break;
-                case 4:
-                    await Task.Delay(parent_PlayerBehaviorScript.mageDeathDelayMS);
-                    this.gameObject.GetComponent<Player_MageBehavior>().enabled = false;
-                    this.gameObject.GetComponent<PlayerMovementAnimHandler>().enabled = false;
-                    this.gameObject.GetComponent<Player_MageBehavior>().mageCoolDownBarFire.SetActive(false);
-                    this.gameObject.GetComponent<Player_MageBehavior>().mageCoolDownbarIce.SetActive(false);
+                case CurrentCharacter.Mage:
+                    //await Task.Delay(GetComponent<Player_BaseBehavior>().DeathDelayMS);
+                    GetComponent<Player_MageBehavior>().enabled = false;
+                    GetComponent<Player_MageBehavior>().mageCoolDownBarFire.SetActive(false);
+                    GetComponent<Player_MageBehavior>().mageCoolDownbarIce.SetActive(false);
                     parent_PlayerBehaviorScript.isMageAlive = false;
                     break;
             }
             
-            OnCharacterDeath();
+            //OnCharacterDeath();
             parent_PlayerBehaviorScript.playerRB.constraints = RigidbodyConstraints2D.None;
             parent_PlayerBehaviorScript.gameObject.GetComponent<Collider2D>().enabled = true;
 

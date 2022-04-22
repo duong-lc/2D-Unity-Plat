@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,10 +11,18 @@ public class Character_Select_UI : MonoBehaviour
     public Text heavyText;
     public Text mageText;
     public PlayerBehavior playerScript;
+
+    private List<Text> textList = new List<Text>();
     // Start is called before the first frame update
     void Start()
     {
-        
+        textList = new List<Text>()
+        {
+            katanaText,
+            archerText,
+            heavyText,
+            mageText
+        };
     }
 
     private void LateUpdate() 
@@ -31,14 +40,23 @@ public class Character_Select_UI : MonoBehaviour
 
     public void SwitchCharacter()
     {
-        if(playerScript.currentCharacter == 1)
-            ActivateKatanaText();
-        if(playerScript.currentCharacter == 2)
-            ActivateArcherText();
-        if(playerScript.currentCharacter == 3)
-            ActivateHeavyText();
-        if(playerScript.currentCharacter == 4)
-            ActivateMageText();
+        switch (playerScript.currentCharacter)
+        {
+            case CurrentCharacter.Katana:
+                ActivateKatanaText();
+                break;
+            case CurrentCharacter.Archer:
+                ActivateArcherText();
+                break;
+            case CurrentCharacter.Heavy:
+                ActivateHeavyText();
+                break;
+            case CurrentCharacter.Mage:
+                ActivateMageText();
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
     }
 
     private void ActivateKatanaText()
