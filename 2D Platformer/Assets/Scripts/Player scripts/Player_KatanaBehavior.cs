@@ -32,7 +32,6 @@ public class Player_KatanaBehavior : Player_BaseBehavior
         private bool isDashing;
         public float dashTime, dashSpeed, dashCoolDown, ghostDelay;
         private float dashTimeLeft, lastDash = 0, ghostDelaySeconds;
-        private static readonly int Attack2 = Animator.StringToHash("Attack2");
 
 
         void Start(){
@@ -115,11 +114,13 @@ public class Player_KatanaBehavior : Player_BaseBehavior
             count++;
             if (count % 2 == 0)
             {
-                Animator.SetTrigger("Attack1"); 
+                //Animator.SetTrigger("Attack1"); 
+                Animator.SetTrigger(variantData.attacks[0]); 
             }
             else if (count % 2 != 0)
             {
-                Animator.SetTrigger(Attack2); 
+                //Animator.SetTrigger("Attack2"); 
+                Animator.SetTrigger(variantData.attacks[1]); 
             }     
         }
 
@@ -127,8 +128,8 @@ public class Player_KatanaBehavior : Player_BaseBehavior
         {   
             foreach(Collider2D enemy in hitArray)
             {
-                if((enemy.gameObject.tag != "Enemy-Goblin" && enemy.gameObject.tag != "Enemy-Skeleton") 
-                && enemy.gameObject.tag != "portalProjectile" && enemy.gameObject.tag != "Enemy-Boss")
+                if((!enemy.gameObject.CompareTag("Enemy-Goblin") && !enemy.gameObject.CompareTag("Enemy-Skeleton")) 
+                && !enemy.gameObject.CompareTag("portalProjectile") && !enemy.gameObject.CompareTag("Enemy-Boss"))
                     enemy.gameObject.GetComponent<NPCVitalityHandler>().TakeDamage(attackDamage, false); 
                 else//for enemies that can block/deflect attack frorm player
                 {
@@ -138,8 +139,7 @@ public class Player_KatanaBehavior : Player_BaseBehavior
             
             }
             foreach(Collider2D enemy in hitArray2){
-                if (enemy.gameObject.tag == "portalProjectile"){
-                    //velocity = (ParentPortalPos - playerPos )*speedsetbyparentPortal
+                if (enemy.gameObject.CompareTag("portalProjectile")){
                     try{
                         enemy.gameObject.GetComponent<PortalProjectileScript>().isReflected = true;
                         Vector3 dir = enemy.gameObject.GetComponent<PortalProjectileScript>().parentPortal.transform.position - parent_PlayerBehaviorScript.gameObject.transform.position;

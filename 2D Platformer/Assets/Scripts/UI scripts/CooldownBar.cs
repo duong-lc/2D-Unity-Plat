@@ -27,7 +27,7 @@ public class CooldownBar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(playerBehaviorScript.currentCharacter == 3 && Input.GetKeyDown(KeyCode.Mouse0))
+        if(playerBehaviorScript.currentCharacter == CurrentCharacter.Heavy && Input.GetKeyDown(KeyCode.Mouse0))
         {
             if(Time.time > playerHeavyScript.elapsedTime)
             {

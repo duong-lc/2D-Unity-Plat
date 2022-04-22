@@ -8,36 +8,36 @@ public class CooldownBar_FireBall__Player : MonoBehaviour
     public Gradient gradient;
     public Image fill;
 
-    private float curr = 0;
-    private Player_MageBehavior playerMageScript;
-    private PlayerBehavior playerBehaviorScript;
-    private PlayerInventorySystem inventoryScript;
+    private float _curr = 0;
+    private Player_MageBehavior _playerMageScript;
+    private PlayerBehavior _playerBehaviorScript;
+    private PlayerInventorySystem _inventoryScript;
     // Start is called before the first frame update
     void Start()
     {
-        playerBehaviorScript = GameObject.Find("Player").GetComponent<PlayerBehavior>();
-        playerMageScript = GameObject.Find("Player").transform.Find("Player-Mage").GetComponent<Player_MageBehavior>();
-        inventoryScript = GameObject.Find("Player").GetComponent<PlayerInventorySystem>();
-        SetMaxCooldown(playerMageScript.attackIntervalFireBallSec);
-        curr = playerMageScript.attackIntervalFireBallSec;
+        _playerBehaviorScript = GameObject.Find("Player").GetComponent<PlayerBehavior>();
+        _playerMageScript = GameObject.Find("Player").transform.Find("Player-Mage").GetComponent<Player_MageBehavior>();
+        _inventoryScript = GameObject.Find("Player").GetComponent<PlayerInventorySystem>();
+        SetMaxCooldown(_playerMageScript.attackIntervalFireBallSec);
+        _curr = _playerMageScript.attackIntervalFireBallSec;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(playerBehaviorScript.currentCharacter == 4 && Input.GetKeyDown(KeyCode.Mouse0))
+        if(_playerBehaviorScript.currentCharacter == CurrentCharacter.Mage && Input.GetKeyDown(KeyCode.Mouse0))
         {
-            if(Time.time > playerMageScript.elapsedTimeFireBall)
+            if(Time.time > _playerMageScript.elapsedTimeFireBall)
             {
-                curr = 0f;
+                _curr = 0f;
                 StartCoroutine("CountToFull");  
             }
         }
-        if(inventoryScript.useMageFire == true)
+        if(_inventoryScript.useMageFire == true)
         {
-            curr = playerMageScript.attackIntervalFireBallSec; 
-            SetCoolDown(playerMageScript.attackIntervalFireBallSec);
-            inventoryScript.useMageFire = false;
+            _curr = _playerMageScript.attackIntervalFireBallSec; 
+            SetCoolDown(_playerMageScript.attackIntervalFireBallSec);
+            _inventoryScript.useMageFire = false;
         }  
     }
 
@@ -58,13 +58,13 @@ public class CooldownBar_FireBall__Player : MonoBehaviour
 
 
     IEnumerator CountToFull(){
-        for (float i = 0; i < playerMageScript.attackIntervalFireBallSec*10; i++)
+        for (float i = 0; i < _playerMageScript.attackIntervalFireBallSec*10; i++)
         {
-            if(curr == playerMageScript.attackIntervalFireBallSec)
+            if(_curr == _playerMageScript.attackIntervalFireBallSec)
             {
                 break;
             }
-            SetCoolDown(curr+=.1f);
+            SetCoolDown(_curr+=.1f);
             yield return new WaitForSeconds(.1f);
         }
         

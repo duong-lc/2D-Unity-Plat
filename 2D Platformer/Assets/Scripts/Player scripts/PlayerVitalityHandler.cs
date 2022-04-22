@@ -4,7 +4,7 @@ using UnityEngine;
 using System.Threading.Tasks;
 using System;
 
-public class PlayerVitalityHandler : MonoBehaviour
+public class PlayerVitalityHandler : Player_BaseBehavior
 {
     public float currentHealth, maxHealth;
     public HealthBar healthBar;
@@ -26,7 +26,8 @@ public class PlayerVitalityHandler : MonoBehaviour
 
     public async void TakingDamage(float damageTaken){
         isPlayerTakingDamage = true;
-        _animator.SetBool("isTakeHit", true);
+        //_animator.SetBool("isTakeHit", true);
+        _animator.SetBool(TakeHit, true);
         this.gameObject.GetComponent<SpriteRenderer>().color = Color.red;
         
 
@@ -47,7 +48,8 @@ public class PlayerVitalityHandler : MonoBehaviour
         // }
         await Task.Delay(GetComponent<Player_BaseBehavior>().TakeDamageDelayMS);
         
-        _animator.SetBool("isTakeHit", false);
+        //_animator.SetBool("isTakeHit", false);
+        _animator.SetBool(TakeHit, true);
         this.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
         isPlayerTakingDamage = false;
 
@@ -56,12 +58,13 @@ public class PlayerVitalityHandler : MonoBehaviour
         healthBar.SetHealth(currentHealth);
 
         if (currentHealth <= 0){
-            Death();
+            OnDeath();
         }
     }
-    async public void Death(){
+    async public void OnDeath(){
         currentHealth = 0;
-        _animator.SetTrigger("Die");
+        //_animator.SetTrigger("Die");
+        _animator.SetTrigger(Death);
 
         parent_PlayerBehaviorScript.isInDeathAnim = true;
         parent_PlayerBehaviorScript.playerRB.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY;

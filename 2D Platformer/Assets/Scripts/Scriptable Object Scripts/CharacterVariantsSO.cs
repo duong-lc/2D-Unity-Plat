@@ -9,13 +9,14 @@ public class CharacterVariantsSO : ScriptableObject
     [Header("Animation Names")]
     public string[] attacks;
 
+    
     public string death;
     public string fall;
-    public string idle;
     public string jump;
     public string run;
     public string takeHit;
-
+    
+    
     [Header("Movement Data")] 
     public float speed;
     public float jumpForce;

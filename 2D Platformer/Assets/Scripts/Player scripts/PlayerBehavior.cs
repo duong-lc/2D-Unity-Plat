@@ -41,10 +41,10 @@ public class PlayerBehavior : MonoBehaviour
     {
         try
         {
-            _playerKatana = GetComponent<Player_KatanaBehavior>().gameObject;
-            _playerArcher = GetComponent<Player_ArcherBehavior>().gameObject;
-            _playerHeavy = GetComponent<Player_HeavyBehavior>().gameObject;
-            _playerMage = GetComponent<Player_MageBehavior>().gameObject;
+            _playerKatana = GetComponentInChildren<Player_KatanaBehavior>().gameObject;
+            _playerArcher = GetComponentInChildren<Player_ArcherBehavior>().gameObject;
+            _playerHeavy = GetComponentInChildren<Player_HeavyBehavior>().gameObject;
+            _playerMage = GetComponentInChildren<Player_MageBehavior>().gameObject;
         }
         catch(Exception e)
         {

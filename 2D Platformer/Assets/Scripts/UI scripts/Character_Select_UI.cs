@@ -43,53 +43,26 @@ public class Character_Select_UI : MonoBehaviour
         switch (playerScript.currentCharacter)
         {
             case CurrentCharacter.Katana:
-                ActivateKatanaText();
+                ActivateText(katanaText);
                 break;
             case CurrentCharacter.Archer:
-                ActivateArcherText();
+                ActivateText(archerText);
                 break;
             case CurrentCharacter.Heavy:
-                ActivateHeavyText();
+                ActivateText(heavyText);
                 break;
             case CurrentCharacter.Mage:
-                ActivateMageText();
+                ActivateText(mageText);
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
         }
     }
-
-    private void ActivateKatanaText()
+    private void ActivateText(Text activateText)
     {
-        katanaText.color = Color.green;
-        archerText.color = Color.gray;
-        heavyText.color = Color.gray;
-        mageText.color = Color.gray;
+        foreach (Text text in textList)
+        {
+            text.color = activateText == text ? Color.green : Color.gray;
+        }
     }
-
-    private void ActivateArcherText()
-    {
-        katanaText.color = Color.gray;
-        archerText.color = Color.green;
-        heavyText.color = Color.gray;
-        mageText.color = Color.gray;
-    }
-
-    private void ActivateHeavyText()
-    {
-        katanaText.color = Color.gray;
-        archerText.color = Color.gray;
-        heavyText.color = Color.green;
-        mageText.color = Color.gray;
-    }
-
-    private void ActivateMageText()
-    {
-        katanaText.color = Color.gray;
-        archerText.color = Color.gray;
-        heavyText.color = Color.gray;
-        mageText.color = Color.green;
-    }
-
-
 }
