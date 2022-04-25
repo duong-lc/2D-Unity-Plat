@@ -2,26 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovementAnimHandler : Player_BaseBehavior
+public class PlayerMovementAnimHandler : PlayerBaseBehavior
 {
-    private PlayerBehavior parent_PlayerBehaviorScript;
+    //private PlayerBehavior parent_PlayerBehaviorScript;
     public bool facingRight = true;
-    private void Start() {
-        Animator = this.gameObject.GetComponent<Animator>();
-        parent_PlayerBehaviorScript = this.gameObject.transform.parent.GetComponent<PlayerBehavior>();
-    }
 
     public void PlayerRunning(){
-        Animator.SetFloat("Speed", Mathf.Abs(parent_PlayerBehaviorScript.moveInput));
-
-        if(!parent_PlayerBehaviorScript.isInDeathAnim){
+        //Animator.SetFloat("Speed", Mathf.Abs(ParentPlayerBehaviorScript.moveInput));
+        Animator.SetFloat(Run, Mathf.Abs(ParentPlayerBehaviorScript.moveInput));
+        
+        if(!ParentPlayerBehaviorScript.isInDeathAnim){
                 //Flip player facing direction based on key pressing
-            if (facingRight == false && parent_PlayerBehaviorScript.moveInput > 0){
+            if (!facingRight && ParentPlayerBehaviorScript.moveInput > 0){
                 Flip();
-                this.gameObject.GetComponent<PlayerVitalityHandler>().healthBar.Flip();
-            }else if (facingRight == true && parent_PlayerBehaviorScript.moveInput < 0){
+                GetComponent<PlayerVitalityHandler>().healthBar.Flip();
+            }else if (facingRight && ParentPlayerBehaviorScript.moveInput < 0){
                 Flip();
-                this.gameObject.GetComponent<PlayerVitalityHandler>().healthBar.Flip();
+                GetComponent<PlayerVitalityHandler>().healthBar.Flip();
             } 
         }
           
@@ -36,28 +33,28 @@ public class PlayerMovementAnimHandler : Player_BaseBehavior
     public void PlayerJumping(){
         if (this.gameObject.GetComponent<PlayerVitalityHandler>().isPlayerTakingDamage == false){
             //Check vertical velocity to play falling animation
-            if (parent_PlayerBehaviorScript.playerRB.velocity.y > 0){
-                Animator.SetBool("IsFalling", false);
-            }else if (parent_PlayerBehaviorScript.playerRB.velocity.y < 0){
-                Animator.SetBool("IsFalling", true);
+            if (ParentPlayerBehaviorScript.playerRB.velocity.y > 0){
+                Animator.SetBool(Fall, false);
+            }else if (ParentPlayerBehaviorScript.playerRB.velocity.y < 0){
+                Animator.SetBool(Fall, true);
             }
 
             //Check to see player on ground to play jump animation
-            if (parent_PlayerBehaviorScript.isGrounded == false){
-                Animator.SetBool("IsJumping", true);
-            }else if (parent_PlayerBehaviorScript.isGrounded == true){
-                Animator.SetBool("IsJumping", false);
+            if (ParentPlayerBehaviorScript.isGrounded == false){
+                Animator.SetBool(Jump, true);
+            }else if (ParentPlayerBehaviorScript.isGrounded == true){
+                Animator.SetBool(Jump, false);
             }
         }
         else if (this.gameObject.GetComponent<PlayerVitalityHandler>().isPlayerTakingDamage == true){
-            Animator.SetBool("IsFalling", false);
-            Animator.SetBool("IsJumping", false);
+            Animator.SetBool(Fall, false);
+            Animator.SetBool(Jump, false);
         }
     }
     public void Flip(){
         facingRight = !facingRight;
-        Vector3 Scaler = transform.localScale;
-        Scaler.x *= -1;
-        transform.localScale = Scaler;
+        Vector3 scaler = transform.localScale;
+        scaler.x *= -1;
+        transform.localScale = scaler;
     }
 }

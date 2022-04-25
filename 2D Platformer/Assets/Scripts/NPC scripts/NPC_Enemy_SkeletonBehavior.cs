@@ -4,7 +4,7 @@ using UnityEngine;
 using System.Threading.Tasks;
 using System;
 
-public class NPC_EnemyBehavior : MonoBehaviour
+public class NPC_Enemy_SkeletonBehavior : MonoBehaviour
 {
     private Rigidbody2D rb;
     public Animator animator;
@@ -97,59 +97,6 @@ public class NPC_EnemyBehavior : MonoBehaviour
         
     }
 
-    // public async void TakeDamage(float DamageTaken, bool blockable)
-    // {
-    //     if(isDead == false)
-    //     {
-    //         if(blockable == true && isFrozen == false){
-    //             //play block animation
-    //             isStagger = true;
-    //             animator.SetTrigger("ShieldUp");
-    //         }
-    //         else if (blockable == false || isFrozen ==true){
-    //             isStagger = true;
-    //             currentHealth -= DamageTaken;
-    //             animator.SetBool("isWalking", false);
-    //             animator.SetTrigger("TakeHit");
-
-    //             if(isFrozen == false)
-    //             {
-    //                 this.gameObject.GetComponent<SpriteRenderer>().color = Color.red;
-    //                 await Task.Delay(300);
-    //                 this.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
-    //             }
-    //             else if (isFrozen == true)
-    //             {
-    //                 this.gameObject.GetComponent<SpriteRenderer>().color = Color.cyan;
-    //             }
-    //             healthBar.SetHealth(currentHealth);
-    //         }  
-    //         await Task.Delay(800);
-    //         isStagger = false;
-    //     } 
-
-    //     if (currentHealth <= 0)
-    //     {
-    //         healthBar.gameObject.SetActive(false);
-    //         Death();
-    //     }
-    // }
-
-    // void Death()
-    // {
-    //     isDead = true;
-    //     animator.SetBool("isWalking", false);
-    //     animator.SetBool("isDead", true);
-    //     //Debug.Log("dead");
-
-    //     rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY;
-    //     GetComponent<Collider2D>().enabled = false;
-
-    //     isStagger = true;
-    //     Destroy(this.gameObject, 5f);
-        
-    // }
-
     void LookAtPlayer()
 	{
 		Vector3 flipped = transform.localScale;
@@ -180,52 +127,5 @@ public class NPC_EnemyBehavior : MonoBehaviour
         Gizmos.DrawWireCube(attackZone.position, attackBox);
     }
 
-    // public void Take_Spell_Damage_Burn(float burnInterval, float burnDamage, float totalBurnTime_Loop){
-    //     StartCoroutine(WaitAndBurn(burnInterval, burnDamage, totalBurnTime_Loop));
-    // }
-    
-    // private IEnumerator WaitAndBurn(float burnInterval, float burnDamage, float totalBurnTime_Loop)
-    // {
-    //     for(int i = 0; i < totalBurnTime_Loop; i++)
-    //     {
-    //         TakeDamage(burnDamage, false);
-    //         yield return new WaitForSeconds(burnInterval);
-    //     }
-        
-    // }
-
-    // async public void Take_Spell_Frozen(float freezePeriod)
-    // {
-    //     //StartCoroutine(WaitAndFreeze(freezePeriod));    
-
-    //     isStagger = true;
-    //     isFrozen = true;
-    //     this.gameObject.GetComponent<SpriteRenderer>().color = Color.cyan;
-    //     animator.speed = 0.001f;
-
-    //     await Task.Delay((int)(freezePeriod*1000f));
-
-    //     isStagger = false;
-    //     isFrozen = false;
-    //     animator.speed = 1f;
-    //     this.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
-    // }
-
-    //WaitAndFreeze is inconsistent and seemed to be canceled out by fireball-player attack which is strange
-    //so I ended up using task.delay which uses system counter instead
-    /*private IEnumerator WaitAndFreeze(float freezePeriod){
-
-        isStagger = true;
-        isFrozen = true;
-        this.gameObject.GetComponent<SpriteRenderer>().color = Color.cyan;
-        animator.speed = 0.001f;
-
-        yield return new WaitForSeconds(freezePeriod);
-
-        isStagger = false;
-        isFrozen = false;
-        animator.speed = 1f;
-        this.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
-    }
-    */
+   
 }

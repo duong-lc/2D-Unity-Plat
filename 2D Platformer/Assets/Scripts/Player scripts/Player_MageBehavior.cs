@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Threading.Tasks;
 
-public class Player_MageBehavior : Player_BaseBehavior
+public class Player_MageBehavior : PlayerBaseBehavior
 {
     // public float speed; //movement speed (left and right)//7.5
     // public float jumpForce; //jump force (up)///8.5
@@ -27,14 +27,13 @@ public class Player_MageBehavior : Player_BaseBehavior
     public GameObject mageCoolDownBarFire, mageCoolDownbarIce;
 
     void Start(){
-        //referencing the variables
-        parent_PlayerBehaviorScript = GameObject.Find("Player").GetComponent<PlayerBehavior>();
-        parent_Player = GameObject.Find("Player");
         //setup the damage of arrow from archer-player to the prefab
-        fireBall_playerPrefab.GetComponent<FireBall_Player>().burnInterval = burnIntervalSec;
-        fireBall_playerPrefab.GetComponent<FireBall_Player>().burnDamage = burnDamage;
-        fireBall_playerPrefab.GetComponent<FireBall_Player>().directHitDamage = directHitDamage;
-        fireBall_playerPrefab.GetComponent<FireBall_Player>().totalBurnTime_Loop = totalBurnTime_Loop;
+        var mageFireBall = fireBall_playerPrefab.GetComponent<FireBall_Player>();
+        
+        mageFireBall.burnInterval = burnIntervalSec;
+        mageFireBall.burnDamage = burnDamage;
+        mageFireBall.directHitDamage = directHitDamage;
+        mageFireBall.totalBurnTime_Loop = totalBurnTime_Loop;
 
         iceBall_playerPrefab.GetComponent<IceBall_Player>().freezePeriod = freezePeriod;
     }
@@ -65,27 +64,31 @@ public class Player_MageBehavior : Player_BaseBehavior
     {   
         if(num==1)
         {
-            Animator.SetTrigger("Attack1"); 
+            Animator.SetTrigger(Attacks[0]); 
         }
         else if(num==2)
         {
-            Animator.SetTrigger("Attack2"); 
+            Animator.SetTrigger(Attacks[1]); 
         }
             
-        if(parent_PlayerBehaviorScript.isGrounded == true){
-            parent_PlayerBehaviorScript.playerRB.constraints = RigidbodyConstraints2D.FreezeAll;
+        if(ParentPlayerBehaviorScript.isGrounded)
+        {
+            ParentPlayerBehaviorScript.playerRB.constraints = RigidbodyConstraints2D.FreezeAll;
             await Task.Delay(650);//so that player can't move while shooting arrow
-            parent_PlayerBehaviorScript.playerRB.constraints = RigidbodyConstraints2D.None;
+            ParentPlayerBehaviorScript.playerRB.constraints = RigidbodyConstraints2D.None;
         }
     }
 
     public void Attack()//Attack funciton is linked to attack1 and attack2 event as animation event and trigger when anim is played
     {   
         GameObject fireBall = Instantiate(fireBall_playerPrefab, shootingPoint.position, Quaternion.identity);
-
-        if(this.gameObject.GetComponent<PlayerMovementAnimHandler>().facingRight == true){
+        var facingRight = GetComponent<PlayerMovementAnimHandler>().facingRight;
+        
+        if(facingRight){
             fireBall.GetComponent<Rigidbody2D>().velocity = transform.TransformDirection(Vector2.right * ballSpeed);     
-        }else if (this.gameObject.GetComponent<PlayerMovementAnimHandler>().facingRight == false){
+        }
+        else
+        {
             fireBall.GetComponent<Rigidbody2D>().velocity = transform.TransformDirection(Vector2.left * ballSpeed);
             fireBall.GetComponent<FireBall_Player>().Flip();
         }
@@ -94,10 +97,12 @@ public class Player_MageBehavior : Player_BaseBehavior
     public void Attack2()
     {
         GameObject iceBall = Instantiate(iceBall_playerPrefab, shootingPoint.position, Quaternion.identity);
-
-        if(this.gameObject.GetComponent<PlayerMovementAnimHandler>().facingRight == true){
+        var facingRight = GetComponent<PlayerMovementAnimHandler>().facingRight;
+        if(facingRight){
             iceBall.GetComponent<Rigidbody2D>().velocity = transform.TransformDirection(Vector2.right * ballSpeed);     
-        }else if (this.gameObject.GetComponent<PlayerMovementAnimHandler>().facingRight == false){
+        }
+        else
+        {
             iceBall.GetComponent<Rigidbody2D>().velocity = transform.TransformDirection(Vector2.left * ballSpeed);
             iceBall.GetComponent<IceBall_Player>().Flip();
         }

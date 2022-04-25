@@ -60193,6 +60193,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 213496432, guid: b13bd7511b46aee47b31e6bc9a1a8982, type: 3}
+      propertyPath: variantData
+      value: 
+      objectReference: {fileID: 11400000, guid: acf22c5d5117fb74885d5da54928fcbe, type: 2}
     - target: {fileID: 213496437, guid: b13bd7511b46aee47b31e6bc9a1a8982, type: 3}
       propertyPath: variantData
       value: 
@@ -60201,6 +60205,10 @@ PrefabInstance:
       propertyPath: _varientData
       value: 
       objectReference: {fileID: 11400000, guid: acf22c5d5117fb74885d5da54928fcbe, type: 2}
+    - target: {fileID: 569994984, guid: b13bd7511b46aee47b31e6bc9a1a8982, type: 3}
+      propertyPath: variantData
+      value: 
+      objectReference: {fileID: 11400000, guid: 1d5ac8a937ee84940b05c5d1720dd108, type: 2}
     - target: {fileID: 569994989, guid: b13bd7511b46aee47b31e6bc9a1a8982, type: 3}
       propertyPath: variantData
       value: 
@@ -60209,6 +60217,10 @@ PrefabInstance:
       propertyPath: _varientData
       value: 
       objectReference: {fileID: 11400000, guid: 1d5ac8a937ee84940b05c5d1720dd108, type: 2}
+    - target: {fileID: 1544107748, guid: b13bd7511b46aee47b31e6bc9a1a8982, type: 3}
+      propertyPath: variantData
+      value: 
+      objectReference: {fileID: 11400000, guid: 352fedc808eeca14c9cdc0fdd0154f82, type: 2}
     - target: {fileID: 1544107753, guid: b13bd7511b46aee47b31e6bc9a1a8982, type: 3}
       propertyPath: variantData
       value: 
@@ -60217,6 +60229,10 @@ PrefabInstance:
       propertyPath: _varientData
       value: 
       objectReference: {fileID: 11400000, guid: 352fedc808eeca14c9cdc0fdd0154f82, type: 2}
+    - target: {fileID: 2036392282, guid: b13bd7511b46aee47b31e6bc9a1a8982, type: 3}
+      propertyPath: variantData
+      value: 
+      objectReference: {fileID: 11400000, guid: 6f5c9561fea25d64b993b25107a7c077, type: 2}
     - target: {fileID: 2036392287, guid: b13bd7511b46aee47b31e6bc9a1a8982, type: 3}
       propertyPath: variantData
       value: 

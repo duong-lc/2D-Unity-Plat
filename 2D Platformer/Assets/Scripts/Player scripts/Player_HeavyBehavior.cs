@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Threading.Tasks;
 
-public class Player_HeavyBehavior : Player_BaseBehavior
+public class Player_HeavyBehavior : PlayerBaseBehavior
 {
     // public float speed; //movement speed (left and right)//5.75
     // public float jumpForce; //jump force (up)//7.5
@@ -13,7 +13,7 @@ public class Player_HeavyBehavior : Player_BaseBehavior
     public Transform attackZone1, attackZone2, attackZone3;
     public Vector2 attackBox1, attackBox2, attackBox3;
     public LayerMask EnemiesLayer;
-    private Collider2D[] hitArray1, hitArray2, hitArray3;
+    private Collider2D[] _hitArray1, _hitArray2, _hitArray3;
     public float attackDamage1, attackDamage2, attackDamage3;
 
     public float elapsedTime = 0, attackIntervalSec;
@@ -21,16 +21,12 @@ public class Player_HeavyBehavior : Player_BaseBehavior
     // private GameObject parent_Player;
 
     public GameObject heavyCoolDownBar;
-    // void Start(){
-    //     parent_PlayerBehaviorScript = GameObject.Find("Player").GetComponent<PlayerBehavior>();
-    //     parent_Player = GameObject.Find("Player");
-    // }
 
 
     void Update(){
-        hitArray1 = Physics2D.OverlapBoxAll(attackZone1.position, attackBox1, 0f, EnemiesLayer);
-        hitArray2 = Physics2D.OverlapBoxAll(attackZone2.position, attackBox2, 0f, EnemiesLayer);
-        hitArray3 = Physics2D.OverlapBoxAll(attackZone3.position, attackBox3, 0f, EnemiesLayer);
+        _hitArray1 = Physics2D.OverlapBoxAll(attackZone1.position, attackBox1, 0f, EnemiesLayer);
+        _hitArray2 = Physics2D.OverlapBoxAll(attackZone2.position, attackBox2, 0f, EnemiesLayer);
+        _hitArray3 = Physics2D.OverlapBoxAll(attackZone3.position, attackBox3, 0f, EnemiesLayer);
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {  
             if(Time.time > elapsedTime)
@@ -42,20 +38,23 @@ public class Player_HeavyBehavior : Player_BaseBehavior
     }
     
     void PlayAttackAnim()
-    {    
-        Animator.SetTrigger("Attack1");
-        Animator.SetTrigger("Attack2");
-        Animator.SetTrigger("Attack3");
+    {
+        // print($"{Attacks.Length}");
+        // foreach (int i in Attacks)
+        // {
+        //     print($"number {i}");
+        // }
+        Animator.SetTrigger(Attacks[0]);
+        Animator.SetTrigger(Attacks[1]);
+        Animator.SetTrigger(Attacks[2]);
     }
 
     public void Attack1()//Attack funciton is linked to attack1 and attack2 event as animation event and trigger when anim is played
     {   
-        foreach(Collider2D enemy in hitArray1)
+        foreach(Collider2D enemy in _hitArray1)
         {
-            if(enemy.gameObject.tag == "Enemy-Goblin")
-                enemy.gameObject.GetComponent<NPCVitalityHandler>().TakeDamage(attackDamage1, true);
-            else
-                enemy.gameObject.GetComponent<NPCVitalityHandler>().TakeDamage(attackDamage1, false);
+            enemy.gameObject.GetComponent<NPCVitalityHandler>()
+                .TakeDamage(attackDamage1, enemy.gameObject.CompareTag("Enemy-Goblin"));
 
             KnockBackEnemy(enemy, 1f);
         }
@@ -63,12 +62,10 @@ public class Player_HeavyBehavior : Player_BaseBehavior
 
     public void Attack2()//Attack funciton is linked to attack1 and attack2 event as animation event and trigger when anim is played
     {   
-        foreach(Collider2D enemy in hitArray2)
+        foreach(Collider2D enemy in _hitArray2)
         {
-            if(enemy.gameObject.tag == "Enemy-Goblin")
-                enemy.gameObject.GetComponent<NPCVitalityHandler>().TakeDamage(attackDamage2, true);
-            else
-                enemy.gameObject.GetComponent<NPCVitalityHandler>().TakeDamage(attackDamage2, false);
+            enemy.gameObject.GetComponent<NPCVitalityHandler>()
+                .TakeDamage(attackDamage2, enemy.gameObject.CompareTag("Enemy-Goblin"));
 
             KnockBackEnemy(enemy, 1.3f);
         }
@@ -76,37 +73,34 @@ public class Player_HeavyBehavior : Player_BaseBehavior
 
     public void Attack3()//Attack funciton is linked to attack1 and attack2 event as animation event and trigger when anim is played
     {   
-        foreach(Collider2D enemy in hitArray3)
+        foreach(Collider2D enemy in _hitArray3)
         {
-            if(enemy.gameObject.tag == "Enemy-Goblin")
-                enemy.gameObject.GetComponent<NPCVitalityHandler>().TakeDamage(attackDamage3, true);
-            else
-                enemy.gameObject.GetComponent<NPCVitalityHandler>().TakeDamage(attackDamage3, false);
- 
+            enemy.gameObject.GetComponent<NPCVitalityHandler>()
+                .TakeDamage(attackDamage3, enemy.gameObject.CompareTag("Enemy-Goblin"));
+
             KnockBackEnemy(enemy, 1.5f);
-            
         }
     }
 
-    async private void KnockBackEnemy(Collider2D enemy, float multiplier){
-        if(enemy.gameObject.tag != "Enemy-Demon")
-        {
-            Vector2 difference = enemy.transform.position - parent_Player.transform.position;
-            if(enemy.gameObject.tag == "Enemy-FlyingEye")
-                enemy.gameObject.GetComponent<Rigidbody2D>().gravityScale = 1.5f;
+    private async void KnockBackEnemy(Collider2D enemy, float multiplier)
+    {
+        if (enemy.gameObject.CompareTag("Enemy-Demon")) return;
+        
+        Vector2 difference = enemy.transform.position - ParentPlayer.transform.position;
+        if(enemy.gameObject.CompareTag("Enemy-FlyingEye"))
+            enemy.gameObject.GetComponent<Rigidbody2D>().gravityScale = 1.5f;
             
                 
-            enemy.gameObject.GetComponent<Rigidbody2D>().AddForce(70f * multiplier * difference.normalized, ForceMode2D.Impulse);
-            enemy.gameObject.GetComponent<Rigidbody2D>().AddForce(enemy.transform.up * 80f * multiplier, ForceMode2D.Impulse);
+        enemy.gameObject.GetComponent<Rigidbody2D>().AddForce(70f * multiplier * difference.normalized, ForceMode2D.Impulse);
+        enemy.gameObject.GetComponent<Rigidbody2D>().AddForce(enemy.transform.up * 80f * multiplier, ForceMode2D.Impulse);
         
             
 
-            await Task.Delay(1000);
-            if(enemy.gameObject.tag == "Enemy-FlyingEye")
-                enemy.gameObject.GetComponent<Rigidbody2D>().gravityScale = 1f;
-        }
-        
-        
+        await Task.Delay(1000);
+        if(enemy.gameObject.CompareTag("Enemy-FlyingEye"))
+            enemy.gameObject.GetComponent<Rigidbody2D>().gravityScale = 1f;
+
+
 
     }
 

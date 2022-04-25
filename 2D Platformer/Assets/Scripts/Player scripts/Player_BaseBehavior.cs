@@ -4,29 +4,26 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public abstract class Player_BaseBehavior : MonoBehaviour
+[RequireComponent(typeof(Animator))]
+
+public abstract class PlayerBaseBehavior : MonoBehaviour
 {
-    [SerializeField] protected CharacterVariantsSO variantData;
+    [SerializeField] private CharacterVariantsSO variantData;
     
     public float Speed => variantData.speed; //movement speed (left and right)
     public float JumpForce => variantData.jumpForce; //jump force (up)
     public int TakeDamageDelayMS => variantData.takeDamageDelayMS;
     public int DeathDelayMS => variantData.deathDelayMS;
     
-    protected static int[] Attacks;
+    protected int[] Attacks;
     protected static int Death, Fall, Jump, Run, TakeHit;
     
-    protected Animator Animator;//getting animator to set conditions for animation transitions
-    public PlayerBehavior parent_PlayerBehaviorScript;
-    public GameObject parent_Player;
+    protected Animator Animator => GetComponent<Animator>();//getting animator to set conditions for animation transitions
+    protected PlayerBehavior ParentPlayerBehaviorScript => PlayerBehavior.Instance;
+    protected GameObject ParentPlayer => ParentPlayerBehaviorScript.gameObject;
 
     private void Awake()
     {
-        Animator = GetComponent<Animator>();
-        
-        parent_Player = GameObject.Find("Player");
-        parent_PlayerBehaviorScript = parent_Player.GetComponent<PlayerBehavior>();
-
         Attacks = new int[variantData.attacks.Length];
         for (int i = 0; i < Attacks.Length; i++ )
         {

@@ -4,7 +4,7 @@ using UnityEngine;
 using System.Threading.Tasks;
 using System;
 
-public class PlayerVitalityHandler : Player_BaseBehavior
+public class PlayerVitalityHandler : PlayerBaseBehavior
 {
     public float currentHealth, maxHealth;
     public HealthBar healthBar;
@@ -12,11 +12,11 @@ public class PlayerVitalityHandler : Player_BaseBehavior
     //public int katanaTakeDamageDelayMS, archerTakeDamageDelayMS, heavyTakeDamageDelayMS, mageTakeDamageDelayMS, katanaDeathDelayMS, archerDeathDelayMS, heavyDeathDelayMS, mageDeathDelayMS;
 
     private Animator _animator;
-    private PlayerBehavior parent_PlayerBehaviorScript;
+    //private PlayerBehavior parent_PlayerBehaviorScript;
     //public GameObject popUpText;
     
     private void Start(){
-        parent_PlayerBehaviorScript = this.gameObject.transform.parent.GetComponent<PlayerBehavior>();
+        //parent_PlayerBehaviorScript = this.gameObject.transform.parent.GetComponent<PlayerBehavior>();
         _animator = this.gameObject.GetComponent<Animator>();
 
         //currentHealth = maxHealth;
@@ -30,26 +30,10 @@ public class PlayerVitalityHandler : Player_BaseBehavior
         _animator.SetBool(TakeHit, true);
         this.gameObject.GetComponent<SpriteRenderer>().color = Color.red;
         
-
-        // switch (parent_PlayerBehaviorScript.currentCharacter){
-        //     case 1:
-        //         //await Task.Delay(parent_PlayerBehaviorScript.katanaTakeDamageDelayMS);
-        //         await Task.Delay(GetComponent<Player_BaseBehavior>().TakeDamageDelayMS);
-        //         break;
-        //     case 2:
-        //         await Task.Delay(parent_PlayerBehaviorScript.archerTakeDamageDelayMS);
-        //         break;
-        //     case 3:
-        //         await Task.Delay(parent_PlayerBehaviorScript.heavyTakeDamageDelayMS);
-        //         break;
-        //     case 4:
-        //         await Task.Delay(parent_PlayerBehaviorScript.mageTakeDamageDelayMS);
-        //         break;
-        // }
-        await Task.Delay(GetComponent<Player_BaseBehavior>().TakeDamageDelayMS);
+        await Task.Delay(GetComponent<PlayerBaseBehavior>().TakeDamageDelayMS);
         
         //_animator.SetBool("isTakeHit", false);
-        _animator.SetBool(TakeHit, true);
+        _animator.SetBool(TakeHit, false);
         this.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
         isPlayerTakingDamage = false;
 
@@ -66,67 +50,49 @@ public class PlayerVitalityHandler : Player_BaseBehavior
         //_animator.SetTrigger("Die");
         _animator.SetTrigger(Death);
 
-        parent_PlayerBehaviorScript.isInDeathAnim = true;
-        parent_PlayerBehaviorScript.playerRB.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY;
-        parent_PlayerBehaviorScript.gameObject.GetComponent<Collider2D>().enabled = false;
+        ParentPlayerBehaviorScript.isInDeathAnim = true;
+        ParentPlayerBehaviorScript.playerRB.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY;
+        ParentPlayerBehaviorScript.gameObject.GetComponent<Collider2D>().enabled = false;
         
         try{
-            await Task.Delay(GetComponent<Player_BaseBehavior>().DeathDelayMS);
+            await Task.Delay(GetComponent<PlayerBaseBehavior>().DeathDelayMS);
             GetComponent<PlayerMovementAnimHandler>().enabled = false;
            
-            switch (parent_PlayerBehaviorScript.currentCharacter){
+            switch (ParentPlayerBehaviorScript.currentCharacter){
                 case CurrentCharacter.Katana:
                     GetComponent<Player_KatanaBehavior>().enabled = false;
-                    parent_PlayerBehaviorScript.isKatanaAlive = false;
+                    ParentPlayerBehaviorScript.isKatanaAlive = false;
                     break;
                 case CurrentCharacter.Archer:
-                    //await Task.Delay(GetComponent<Player_BaseBehavior>().DeathDelayMS);
                     GetComponent<Player_ArcherBehavior>().enabled = false;
-                    parent_PlayerBehaviorScript.isArcherAlive = false;
+                    ParentPlayerBehaviorScript.isArcherAlive = false;
                     break;
                 case CurrentCharacter.Heavy:
-                    //await Task.Delay(GetComponent<Player_BaseBehavior>().DeathDelayMS);
-                    GetComponent<Player_HeavyBehavior>().enabled = false;
-                    GetComponent<Player_HeavyBehavior>().heavyCoolDownBar.SetActive(false);
-                    parent_PlayerBehaviorScript.isHeavyAlive = false;
+                    var heavyBehavior = GetComponent<Player_HeavyBehavior>();
+                    heavyBehavior.heavyCoolDownBar.SetActive(false);
+                    heavyBehavior.enabled = false;
+                    ParentPlayerBehaviorScript.isHeavyAlive = false;
                     break;
                 case CurrentCharacter.Mage:
-                    //await Task.Delay(GetComponent<Player_BaseBehavior>().DeathDelayMS);
-                    GetComponent<Player_MageBehavior>().enabled = false;
-                    GetComponent<Player_MageBehavior>().mageCoolDownBarFire.SetActive(false);
-                    GetComponent<Player_MageBehavior>().mageCoolDownbarIce.SetActive(false);
-                    parent_PlayerBehaviorScript.isMageAlive = false;
+                    var mageBehavior = GetComponent<Player_MageBehavior>();
+                    mageBehavior.mageCoolDownBarFire.SetActive(false);
+                    mageBehavior.mageCoolDownbarIce.SetActive(false);
+                    mageBehavior.enabled = false;
+                    ParentPlayerBehaviorScript.isMageAlive = false;
                     break;
             }
             
             //OnCharacterDeath();
-            parent_PlayerBehaviorScript.playerRB.constraints = RigidbodyConstraints2D.None;
-            parent_PlayerBehaviorScript.gameObject.GetComponent<Collider2D>().enabled = true;
+            ParentPlayerBehaviorScript.playerRB.constraints = RigidbodyConstraints2D.None;
+            ParentPlayerBehaviorScript.gameObject.GetComponent<Collider2D>().enabled = true;
 
         }
         catch(Exception e){
             ;
-        } 
+        }
 
-        
-
-        // switch (parent_PlayerBehaviorScript.currentCharacter){
-        //     case 1:
-        //         parent_PlayerBehaviorScript.AliveList[0] = false;
-        //         break;
-        //     case 2:
-        //         parent_PlayerBehaviorScript.AliveList[1] = false;
-        //         break;
-        //     case 3:
-        //         parent_PlayerBehaviorScript.AliveList[2] = false;
-        //         break;
-        //     case 4:
-        //         parent_PlayerBehaviorScript.AliveList[3] = false;
-        //         break;
-        // }
-        
-        parent_PlayerBehaviorScript.SwitchToAlive();
-        parent_PlayerBehaviorScript.isInDeathAnim = false;
+        ParentPlayerBehaviorScript.SwitchToAlive();
+        ParentPlayerBehaviorScript.isInDeathAnim = false;
 
         this.enabled = false;
     }

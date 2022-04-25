@@ -4,23 +4,24 @@ using UnityEngine;
 using System.Threading.Tasks;
 using System;
 
-public class Player_KatanaBehavior : Player_BaseBehavior
+public class Player_KatanaBehavior : PlayerBaseBehavior
 {
         // public float speed; //movement speed (left and right)//7.5
         // public float jumpForce; //jump force (up)//9.5
         // public Animator animator;//getting animator to set conditions for animation transitions
 
-        private int count = 1;//counter to cycle through attack animation
+        private int _count = 1;//counter to cycle through attack animation
         //private bool isPlayerTakingDamage = false;//bool value to see if player taking damage
-
+        private PlayerMovementAnimHandler MovementComponent => GetComponent<PlayerMovementAnimHandler>();
+        
         //Vars for checking attack zone
         public Transform attackZone;//center position for attackzone
         public Vector3 attackBox;//dimension for attack box
         public LayerMask EnemiesLayer, portalProjectileLayer;//layer mask of enemies (editted in inspector)
-        private Collider2D[] hitArray, hitArray2;//collider2d array of objects that are in the attackbox. The collider2d components of those objects are passed in
+        private Collider2D[] _hitArray, _hitArray2;//collider2d array of objects that are in the attackbox. The collider2d components of those objects are passed in
         public float attackDamage;//attack damage of katana player (editted in inspector)
 
-        private float elapsedTime = 0;//time stamp since play for next attack to be valid to attack
+        private float _elapsedTime = 0;//time stamp since play for next attack to be valid to attack
         public float attackIntervalSec;//cooldown time between each attack of player
 
         // private PlayerBehavior parent_PlayerBehaviorScript;//script of player object that is a parent of all 4 controllable characters 
@@ -28,29 +29,26 @@ public class Player_KatanaBehavior : Player_BaseBehavior
 
 
         public GameObject instanceAfterImage;
-        private GameObject instance;//temporary variable that is 
+        private GameObject _instance;//temporary variable that is 
         private bool isDashing;
         public float dashTime, dashSpeed, dashCoolDown, ghostDelay;
         private float dashTimeLeft, lastDash = 0, ghostDelaySeconds;
 
 
         void Start(){
-            parent_PlayerBehaviorScript = GameObject.Find("Player").GetComponent<PlayerBehavior>();
-            parent_Player = GameObject.Find("Player");
-
             ghostDelaySeconds = ghostDelay;
         }
 
 
         void Update(){
-            hitArray = Physics2D.OverlapBoxAll(attackZone.position, attackBox, 0f, EnemiesLayer);
-            hitArray2 = Physics2D.OverlapBoxAll(attackZone.position, attackBox, 0f, portalProjectileLayer);
+            _hitArray = Physics2D.OverlapBoxAll(attackZone.position, attackBox, 0f, EnemiesLayer);
+            _hitArray2 = Physics2D.OverlapBoxAll(attackZone.position, attackBox, 0f, portalProjectileLayer);
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {  
-                if(Time.time > elapsedTime)
+                if(Time.time > _elapsedTime)
                 {
                     PlayAttackAnim();
-                    elapsedTime = Time.time + attackIntervalSec;
+                    _elapsedTime = Time.time + attackIntervalSec;
                 }
             }
 
@@ -75,9 +73,9 @@ public class Player_KatanaBehavior : Player_BaseBehavior
         {
             float direction = 1f;
 
-            if(this.gameObject.GetComponent<PlayerMovementAnimHandler>().facingRight == true)
+            if(MovementComponent.facingRight)
                 direction = 1f;
-            else if (this.gameObject.GetComponent<PlayerMovementAnimHandler>().facingRight == false)
+            else
                 direction = -1f;
 
 
@@ -85,7 +83,7 @@ public class Player_KatanaBehavior : Player_BaseBehavior
             {
                 if(dashTimeLeft > 0)
                 {
-                    parent_PlayerBehaviorScript.playerRB.velocity = new Vector2(dashSpeed * direction, parent_PlayerBehaviorScript.playerRB.velocity.y);
+                    ParentPlayerBehaviorScript.playerRB.velocity = new Vector2(dashSpeed * direction, ParentPlayerBehaviorScript.playerRB.velocity.y);
                     dashTimeLeft -= Time.deltaTime;
 
                     if (ghostDelaySeconds > 0)
@@ -93,10 +91,10 @@ public class Player_KatanaBehavior : Player_BaseBehavior
                         ghostDelaySeconds -= Time.deltaTime;
                     }else{
                         
-                        instance = Instantiate(instanceAfterImage, transform.position, Quaternion.identity);
-                        instance.GetComponent<SpriteRenderer>().sprite = this.gameObject.GetComponent<SpriteRenderer>().sprite;
-                        if(this.gameObject.GetComponent<PlayerMovementAnimHandler>().facingRight == false)
-                            instance.GetComponent<SpriteRenderer>().flipX = true;
+                        _instance = Instantiate(instanceAfterImage, transform.position, Quaternion.identity);
+                        _instance.GetComponent<SpriteRenderer>().sprite = GetComponent<SpriteRenderer>().sprite;
+                        if(MovementComponent.facingRight == false)
+                            _instance.GetComponent<SpriteRenderer>().flipX = true;
                             
                         ghostDelaySeconds = ghostDelay;
                     }  
@@ -111,22 +109,22 @@ public class Player_KatanaBehavior : Player_BaseBehavior
 
         void PlayAttackAnim()
         {      
-            count++;
-            if (count % 2 == 0)
+            _count++;
+            if (_count % 2 == 0)
             {
                 //Animator.SetTrigger("Attack1"); 
-                Animator.SetTrigger(variantData.attacks[0]); 
+                Animator.SetTrigger(Attacks[0]); 
             }
-            else if (count % 2 != 0)
+            else if (_count % 2 != 0)
             {
                 //Animator.SetTrigger("Attack2"); 
-                Animator.SetTrigger(variantData.attacks[1]); 
+                Animator.SetTrigger(Attacks[1]); 
             }     
         }
 
         public void Attack()//Attack funciton is linked to attack1 and attack2 event as animation event and trigger when anim is played
         {   
-            foreach(Collider2D enemy in hitArray)
+            foreach(Collider2D enemy in _hitArray)
             {
                 if((!enemy.gameObject.CompareTag("Enemy-Goblin") && !enemy.gameObject.CompareTag("Enemy-Skeleton")) 
                 && !enemy.gameObject.CompareTag("portalProjectile") && !enemy.gameObject.CompareTag("Enemy-Boss"))
@@ -138,14 +136,17 @@ public class Player_KatanaBehavior : Player_BaseBehavior
                     
             
             }
-            foreach(Collider2D enemy in hitArray2){
-                if (enemy.gameObject.CompareTag("portalProjectile")){
+            foreach(Collider2D enemy in _hitArray2)
+            {
+                var obj = enemy.gameObject;
+                if (obj.CompareTag("portalProjectile")){
                     try{
-                        enemy.gameObject.GetComponent<PortalProjectileScript>().isReflected = true;
-                        Vector3 dir = enemy.gameObject.GetComponent<PortalProjectileScript>().parentPortal.transform.position - parent_PlayerBehaviorScript.gameObject.transform.position;
-                        enemy.gameObject.GetComponent<Rigidbody2D>().velocity = (dir).normalized * enemy.gameObject.GetComponent<PortalProjectileScript>().parentPortal.GetComponent<PortalSpecificBehavior>().swordSpeed;
-                        enemy.gameObject.transform.Rotate(new Vector3 (enemy.gameObject.transform.rotation.x, enemy.gameObject.transform .rotation.y, enemy.gameObject.transform.rotation.z+180), Space.Self);
-                        enemy.gameObject.GetComponent<ProjectileIndicator>().DeactivateIndicator();
+                        obj.GetComponent<PortalProjectileScript>().isReflected = true;
+                        Vector3 dir = enemy.gameObject.GetComponent<PortalProjectileScript>().parentPortal.transform.position - ParentPlayerBehaviorScript.gameObject.transform.position;
+                        obj.GetComponent<Rigidbody2D>().velocity = (dir).normalized * enemy.gameObject.GetComponent<PortalProjectileScript>().parentPortal.GetComponent<PortalSpecificBehavior>().swordSpeed;
+                        var objRot = obj.transform.rotation;
+                        obj.transform.Rotate(new Vector3 (objRot.x, objRot.y, objRot.z+180), Space.Self);
+                        obj.GetComponent<ProjectileIndicator>().DeactivateIndicator();
                     }
                     catch(Exception e){
                         ;
@@ -154,13 +155,13 @@ public class Player_KatanaBehavior : Player_BaseBehavior
             }
         }
 
-        public override void OnCharacterDeath()
-        {
-            DeathDelay();
-            parent_PlayerBehaviorScript.isKatanaAlive = false;
-            GetComponent<PlayerMovementAnimHandler>().enabled = false;
-            this.enabled = false;
-        }
+        // public override void OnCharacterDeath()
+        // {
+        //     DeathDelay();
+        //     ParentPlayerBehaviorScript.isKatanaAlive = false;
+        //     MovementComponent.enabled = false;
+        //     this.enabled = false;
+        // }
         
         void OnDrawGizmosSelected()
         {    

@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44b5d1a6a1977f74c93b68abd27f90ec, type: 3}
   m_Name: SO_ArcherVariant
   m_EditorClassIdentifier: 
-  attacks: []
-  death: 
-  fall: 
-  idle: 
-  jump: 
-  run: 
-  takeHit: 
+  attacks:
+  - Attack
+  death: Die
+  fall: IsFalling
+  jump: IsJumping
+  run: Speed
+  takeHit: isTakeHit
   speed: 8
   jumpForce: 10.5
   takeDamageDelayMS: 100

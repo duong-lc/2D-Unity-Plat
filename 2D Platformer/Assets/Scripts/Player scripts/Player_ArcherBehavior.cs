@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Threading.Tasks;
 
-public class Player_ArcherBehavior : Player_BaseBehavior
+public class Player_ArcherBehavior : PlayerBaseBehavior
 {
     
         // public float speed; //movement speed (left and right)//8
@@ -26,9 +26,6 @@ public class Player_ArcherBehavior : Player_BaseBehavior
         public float arrowDamage;
 
         void Start(){
-            //referencing the variables
-            parent_PlayerBehaviorScript = GameObject.Find("Player").GetComponent<PlayerBehavior>();
-            parent_Player = GameObject.Find("Player");
             //setup the damage of arrow from archer-player to the prefab
             arrowPrefab.GetComponent<Arrow>().attackDamage = arrowDamage;
         }
@@ -48,11 +45,16 @@ public class Player_ArcherBehavior : Player_BaseBehavior
         
         async void PlayAttackAnim()
         {      
-            Animator.SetTrigger("Attack");   
-            if(parent_PlayerBehaviorScript.isGrounded == true){
-                parent_PlayerBehaviorScript.isShootingArrow = true;
+            // print($"{Attacks.Length}");
+            // foreach (int i in Attacks)
+            // {
+            //     print($"number {i}");
+            // }
+            Animator.SetTrigger(Attacks[0]);   
+            if(ParentPlayerBehaviorScript.isGrounded == true){
+                ParentPlayerBehaviorScript.isShootingArrow = true;
                 await Task.Delay(650);//so that player can't move while shooting arrow
-                parent_PlayerBehaviorScript.isShootingArrow = false;
+                ParentPlayerBehaviorScript.isShootingArrow = false;
             }
         }
 

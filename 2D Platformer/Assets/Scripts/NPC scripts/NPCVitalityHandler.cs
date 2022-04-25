@@ -3,98 +3,123 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Threading.Tasks;
 using System;
+[RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(SpriteRenderer))]
 
 public class NPCVitalityHandler : MonoBehaviour
 {
-    private Animator animator;
-
-    /*health bar and health displayf or mobs*/
+    private Animator Animator => GetComponent<Animator>();
+    private SpriteRenderer SpriteRenderer => GetComponent<SpriteRenderer>();
+    
+    /*health bar and health display of mobs*/
     public float currentHealth, maxHealth;
     public HealthBar healthBar;
 
     public bool isDead, isFrozen, isStagger = false;
     public GameObject bloodEffect, chunkEffect;
    
-    private BossScript boss;
+    private BossScript _boss;
 
     private void Awake() {
 
-        if (this.gameObject.tag == "Enemy-Boss"){
-            boss = gameObject.GetComponent<BossScript>();
+        if (gameObject.CompareTag("Enemy-Boss")){
+            _boss = gameObject.GetComponent<BossScript>();
         }
-
-
-        animator = this.gameObject.GetComponent<Animator>();
+        
         currentHealth = maxHealth;
         if(healthBar != null)
             healthBar.SetMaxHealth(maxHealth);
     }
 
-    void Update(){
-        if (isFrozen ==true){
+    void Update(){ 
+        if (isFrozen){
             this.gameObject.GetComponent<SpriteRenderer>().color = Color.cyan;
         }
         
-        if(gameObject.tag == "Enemy-Boss"){
-            if(isFrozen == false && isStagger == false && boss.isRage == false){
-                this.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
-            }else if(boss.isRage == true){
-                this.gameObject.GetComponent<SpriteRenderer>().color = Color.yellow;
+        if(gameObject.CompareTag("Enemy-Boss"))
+        {
+            if(isFrozen == false && isStagger == false && _boss.isRage == false)
+            {
+                SpriteRenderer.color = Color.white;
+            }
+            else if(_boss.isRage)
+            {
+                SpriteRenderer.color = Color.yellow;
                 isStagger = false;
                 isFrozen = false;
-                animator.speed = 1f;
+                Animator.speed = 1f;
             }
         }
         
         
     }
 
-    async public void TakeDamage(float DamageTaken, bool canAvoid)
+    public async void TakeDamage(float damageTaken, bool canAvoid)
     {
         //Debug.Log("aaaa");
-        if(isDead == false)
+        if (isDead == false)
         {
-            if(this.gameObject.tag != "Enemy-Goblin" && this.gameObject.tag != "Enemy-Skeleton" && this.gameObject.tag != "Enemy-Boss")
-                macroFunction1(DamageTaken, 500, Color.white, false);
-            else if (this.gameObject.tag == "Enemy-Goblin"){
-                if(canAvoid == false || isFrozen == true){
-                    macroFunction1(DamageTaken, 500, Color.white, false);
-                }else if (canAvoid == true && isFrozen == false){
+            var isEnemySpecial = gameObject.CompareTag("Enemy-Goblin") || !gameObject.CompareTag("Enemy-Skeleton")||
+                                 !gameObject.CompareTag("Enemy-Boss");
+            // if (!gameObject.CompareTag("Enemy-Goblin") && !gameObject.CompareTag("Enemy-Skeleton") &&
+            //     !gameObject.CompareTag("Enemy-Boss"))
+            if(!isEnemySpecial)
+            {
+                DamageInflictLogic(damageTaken, 500, Color.white, false);
+            }
+            else if (gameObject.CompareTag("Enemy-Goblin"))
+            {
+                if(canAvoid == false || isFrozen)
+                {
+                    DamageInflictLogic(damageTaken, 500, Color.white, false);
+                }
+                else if (isFrozen == false)
+                {
                     isStagger = false;
-                    NPC_Enemy_GoblinBehavior goblinScript = this.gameObject.GetComponent<NPC_Enemy_GoblinBehavior>();
-                    if(Time.time > goblinScript.elapsedTime2){
+                    NPC_Enemy_GoblinBehavior goblinScript = GetComponent<NPC_Enemy_GoblinBehavior>();
+                    if(Time.time > goblinScript.elapsedTime2)
+                    {
                         SpawnDamageText("Missed", Color.white, 1.0f);
                         goblinScript.cooldown.GetComponent<CooldownBar_NPC>().StartCoolDown();
                         goblinScript.AttackPlayerAnim(2);
                         goblinScript.elapsedTime2 = Time.time + goblinScript.attackInterval2Sec;
-                    }else{
-                        macroFunction1(DamageTaken, 500, Color.white, false);
+                    }
+                    else
+                    {
+                        DamageInflictLogic(damageTaken, 500, Color.white, false);
                     }
                 }
-            }else if(this.gameObject.tag == "Enemy-Skeleton"){
-                if(canAvoid == true && isFrozen == false){
+            }
+            else if(gameObject.CompareTag("Enemy-Skeleton"))
+            {
+                if(canAvoid && isFrozen == false){
                     isStagger = true;
-                    animator.SetTrigger("ShieldUp");
+                    Animator.SetTrigger("ShieldUp");
                     SpawnDamageText("Blocked", Color.white, 1.0f);
                     await Task.Delay(800);
                     isStagger = false;
-                }else if (canAvoid == false||isFrozen ==true){
-                    macroFunction1(DamageTaken, 800, Color.white, false);
                 }
-            }else if (this.gameObject.tag == "Enemy-Boss")//else if (gameobject.tag == boss)
+                else if (canAvoid == false || isFrozen)
+                {
+                    DamageInflictLogic(damageTaken, 800, Color.white, false);
+                }
+            }
+            else if (gameObject.CompareTag("Enemy-Boss"))//else if (gameobject.tag == boss)
             {
                 //Debug.Log(canAvoid + " " + Time.time + " " + boss.avoidCooldownElapsedTime);
-                if (canAvoid == false||isFrozen ==true){
-                    macroFunction1(DamageTaken, 800, Color.white, false);
-                    boss.bossStats.GetComponent<BossStat>().UpdateHealth();
-                }else if(canAvoid == true && isFrozen == false){//if frozen then spawn some portals
-
-                    switch(boss.dodgeState){
+                if (canAvoid == false || isFrozen)
+                {
+                    DamageInflictLogic(damageTaken, 800, Color.white, false);
+                    _boss.bossStats.GetComponent<BossStat>().UpdateHealth();
+                }
+                else if(isFrozen == false)//if frozen then spawn some portals
+                {
+                    switch(_boss.dodgeState){
                         case BossScript.avoidState.block://do bloack animation and not take incoming damage
-                            animator.SetTrigger("Block");
+                            Animator.SetTrigger("Block");
                             break;
                         case BossScript.avoidState.roll://do roll animation and not take incomeing damage
-                            animator.SetTrigger("Roll");
+                            Animator.SetTrigger("Roll");
                             break;
                     }
                 }
@@ -109,34 +134,34 @@ public class NPCVitalityHandler : MonoBehaviour
         
     }
     
-    private async void macroFunction1(float DamageTaken, int staggerDelay, Color damageColor, bool isBurnDamage)
+    private async void DamageInflictLogic(float damageTaken, int staggerDelay, Color damageColor, bool isBurnDamage)
     {    
         if(!isDead){
             isStagger = true;
-            currentHealth -= DamageTaken;
+            currentHealth -= damageTaken;
 
-            if (this.gameObject.tag == "Enemy-Boss"){
-                boss.bossStats.GetComponent<BossStat>().UpdateHealth();
+            if (this.gameObject.CompareTag("Enemy-Boss")){
+                _boss.bossStats.GetComponent<BossStat>().UpdateHealth();
 
-                boss.rageCounter++;
-                boss.bossStats.GetComponent<BossStat>().UpdateRageCounter();
+                _boss.rageCounter++;
+                _boss.bossStats.GetComponent<BossStat>().UpdateRageCounter();
             }
 
 
-            animator.SetBool("isWalking", false);
-            animator.SetTrigger("TakeHit");
+            Animator.SetBool("isWalking", false);
+            Animator.SetTrigger("TakeHit");
 
             if(isFrozen == false)
             {
                 this.gameObject.GetComponent<SpriteRenderer>().color = Color.red;
-                if(this.gameObject.tag == "Enemy-Demon")
+                if(this.gameObject.CompareTag("Enemy-Demon"))
                     this.gameObject.GetComponent<NPC_Enemy_DemonBehavior>().isRedTint = true;
                 await Task.Delay(300);
                 this.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
                 if(this.gameObject.tag == "Enemy-Demon")
                     this.gameObject.GetComponent<NPC_Enemy_DemonBehavior>().isRedTint = false;
 
-                SpawnDamageText(DamageTaken.ToString(), damageColor, 0.7f);
+                SpawnDamageText(damageTaken.ToString(), damageColor, 0.7f);
             }
             
             else if (isFrozen == true)
@@ -146,9 +171,9 @@ public class NPCVitalityHandler : MonoBehaviour
                     this.gameObject.GetComponent<NPC_Enemy_DemonBehavior>().isCyanTint = true;
                 
                 if(!isBurnDamage)
-                    SpawnDamageText(DamageTaken.ToString(), Color.cyan, 0.85f);
+                    SpawnDamageText(damageTaken.ToString(), Color.cyan, 0.85f);
                 else if(isBurnDamage)
-                    SpawnDamageText(DamageTaken.ToString(), damageColor, 0.85f);
+                    SpawnDamageText(damageTaken.ToString(), damageColor, 0.85f);
             }
             
             
@@ -196,8 +221,8 @@ public class NPCVitalityHandler : MonoBehaviour
             SpawnChunkEffect();
         }
         
-        animator.SetBool("isWalking", false);
-        animator.SetBool("isDead", true);
+        Animator.SetBool("isWalking", false);
+        Animator.SetBool("isDead", true);
 
         this.gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY;
         GetComponent<Collider2D>().enabled = false;
@@ -227,16 +252,18 @@ public class NPCVitalityHandler : MonoBehaviour
         if(this.gameObject.tag == "Enemy-Demon")
             this.gameObject.GetComponent<NPC_Enemy_DemonBehavior>().isCyanTint = true;
         if(gameObject.tag == "Enemy-Boss"){
-            boss.PortalSpawner.GetComponent<PortalGeneralBehavior>().SpawnPortal();
+            _boss.PortalSpawner.GetComponent<PortalGeneralBehavior>().SpawnPortal();
         }
             
-        animator.speed = 0.001f;
+        Animator.speed = 0.001f;
 
         await Task.Delay((int)(freezePeriod*1000f));
 
         isStagger = false;
         isFrozen = false;
-        animator.speed = 1f;
+        if(Animator != null)
+            Animator.speed = 1f;
+        
         this.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
         if(this.gameObject.tag == "Enemy-Demon")
             this.gameObject.GetComponent<NPC_Enemy_DemonBehavior>().isCyanTint = false;
@@ -246,7 +273,7 @@ public class NPCVitalityHandler : MonoBehaviour
     {
         for(float i = 0; i < totalBurnTime_Loop; i++)
         {
-            macroFunction1(burnDamage, 500, new Color(255, 140, 0, 1), true);//yellow/orange color to simulate burn damage
+            DamageInflictLogic(burnDamage, 500, new Color(255, 140, 0, 1), true);//yellow/orange color to simulate burn damage
             yield return new WaitForSeconds(burnInterval);
         }
     }

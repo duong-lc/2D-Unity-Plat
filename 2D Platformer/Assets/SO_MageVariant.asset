@@ -12,13 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44b5d1a6a1977f74c93b68abd27f90ec, type: 3}
   m_Name: SO_MageVariant
   m_EditorClassIdentifier: 
-  attacks: []
-  death: 
-  fall: 
-  idle: 
-  jump: 
-  run: 
-  takeHit: 
+  attacks:
+  - Attack1
+  - Attack2
+  death: DIe
+  fall: IsFalling
+  jump: IsJumping
+  run: Speed
+  takeHit: isTakeHit
   speed: 7.5
   jumpForce: 8.5
   takeDamageDelayMS: 100

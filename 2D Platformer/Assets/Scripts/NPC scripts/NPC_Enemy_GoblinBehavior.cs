@@ -115,58 +115,7 @@ public class NPC_Enemy_GoblinBehavior : MonoBehaviour
         
     }
 
-    // public async void TakeDamage(float DamageTaken, /*only applies to goblin*/bool canBackFlipAttack)
-    // {
-    //     if(isDead == false)
-    //     {   
-    //         if (canBackFlipAttack == false || isFrozen == true) 
-    //         {
-    //             isStagger = true;
-    //             currentHealth -= DamageTaken;
-    //             animator.SetBool("isWalking", false);
-    //             animator.SetTrigger("TakeHit");
-
-    //             if(isFrozen == false)
-    //             {
-    //                 this.gameObject.GetComponent<SpriteRenderer>().color = Color.red;
-    //                 await Task.Delay(300);
-    //                 this.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
-    //             }
-    //             else if (isFrozen == true)
-    //             {
-    //                 this.gameObject.GetComponent<SpriteRenderer>().color = Color.cyan;
-    //             }
-                
-    //             healthBar.SetHealth(currentHealth);
-    //             await Task.Delay(500);
-    //             isStagger = false; 
-    //         }
-    //         else if (canBackFlipAttack == true && isFrozen == false)
-    //         {
-    //             isStagger = false;
-    //             if(Time.time > elapsedTime2)
-    //             {
-    //                 cooldown.GetComponent<CooldownBar_GoblinAtk>().StartCoolDown();
-    //                 AttackPlayerAnim(2);
-    //                 elapsedTime2 = Time.time + attackInterval2Sec;
-    //             }
-    //             else
-    //             {
-    //                 TakeDamage(DamageTaken, false);
-    //             }
-                    
-    //         }
-            
-    //     }
-
-    //     if (currentHealth <= 0)
-    //     {
-    //         healthBar.gameObject.SetActive(false);
-    //         cooldown.SetActive(false);
-    //         Death();
-    //     }   
-    // }
-
+  
     public void AttackPlayerSurprise()//Set up as an event in the attack animation in animation
     {
         if(playerCollider2 != null)
@@ -175,20 +124,7 @@ public class NPC_Enemy_GoblinBehavior : MonoBehaviour
         }
     }
 
-    // void Death()
-    // {
-    //     isDead = true;
-    //     animator.SetBool("isWalking", false);
-    //     animator.SetBool("isDead", true);
-    //     //Debug.Log("dead");
-
-    //     rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY;
-    //     GetComponent<Collider2D>().enabled = false;
-        
-    //     isStagger = true;
-    //     Destroy(this.gameObject, 5f);
-    // }
-
+    
     void LookAtPlayer()
 	{
 		Vector3 flipped = transform.localScale;
@@ -223,36 +159,6 @@ public class NPC_Enemy_GoblinBehavior : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube(attackZone2.position, attackBox2);
     }
-
-    // public void Take_Spell_Damage_Burn(float burnInterval, float burnDamage, float totalBurnTime_Loop){
-    //     StartCoroutine(WaitAndBurn(burnInterval, burnDamage, totalBurnTime_Loop));
-    // }
     
-    // private IEnumerator WaitAndBurn(float burnInterval, float burnDamage, float totalBurnTime_Loop)
-    // {
-    //     for(int i = 0; i < totalBurnTime_Loop; i++)
-    //     {
-    //         TakeDamage(burnDamage, false);
-    //         yield return new WaitForSeconds(burnInterval);
-    //     }
-        
-    // }
-
-    // async public void Take_Spell_Frozen(float freezePeriod)
-    // {
-    //     //StartCoroutine(WaitAndFreeze(freezePeriod));    
-
-    //     isStagger = true;
-    //     isFrozen = true;
-    //     this.gameObject.GetComponent<SpriteRenderer>().color = Color.cyan;
-    //     animator.speed = 0.001f;
-
-    //     await Task.Delay((int)(freezePeriod*1000f));
-
-    //     isStagger = false;
-    //     isFrozen = false;
-    //     animator.speed = 1f;
-    //     this.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
-    // }
 
 }

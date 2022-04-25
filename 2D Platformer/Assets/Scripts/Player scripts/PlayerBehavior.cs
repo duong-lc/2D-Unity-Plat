@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 
 public class PlayerBehavior : MonoBehaviour
 {
+    public static PlayerBehavior Instance;
+
     private GameObject _playerKatana, _playerArcher, _playerHeavy, _playerMage;
     private List<GameObject> characterList = new List<GameObject>();
     
@@ -39,6 +41,8 @@ public class PlayerBehavior : MonoBehaviour
 
     private void Awake()
     {
+        Instance = this;
+        
         try
         {
             _playerKatana = GetComponentInChildren<Player_KatanaBehavior>().gameObject;
@@ -142,7 +146,7 @@ public class PlayerBehavior : MonoBehaviour
         if(!isInDeathAnim)
         {
             var currentCharacter = GetCurrentCharacter();
-            playerRB.velocity = new Vector2(moveInput * currentCharacter.GetComponent<Player_BaseBehavior>().Speed,  playerRB.velocity.y);
+            playerRB.velocity = new Vector2(moveInput * currentCharacter.GetComponent<PlayerBaseBehavior>().Speed,  playerRB.velocity.y);
             currentCharacter.GetComponent<PlayerMovementAnimHandler>().PlayerRunning();
             // if (currentCharacter == 1){
             //     //move left and right
