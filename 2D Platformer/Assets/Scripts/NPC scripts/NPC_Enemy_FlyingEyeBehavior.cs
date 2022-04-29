@@ -4,14 +4,14 @@ using UnityEngine;
 using System.Threading.Tasks;
 using System;
 
-public class NPC_Enemy_FlyingEyeBehavior : MonoBehaviour
+public class NPC_Enemy_FlyingEyeBehavior : NPC_Enemy_Base
 {
     private Rigidbody2D rb;
     public Animator animator;
     
     public Transform player;
 	private bool isFlipped = true;
-    public float runSpeed;
+    public float runSpeed;//2.5
     //private bool isStagger = false;
 
     public Transform attackZone;
@@ -32,16 +32,10 @@ public class NPC_Enemy_FlyingEyeBehavior : MonoBehaviour
     public float elapsedTime2 = 0;
     public float attackDamage;
     public float attackDamage2;
-
-    //Health system and health UI
-    // public float currentHealth;
-    // public float maxHealth;
-    // public HealthBar healthBar;
+    
 
     private PlayerBehavior playerBehaviorScript;
-
-    //private bool isDead = false;
-    //private bool isFrozen = false;
+    
     public GameObject cooldown;
 
     //public GameObject groundCollider;
@@ -49,10 +43,6 @@ public class NPC_Enemy_FlyingEyeBehavior : MonoBehaviour
     private bool isContactWithPlayer = false;
     private bool isContactWithGround = false;
 
-    //public GameObject groundColliderTrigger;
-    /*public float colliderRadius;
-    public LayerMask GroundLayer;
-    private Collider2D[] groundCheck;*/
     private float currHeight;
     // Start is called before the first frame update
     void Awake()

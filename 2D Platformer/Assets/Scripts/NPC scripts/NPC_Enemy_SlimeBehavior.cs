@@ -4,7 +4,7 @@ using UnityEngine;
 using System.Threading.Tasks;
 using System;
 
-public class NPC_Enemy_SlimeBehavior : MonoBehaviour
+public class NPC_Enemy_SlimeBehavior : NPC_Enemy_Base
 {
       
     private Rigidbody2D rb;
@@ -12,7 +12,7 @@ public class NPC_Enemy_SlimeBehavior : MonoBehaviour
     
     public Transform player;
 	private bool isFlipped = true;
-    public float runSpeed;
+    public float runSpeed;//0.9
     //private bool isStagger = false;
 
     public Transform attackZone;
@@ -25,15 +25,7 @@ public class NPC_Enemy_SlimeBehavior : MonoBehaviour
     private float elapsedTime = 0;
     public float attackDamage;
 
-    //Health system and health UI
-    // public float currentHealth;
-    // public float maxHealth;
-    // public HealthBar healthBar;
-
     private PlayerBehavior playerBehaviorScript;
-    // private bool isDead = false;
-    // private bool isFrozen = false;
-    // Start is called before the first frame update
     void Awake()
     {
         playerBehaviorScript = GameObject.Find("Player").GetComponent<PlayerBehavior>();

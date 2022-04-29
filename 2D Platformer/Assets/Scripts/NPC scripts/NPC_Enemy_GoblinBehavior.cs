@@ -4,7 +4,7 @@ using UnityEngine;
 using System.Threading.Tasks;
 using System;
 
-public class NPC_Enemy_GoblinBehavior : MonoBehaviour
+public class NPC_Enemy_GoblinBehavior : NPC_Enemy_Base
 {
    
     private Rigidbody2D rb;
@@ -12,7 +12,7 @@ public class NPC_Enemy_GoblinBehavior : MonoBehaviour
     
     public Transform player;
 	private bool isFlipped = true;
-    public float runSpeed;
+    public float runSpeed;//3
     //private bool isStagger = false;
 
     public Transform attackZone;
@@ -30,16 +30,9 @@ public class NPC_Enemy_GoblinBehavior : MonoBehaviour
     public float elapsedTime2 = 0;
     public float attackDamage;
     public float attackDamage2;
-
-    //Health system and health UI
-    // public float currentHealth;
-    // public float maxHealth;
-    // public HealthBar healthBar;
-
+    
     private PlayerBehavior playerBehaviorScript;
-
-    // private bool isDead = false;
-    // private bool isFrozen = false;
+    
     public GameObject cooldown;
     // Start is called before the first frame update
     void Awake()
@@ -49,9 +42,7 @@ public class NPC_Enemy_GoblinBehavior : MonoBehaviour
 
         rb = this.gameObject.GetComponent<Rigidbody2D>();
         rb.freezeRotation = true;//freezing rotation
-
-        // currentHealth = maxHealth;
-        // healthBar.SetMaxHealth(maxHealth);
+        
     }
 
     // Update is called once per frame

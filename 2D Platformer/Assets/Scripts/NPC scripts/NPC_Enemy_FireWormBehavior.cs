@@ -3,25 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Threading.Tasks;
 
-public class NPC_Enemy_FireWormBehavior : MonoBehaviour
+public class NPC_Enemy_FireWormBehavior : NPC_Enemy_Base
 {
     private Rigidbody2D rb;
     public Animator animator;
 
     public Transform player;
 	private bool isFlipped = true;
-    public float runSpeed;
+    public float runSpeed;//0.6
     //private bool isStagger = false;
 
     public Transform attackZone;
     public Vector2 attackBox;
     public LayerMask PlayerLayer;
     private Collider2D playerCollider;
-
-    //Health system and health UI
-    // public float currentHealth;
-    // public float maxHealth;
-    // public HealthBar healthBar;
 
     //Attack speed
     public float attackIntervalSec;

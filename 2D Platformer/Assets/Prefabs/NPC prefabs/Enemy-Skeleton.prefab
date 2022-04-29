@@ -82,6 +82,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &1331267504745255204
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -333,6 +334,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 0
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -570,17 +572,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 405a252a971cecc4394ca914277bdab2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 1331267506284551690}
-  player: {fileID: 0}
-  runSpeed: 1
-  attackZone: {fileID: 1331267505401204915}
-  attackBox: {x: 2.3, y: 2.4}
-  PlayerLayer:
-    serializedVersion: 2
-    m_Bits: 1024
+  enemyData: {fileID: 11400000, guid: 5b32613deda2ed343bcb9f896a8419f0, type: 2}
+  attackPatternList:
+  - attackZone: {fileID: 1331267505401204915}
+    attackBox: {x: 2, y: 2}
+    playerCollider: {fileID: 0}
+    attackIntervalSec: 1
+    elapsedTime: 0
+    attackDamage: 12
   attackIntervalSec: 1
   attackDamage: 12
-  isDead: 0
 --- !u!114 &-6652095592961566104
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -614,6 +615,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   popUpText: {fileID: 5374052816094725060, guid: b04b858acdabd4f40bebac8556359c71, type: 3}
+  spawnPos: {fileID: 0}
 --- !u!1 &1331267506754893983
 GameObject:
   m_ObjectHideFlags: 0

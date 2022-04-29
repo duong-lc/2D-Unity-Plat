@@ -4,122 +4,136 @@ using UnityEngine;
 using System.Threading.Tasks;
 using System;
 
-public class NPC_Enemy_SkeletonBehavior : MonoBehaviour
+public class NPC_Enemy_SkeletonBehavior : NPC_Enemy_Base
 {
-    private Rigidbody2D rb;
-    public Animator animator;
+    // private Rigidbody2D rb;
+    // public Animator animator;
     
-    public Transform player;
-	private bool isFlipped = true;
-    public float runSpeed;
+    //public Transform player;
+	// private bool isFlipped = true;
+    //public float runSpeed;//1
     //private bool isStagger = false;
 
-    public Transform attackZone;
-    public Vector2 attackBox;
-    public LayerMask PlayerLayer;
-    private Collider2D playerCollider;
+    // public Transform attackZone;
+    // public Vector2 attackBox;
+    // public LayerMask PlayerLayer;
+    // private Collider2D playerCollider;
 
     //attack speed and damage
-    public float attackIntervalSec;
-    private float elapsedTime = 0;
-    public float attackDamage = 25;
+    // public float attackIntervalSec;//1
+    // private float elapsedTime = 0;//0
+    // public float attackDamage = 25;//12
 
-    //Health system and health UI
-    // public float currentHealth;
-    // public float maxHealth;
-    // public HealthBar healthBar;
-
-    private PlayerBehavior playerBehaviorScript;
+    //private PlayerBehavior playerBehaviorScript;
     // Start is called before the first frame update
     void Awake()
     {
-        playerBehaviorScript = GameObject.Find("Player").GetComponent<PlayerBehavior>();
-        player = GameObject.FindGameObjectWithTag("Player").transform;
-
-        rb = this.gameObject.GetComponent<Rigidbody2D>();
-        rb.freezeRotation = true;//freezing rotation
+        //playerBehaviorScript = GameObject.Find("Player").GetComponent<PlayerBehavior>();
+        //player = GameObject.FindGameObjectWithTag("Player").transform;
+        
+        
+        //rb = this.gameObject.GetComponent<Rigidbody2D>();
+        Rb2D.freezeRotation = true;//freezing rotation
 
         // currentHealth = maxHealth;
         // healthBar.SetMaxHealth(maxHealth);
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         //generating attackable zone for AI to attack the player
-        playerCollider = Physics2D.OverlapBox(attackZone.position, attackBox, 0f, PlayerLayer);
+       // playerCollider = Physics2D.OverlapBox(attackZone.position, attackBox, 0f, PlayerLayer);
 
-        if (this.gameObject.GetComponent<NPCVitalityHandler>().isStagger == false 
-        && this.gameObject.GetComponent<NPCVitalityHandler>().isFrozen == false 
-        && this.gameObject.GetComponent<NPCVitalityHandler>().isDead == false)
+       //GenerateAttackZone();
+       var attackPattern =  attackPatternList[0];
+       attackPattern.playerCollider = Physics2D.OverlapBox(
+           attackPattern.attackZone.position, 
+           attackPattern.attackBox, 
+           0f, 
+           enemyData.PlayerLayer);
+        if (!VitalityHandler.isStagger && !VitalityHandler.isFrozen && !VitalityHandler.isDead)
         {
             LookAtPlayer();
             FollowAndAttackPlayer();
         }
+        //BasicBehaviorUpdate();
 
     }
 
-    void AttackPlayerAnim()
+    protected override void AttackPlayerAnim()
     {
-        if (playerCollider != null)
+        var playerCol = attackPatternList[0].playerCollider;
+        if (playerCol != null)
         {
-            if (playerCollider.gameObject.tag == "Player")
+            if (playerCol.gameObject.CompareTag("Player"))
             {
-                animator.SetTrigger("Attack");
+                Animator.SetTrigger("Attack");
             }
         }
     }
 
     public void AttackPlayer()//Set up as an event in the attack animation in animation
     {
-        if(playerCollider != null)
+        var playerCol = attackPatternList[0].playerCollider;
+        if(playerCol != null)
         {
-            playerBehaviorScript.CallDamage(attackDamage);
+            PlayerBehaviorScript.CallDamage(attackPatternList[0].attackDamage);
         }
     }
 
-    void FollowAndAttackPlayer()
-    {
-        if (Vector2.Distance(transform.position, player.position) >= attackBox.x)//Keep closing in until player in attack zone
-        {
-            transform.position += transform.right * runSpeed * Time.deltaTime;
-            animator.SetBool("isWalking", true);
-        }else if (Vector2.Distance(transform.position, player.position) < attackBox.x)//if player is in, attack animation
-        {
-            if(Time.time > elapsedTime)
-            {
-                AttackPlayerAnim();
-                elapsedTime = Time.time + attackIntervalSec;
-            }
-            
-            animator.SetBool("isWalking", false);
-        }
-        
-    }
+    // protected override void FollowAndAttackPlayer()
+    // {
+    //     var attackBox = enemyData.AttackPatternList[0].attackBox;
+    //     var distToPlayer = Vector2.Distance(transform.position, PlayerTransform.position);
+    //     
+    //     if (distToPlayer >= attackBox.x)//Keep closing in until player in attack zone
+    //     {
+    //         transform.position += transform.right * RunSpeed * Time.deltaTime;
+    //         Animator.SetBool("isWalking", true);
+    //     }
+    //     else if (distToPlayer < attackBox.x)//if player is in, attack animation
+    //     {
+    //         if(Time.time > elapsedTime)
+    //         {
+    //             AttackPlayerAnim();
+    //             elapsedTime = Time.time + attackIntervalSec;
+    //         }
+    //         
+    //         Animator.SetBool("isWalking", false);
+    //     }
+    //     
+    // }
 
-    void LookAtPlayer()
-	{
-		Vector3 flipped = transform.localScale;
-		flipped.z *= -1f;
-
-		if (transform.position.x > player.position.x && isFlipped)
-		{
-			transform.localScale = flipped;
-			transform.Rotate(0f, 180f, 0f);
-			isFlipped = !isFlipped;
-            this.gameObject.GetComponent<NPCVitalityHandler>().healthBar.Flip();
-		}
-		else if (transform.position.x < player.position.x && !isFlipped)
-		{
-			transform.localScale = flipped;
-			transform.Rotate(0f, 180f, 0f);
-			isFlipped = !isFlipped;
-            this.gameObject.GetComponent<NPCVitalityHandler>().healthBar.Flip();
-		}
-	}
+    // void LookAtPlayer()
+	// {
+	// 	Vector3 flipped = transform.localScale;
+	// 	flipped.z *= -1f;
+ //        var playerXPos = PlayerTransform.position.x;
+ //        
+ //        
+	// 	if (transform.position.x > playerXPos && IsFlipped)
+	// 	{
+	// 		transform.localScale = flipped;
+	// 		transform.Rotate(0f, 180f, 0f);
+ //            IsFlipped = !IsFlipped;
+ //            VitalityHandler.healthBar.Flip();
+	// 	}
+	// 	else if (transform.position.x < playerXPos && !IsFlipped)
+	// 	{
+	// 		transform.localScale = flipped;
+	// 		transform.Rotate(0f, 180f, 0f);
+ //            IsFlipped = !IsFlipped;
+ //            VitalityHandler.healthBar.Flip();
+	// 	}
+	// }
 
     void OnDrawGizmosSelected()
-    {    
+    {
+        if (attackPatternList.Count == 0) return;
+        
+        var attackZone = attackPatternList[0].attackZone;
+        var attackBox = attackPatternList[0].attackBox;
         if (attackZone == null)
         {
             return;

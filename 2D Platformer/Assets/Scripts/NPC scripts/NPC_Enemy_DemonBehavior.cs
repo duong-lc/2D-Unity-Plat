@@ -4,14 +4,14 @@ using UnityEngine;
 using System.Threading.Tasks;
 using System;
 
-public class NPC_Enemy_DemonBehavior : MonoBehaviour
+public class NPC_Enemy_DemonBehavior : NPC_Enemy_Base
 {   
     private Rigidbody2D rb;
     public Animator animator;
     
     public Transform player;
 	private bool isFlipped = true;
-    public float runSpeed;
+    public float runSpeed;//2
    // private bool isStagger = false;
 
     public Transform attackZone;
@@ -23,11 +23,6 @@ public class NPC_Enemy_DemonBehavior : MonoBehaviour
     public float attackIntervalSec;
     private float elapsedTime = 0;
     public float attackDamage;
-
-    //Health system and health UI
-    // public float currentHealth;
-    // public float maxHealth;
-    // public HealthBar healthBar;
 
     private PlayerBehavior playerBehaviorScript;
 
