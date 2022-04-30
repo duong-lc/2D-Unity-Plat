@@ -8,9 +8,9 @@ public struct AttackPattern
 {
     public Transform attackZone;
     public Vector2 attackBox;
+    public float attackRadius;
     public Collider2D playerCollider;
     
     public float attackIntervalSec;
-    public float elapsedTime;
     public float attackDamage;
 }

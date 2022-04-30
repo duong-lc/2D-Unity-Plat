@@ -263,6 +263,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &4724364241201905760
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -334,6 +335,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 0
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -677,21 +679,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb1df47c38ffb254b95a238c8d0bfa20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 4724364242057489319}
-  player: {fileID: 0}
-  runSpeed: 3
-  attackZone: {fileID: 4724364240688722307}
-  attackBox: {x: 1.3, y: 1.3}
-  attackZone2: {fileID: 4724364241825418726}
-  attackBox2: {x: 1.3, y: 1}
-  PlayerLayer:
-    serializedVersion: 2
-    m_Bits: 1024
-  attackIntervalSec: 1
-  attackInterval2Sec: 6
+  enemyData: {fileID: 11400000, guid: c78a2c1d8fd1a3c4ea8672f822cc4d1c, type: 2}
+  attackPatternList:
+  - attackZone: {fileID: 4724364240688722307}
+    attackBox: {x: 1.3, y: 1.3}
+    attackRadius: 0
+    playerCollider: {fileID: 0}
+    attackIntervalSec: 1
+    attackDamage: 10
+  - attackZone: {fileID: 4724364241825418726}
+    attackBox: {x: 1.3, y: 1}
+    attackRadius: 0
+    playerCollider: {fileID: 0}
+    attackIntervalSec: 6
+    attackDamage: 18
+  cooldown: {fileID: 2657842002928374884}
   elapsedTime2: 0
-  attackDamage: 10
-  attackDamage2: 18
   cooldown: {fileID: 4724364242092225770}
 --- !u!114 &-6416131162864921845
 MonoBehaviour:
@@ -726,6 +729,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   popUpText: {fileID: 5374052816094725060, guid: b04b858acdabd4f40bebac8556359c71, type: 3}
+  spawnPos: {fileID: 0}
 --- !u!1 &4724364242092225770
 GameObject:
   m_ObjectHideFlags: 0
@@ -779,6 +783,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 0
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}

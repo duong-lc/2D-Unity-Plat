@@ -6,131 +6,97 @@ using System;
 
 public class NPC_Enemy_FlyingEyeBehavior : NPC_Enemy_Base
 {
-    private Rigidbody2D rb;
-    public Animator animator;
+    private float _elapsedTime2 = 0;
+
+    private bool _isContactWithPlayer = false;
+    private bool _isContactWithGround = false;
     
-    public Transform player;
-	private bool isFlipped = true;
-    public float runSpeed;//2.5
-    //private bool isStagger = false;
-
-    public Transform attackZone;
-    public Vector2 attackBox;
-    public Transform attackZone2;
-    public Vector2 attackBox2;
-    public Transform damageZone2;
-    public float damageRadius;
-    public LayerMask PlayerLayer;
-    private Collider2D playerCollider;
-    private Collider2D playerCollider2;
-    private Collider2D damageCollider2;
-
-    //attack speed and damage
-    public float attackIntervalSec;
-    public float attackInterval2Sec;
-    private float elapsedTime = 0;
-    public float elapsedTime2 = 0;
-    public float attackDamage;
-    public float attackDamage2;
-    
-
-    private PlayerBehavior playerBehaviorScript;
-    
-    public GameObject cooldown;
-
-    //public GameObject groundCollider;
-
-    private bool isContactWithPlayer = false;
-    private bool isContactWithGround = false;
-
-    private float currHeight;
-    // Start is called before the first frame update
-    void Awake()
+    private void Update()
     {
-        //groundCheck = Physics2D.OverlapCircleAll(groundCollider.transform.position, colliderRadius, 0f, GroundLayer);
-        //Physics2D.IgnoreCollision(groundCollider.GetComponent<CircleCollider2D>(), GameObject.Find("Player").GetComponent<CapsuleCollider2D>());
-        
-        playerBehaviorScript = GameObject.Find("Player").GetComponent<PlayerBehavior>();
-        player = GameObject.FindGameObjectWithTag("Player").transform;
-
-        rb = this.gameObject.GetComponent<Rigidbody2D>();
-        rb.freezeRotation = true;//freezing rotation
-
-        // currentHealth = maxHealth;
-        // healthBar.SetMaxHealth(maxHealth);
+        BasicBehaviorUpdate();
     }
-
-    // Update is called once per frame
-    void Update()
-    {     
-
-        //generating attackable zone for AI to attack the player
-        playerCollider = Physics2D.OverlapBox(attackZone.position, attackBox, 0f, PlayerLayer);
-        playerCollider2 = Physics2D.OverlapBox(attackZone2.position, attackBox2, 0f, PlayerLayer);
-        damageCollider2 = Physics2D.OverlapCircle(damageZone2.position, damageRadius, PlayerLayer);
-        //groundCheck = Physics2D.OverlapCircleAll(groundCollider.position, colliderRadius, GroundLayer);
-        
-
-        if (this.gameObject.GetComponent<NPCVitalityHandler>().isStagger == false && 
-        this.gameObject.GetComponent<NPCVitalityHandler>().isFrozen == false && 
-        this.gameObject.GetComponent<NPCVitalityHandler>().isDead == false)
-        {
-            LookAtPlayer();
-            FollowAndAttackPlayer();
-        }
-
-        
-    }
-
-    void AttackPlayerAnim(int num)
+    
+    // protected override void GenerateAttackZone()
+    // {
+    //     //generating attackable zone for AI to attack the player
+    //     for(int i = 0; i < attackPatternList.Count; i++)
+    //     {
+    //         Collider2D playerCollider;
+    //         //prioritize getting circular damage zones if radius exists
+    //         if (attackPatternList[i].attackRadius > 0)
+    //         {
+    //             playerCollider = Physics2D.OverlapCircle(
+    //                 attackPatternList[i].attackZone.position, 
+    //                 attackPatternList[i].attackRadius,
+    //                 enemyData.PlayerLayer);
+    //         }
+    //         //if radius == 0 then just get box
+    //         else
+    //         {
+    //                 playerCollider = Physics2D.OverlapBox(
+    //                 attackPatternList[i].attackZone.position, 
+    //                 attackPatternList[i].attackBox, 
+    //                 0f, 
+    //                 enemyData.PlayerLayer);
+    //         }
+    //         attackPatternList[i] = new AttackPattern()
+    //         {
+    //             attackZone = attackPatternList[i].attackZone,
+    //             attackBox =  attackPatternList[i].attackBox,
+    //             attackRadius =  attackPatternList[i].attackRadius,
+    //             playerCollider = playerCollider,
+    //             attackIntervalSec = attackPatternList[i].attackIntervalSec,
+    //             attackDamage = attackPatternList[i].attackDamage
+    //         };
+    //     }
+    // }
+    
+    private void AttackPlayerAnim(int num)
     {
-        if (playerCollider != null && num == 1)
+        var playerCol = attackPatternList[0].playerCollider;
+        if (playerCol && num == 1)
         {
-            if (playerCollider.gameObject.tag == "Player")
+            if (playerCol.gameObject.CompareTag("Player"))
             {
-                animator.SetTrigger("Attack1");
+                Animator.SetTrigger("Attack1");
             }
         }
         else if (num == 2)
-        {   
-            /*if (playerCollider2.gameObject.tag == "Player")
-            {*/
-            animator.SetTrigger("Attack2");
-            //}
+        {
+            Animator.SetTrigger("Attack2");
         }
     }
 
     public void AttackPlayer()//Set up as an event in the attack animation in animation
     {
-        if(playerCollider != null){
-            playerBehaviorScript.CallDamage(attackDamage);
+        if(attackPatternList[0].playerCollider != null){
+            PlayerBehaviorScript.CallDamage(attackPatternList[0].attackDamage);
         }
     }
 
-    public void AttackPlayerSurprise()//Set up as an event in the attack animation in animation
+    public void AttackPlayerSurprise()
     {
         //Debug.Log(damageCollider2.gameObject);
-        if(damageCollider2 != null){
-            playerBehaviorScript.CallDamage(attackDamage2);
+        if(attackPatternList[2].playerCollider != null){
+            PlayerBehaviorScript.CallDamage(attackPatternList[2].attackDamage);
         }  
     }
-    
-    public async void LockOnPlayerPosition()
+
+    public async void LockOnPlayerPosition()//Set up as an event in the attack animation in animation
     {
         //groundCollider.GetComponent<CircleCollider2D>().enabled = false;
-        rb.constraints = RigidbodyConstraints2D.FreezePosition;
-        currHeight = this.gameObject.transform.position.y;
+        Rb2D.constraints = RigidbodyConstraints2D.FreezePosition;
+        //currHeight = this.gameObject.transform.position.y;
         StartCoroutine(TranslateToPlayer());
-        await Task.Delay((int)(attackInterval2Sec*1000 - 1000));
+        await Task.Delay((int)(attackPatternList[2].attackIntervalSec*1000 - 1000));
         TranslateBack();
     }
 
     private void TranslateBack()
     {
-        //groundColliderTrigger.SetActive(true);
         try{
-            rb.constraints = RigidbodyConstraints2D.None;
-            rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+            Rb2D.constraints = RigidbodyConstraints2D.None;
+            Rb2D.constraints = RigidbodyConstraints2D.FreezeRotation;
         }
         catch (Exception e)
         {
@@ -142,22 +108,21 @@ public class NPC_Enemy_FlyingEyeBehavior : NPC_Enemy_Base
 
     private IEnumerator TranslateToPlayer()
     {
-        cooldown.GetComponent<CooldownBar_NPC>().StartCoolDown();
+        cooldown.StartCoolDown();
         //groundColliderTrigger.SetActive(false);
-        Transform playerPos = player;
-        Vector2 difference = playerPos.position - this.gameObject.transform.position;
+        Vector2 difference = PlayerTransform.position - this.gameObject.transform.position;
         float dist = Mathf.Sqrt(difference.x*difference.x + difference.y*difference.y);
 
         float temp = dist/70;
         for(int i = 0; i < 20; i++)
         {
-            if(isContactWithGround == true)
+            if(_isContactWithGround == true)
             {
-                isContactWithGround = false;
+                _isContactWithGround = false;
                 break;
             }
 
-            if(isContactWithPlayer == true)
+            if(_isContactWithPlayer == true)
             {
                 AttackPlayerSurprise(); 
                 break;
@@ -176,84 +141,70 @@ public class NPC_Enemy_FlyingEyeBehavior : NPC_Enemy_Base
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.gameObject.tag == "Player")
+        if(other.gameObject.CompareTag("Player"))
         {
-            isContactWithPlayer = true;
+            _isContactWithPlayer = true;
         }
-        if(other.gameObject.tag == "ground")
+        if(other.gameObject.CompareTag("ground"))
         {
-            isContactWithGround = true;
+            _isContactWithGround = true;
         }
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if(other.gameObject.tag == "Player")
+        if(other.gameObject.CompareTag("Player"))
         {
-            isContactWithPlayer = false;
+            _isContactWithPlayer = false;
         }
-        if(other.gameObject.tag == "ground")
+        if(other.gameObject.CompareTag("ground"))
         {
-            isContactWithGround = false;
+            _isContactWithGround = false;
         }
     }
 
-    void FollowAndAttackPlayer()
+    protected override void FollowAndAttackPlayer()
     {
-        if (Vector2.Distance(transform.position, player.position) >= attackBox.x)//Keep closing in until player in attack zone
+        var distToPlayer = Vector2.Distance(transform.position, PlayerTransform.position);
+        if (distToPlayer >= attackPatternList[0].attackBox.x)//Keep closing in until player in attack zone
         {
-            transform.position += transform.right * runSpeed * Time.deltaTime;
-            animator.SetBool("isWalking", true);
+            transform.position += transform.right * (enemyData.runSpeed * Time.deltaTime);
+            Animator.SetBool("isWalking", true);
 
-            if (Time.time > elapsedTime2)
+            if (Time.time > _elapsedTime2)
             {  
-                if(playerCollider2 != null)
+                if(attackPatternList[1].playerCollider != null)
                 {
                     AttackPlayerAnim(2);
-                    elapsedTime2 = Time.time + attackInterval2Sec;
+                    _elapsedTime2 = Time.time + attackPatternList[2].attackIntervalSec;
                 }
-                animator.SetBool("isWalking", false);
+                Animator.SetBool("isWalking", false);
             }
 
-        }else if (Vector2.Distance(transform.position, player.position) < attackBox.x)//if player is in, attack animation
+        }
+        else if (distToPlayer < attackPatternList[0].attackBox.x)//if player is in, attack animation
         {
-            if(Time.time > elapsedTime)
+            if(Time.time > ElapsedTime)
             {
                 AttackPlayerAnim(1);
-                elapsedTime = Time.time + attackIntervalSec;
+                ElapsedTime = Time.time + attackPatternList[0].attackIntervalSec;
             }
             
-            animator.SetBool("isWalking", false);
+            Animator.SetBool("isWalking", false);
         }   
     }
 
-  
-
-    void LookAtPlayer()
-	{
-		Vector3 flipped = transform.localScale;
-		flipped.z *= -1f;
-
-		if (transform.position.x > player.position.x && isFlipped)
-		{
-			transform.localScale = flipped;
-			transform.Rotate(0f, 180f, 0f);
-			isFlipped = !isFlipped;
-            this.gameObject.GetComponent<NPCVitalityHandler>().healthBar.Flip();
-            cooldown.GetComponent<CooldownBar_NPC>().Flip();
-		}
-		else if (transform.position.x < player.position.x && !isFlipped)
-		{
-			transform.localScale = flipped;
-			transform.Rotate(0f, 180f, 0f);
-			isFlipped = !isFlipped;
-            this.gameObject.GetComponent<NPCVitalityHandler>().healthBar.Flip();
-            cooldown.GetComponent<CooldownBar_NPC>().Flip();
-		}
-	}
-
     void OnDrawGizmosSelected()
     {    
+        if (attackPatternList.Count == 0) return;
+        
+        var attackZone = attackPatternList[0].attackZone;
+        var attackBox = attackPatternList[0].attackBox;
+        var attackZone2 = attackPatternList[1].attackZone;
+        var attackBox2 = attackPatternList[1].attackBox;
+        var damageZone2 = attackPatternList[2].attackZone;
+        var damageRadius = attackPatternList[2].attackRadius;
+        
         if (attackZone == null)
         {
             return;
@@ -266,6 +217,9 @@ public class NPC_Enemy_FlyingEyeBehavior : NPC_Enemy_Base
         Gizmos.DrawWireSphere(damageZone2.position, damageRadius);
     }
 
-   
+    public float GetAttackInterval2()
+    {
+        return attackPatternList[2].attackIntervalSec;
+    }
 
 }

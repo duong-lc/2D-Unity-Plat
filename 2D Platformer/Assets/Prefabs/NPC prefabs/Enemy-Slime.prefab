@@ -99,7 +99,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2334897509613989777}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.191, y: -0.068, z: 0}
+  m_LocalPosition: {x: 0.362, y: -0.068, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2334897509714377458}
@@ -273,16 +273,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d7b42c73f0a826428164f038a8d1544, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 2334897509714377420}
-  player: {fileID: 0}
-  runSpeed: 0.9
-  attackZone: {fileID: 2334897509613989778}
-  attackBox: {x: 1.4, y: 1}
-  PlayerLayer:
-    serializedVersion: 2
-    m_Bits: 1024
-  attackIntervalSec: 1.2
-  attackDamage: 10
+  enemyData: {fileID: 11400000, guid: 74ea77be9f53ebe4b8104eb260747f37, type: 2}
+  attackPatternList:
+  - attackZone: {fileID: 2334897509613989778}
+    attackBox: {x: 1.4, y: 1}
+    attackRadius: 0
+    playerCollider: {fileID: 0}
+    attackIntervalSec: 1.2
+    attackDamage: 12
 --- !u!114 &5497774780808694273
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -316,6 +314,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   popUpText: {fileID: 5374052816094725060, guid: b04b858acdabd4f40bebac8556359c71, type: 3}
+  spawnPos: {fileID: 0}
 --- !u!1 &2334897510441646551
 GameObject:
   m_ObjectHideFlags: 0
@@ -473,6 +472,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 1
 --- !u!114 &2334897510723623787
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -544,6 +544,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 0
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}

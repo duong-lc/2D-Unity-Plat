@@ -157,6 +157,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &4752547586501799953
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -303,6 +304,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 0
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -628,19 +630,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5986a3e9cb09fe24db86d2e4954a8cc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 4752547587620679992}
-  player: {fileID: 0}
-  runSpeed: 0.6
-  attackZone: {fileID: 4752547586817175099}
-  attackBox: {x: 10, y: 1}
-  PlayerLayer:
-    serializedVersion: 2
-    m_Bits: 1024
-  attackIntervalSec: 3
+  enemyData: {fileID: 11400000, guid: 02fc8d1f806f25e4fbe95fc4b2582e51, type: 2}
+  attackPatternList:
+  - attackZone: {fileID: 4752547586817175099}
+    attackBox: {x: 10, y: 1}
+    attackRadius: 0
+    playerCollider: {fileID: 0}
+    attackIntervalSec: 3
+    attackDamage: 20
+  cooldown: {fileID: 0}
   fireBallPrefab: {fileID: 5473812636910722292, guid: c385ba7c6def0ed4ba1da61cf48f1edc, type: 3}
   shootingPoint: {fileID: 4752547587598415709}
   fireBallSpeed: 10
-  fireBallDamage: 20
 --- !u!114 &-6177122403026105548
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -674,6 +675,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   popUpText: {fileID: 5374052816094725060, guid: b04b858acdabd4f40bebac8556359c71, type: 3}
+  spawnPos: {fileID: 0}
 --- !u!1 &4752547588117655679
 GameObject:
   m_ObjectHideFlags: 0

@@ -59,12 +59,13 @@ public class NPCVitalityHandler : MonoBehaviour
         //Debug.Log("aaaa");
         if (isDead == false)
         {
-            var isEnemySpecial = gameObject.CompareTag("Enemy-Goblin") || !gameObject.CompareTag("Enemy-Skeleton")||
-                                 !gameObject.CompareTag("Enemy-Boss");
+            var isEnemySpecial = gameObject.CompareTag("Enemy-Goblin") || gameObject.CompareTag("Enemy-Skeleton")||
+                                 gameObject.CompareTag("Enemy-Boss");
             // if (!gameObject.CompareTag("Enemy-Goblin") && !gameObject.CompareTag("Enemy-Skeleton") &&
             //     !gameObject.CompareTag("Enemy-Boss"))
             if(!isEnemySpecial)
             {
+                //print($"damaging non special");
                 DamageInflictLogic(damageTaken, 500, Color.white, false);
             }
             else if (gameObject.CompareTag("Enemy-Goblin"))
@@ -82,7 +83,7 @@ public class NPCVitalityHandler : MonoBehaviour
                         SpawnDamageText("Missed", Color.white, 1.0f);
                         goblinScript.cooldown.GetComponent<CooldownBar_NPC>().StartCoolDown();
                         goblinScript.AttackPlayerAnim(2);
-                        goblinScript.elapsedTime2 = Time.time + goblinScript.attackInterval2Sec;
+                        goblinScript.elapsedTime2 = Time.time + goblinScript.GetAttackInterval2();
                     }
                     else
                     {
@@ -206,9 +207,9 @@ public class NPCVitalityHandler : MonoBehaviour
         this.gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY;
         
         if(this.gameObject.tag == "Enemy-FlyingEye"){
-            this.gameObject.GetComponent<NPC_Enemy_FlyingEyeBehavior>().cooldown.SetActive(false);
+            this.gameObject.GetComponent<NPC_Enemy_FlyingEyeBehavior>().cooldown.gameObject.SetActive(false);
         }else if (this.gameObject.tag == "Enemy-Goblin"){
-            this.gameObject.GetComponent<NPC_Enemy_GoblinBehavior>().cooldown.SetActive(false);
+            this.gameObject.GetComponent<NPC_Enemy_GoblinBehavior>().cooldown.gameObject.SetActive(false);
         }
 
         if(this.gameObject.tag == "Enemy-FlyingEye"){

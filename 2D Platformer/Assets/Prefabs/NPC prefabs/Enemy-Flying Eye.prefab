@@ -233,6 +233,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 0
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -399,6 +400,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 1
 --- !u!114 &6712752643616536860
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -615,24 +617,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d573f1ec454cb604eb7d79e75062151f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 6712752643778970341}
-  player: {fileID: 0}
-  runSpeed: 2.5
-  attackZone: {fileID: 6712752643521039538}
-  attackBox: {x: 1.3, y: 1}
-  attackZone2: {fileID: 6712752644388357075}
-  attackBox2: {x: 6, y: 6}
-  damageZone2: {fileID: 6712752644659318200}
-  damageRadius: 0.8
-  PlayerLayer:
-    serializedVersion: 2
-    m_Bits: 1024
-  attackIntervalSec: 2
-  attackInterval2Sec: 4
-  elapsedTime2: 0
-  attackDamage: 10
-  attackDamage2: 13
-  cooldown: {fileID: 6712752643597665743}
+  enemyData: {fileID: 11400000, guid: b8abdc19883d0e64887663f7f84a2a56, type: 2}
+  attackPatternList:
+  - attackZone: {fileID: 6712752643521039538}
+    attackBox: {x: 1.3, y: 1}
+    attackRadius: 0
+    playerCollider: {fileID: 0}
+    attackIntervalSec: 2
+    attackDamage: 10
+  - attackZone: {fileID: 6712752644388357075}
+    attackBox: {x: 6, y: 6}
+    attackRadius: 0
+    playerCollider: {fileID: 0}
+    attackIntervalSec: 0
+    attackDamage: 0
+  - attackZone: {fileID: 6712752644659318200}
+    attackBox: {x: 0, y: 0}
+    attackRadius: 0.8
+    playerCollider: {fileID: 0}
+    attackIntervalSec: 4
+    attackDamage: 13
+  cooldown: {fileID: 3025834427707183507}
 --- !u!50 &6712752643778970338
 Rigidbody2D:
   serializedVersion: 4
@@ -722,6 +727,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   popUpText: {fileID: 5374052816094725060, guid: b04b858acdabd4f40bebac8556359c71, type: 3}
+  spawnPos: {fileID: 0}
 --- !u!1 &6712752643908207800
 GameObject:
   m_ObjectHideFlags: 0
@@ -986,6 +992,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 0
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}

@@ -31,16 +31,16 @@ public class CooldownBar_NPC : MonoBehaviour
 
         switch(parentMob){
             case OwningNPC.flyingEye:
-                SetMaxCooldown(EyeScript.attackInterval2Sec);
-                curr = EyeScript.attackInterval2Sec;
+                SetMaxCooldown(EyeScript.GetAttackInterval2());
+                curr = EyeScript.GetAttackInterval2();
                 break;
             case OwningNPC.boss:
                 SetMaxCooldown(bossScript.avoidCooldown);
                 curr = bossScript.avoidCooldown;
                 break;
             case OwningNPC.goblin:
-                SetMaxCooldown(goblinScript.attackInterval2Sec);
-                curr = goblinScript.attackInterval2Sec;
+                SetMaxCooldown(goblinScript.GetAttackInterval2());
+                curr = goblinScript.GetAttackInterval2();
                 break;
         }
     }
@@ -73,12 +73,11 @@ public class CooldownBar_NPC : MonoBehaviour
     }
 
 
-    IEnumerator CountToFull(){
-
-
+    IEnumerator CountToFull()
+    {
         switch(parentMob){
             case OwningNPC.flyingEye:
-                for (float i = 0; i < EyeScript.attackInterval2Sec*10; i++)
+                for (float i = 0; i < EyeScript.GetAttackInterval2()*10; i++)
                 {
                     SetCoolDown(curr+=.1f);
                     yield return new WaitForSeconds(.1f);
@@ -92,16 +91,13 @@ public class CooldownBar_NPC : MonoBehaviour
                 }
                 break;
             case OwningNPC.goblin:
-                for (float i = 0; i < goblinScript.attackInterval2Sec*10; i++)
+                for (float i = 0; i < goblinScript.GetAttackInterval2()*10; i++)
                 {
                     SetCoolDown(curr+=.1f);
                     yield return new WaitForSeconds(.1f);
                 }
                 break;
         }
-
-
-        
     }
 
     public void Flip(){

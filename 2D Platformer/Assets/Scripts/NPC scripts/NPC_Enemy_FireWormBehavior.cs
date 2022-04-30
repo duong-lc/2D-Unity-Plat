@@ -5,75 +5,31 @@ using System.Threading.Tasks;
 
 public class NPC_Enemy_FireWormBehavior : NPC_Enemy_Base
 {
-    private Rigidbody2D rb;
-    public Animator animator;
-
-    public Transform player;
-	private bool isFlipped = true;
-    public float runSpeed;//0.6
-    //private bool isStagger = false;
-
-    public Transform attackZone;
-    public Vector2 attackBox;
-    public LayerMask PlayerLayer;
-    private Collider2D playerCollider;
-
-    //Attack speed
-    public float attackIntervalSec;
-    private float elapsedTime = 0;
-    private float attackDamage = 25;
-
-    private PlayerBehavior playerBehaviorScript;
-    private Player_KatanaBehavior player_KatanaBehaviorScript;
-    private Player_ArcherBehavior player_ArcherBehaviorScript;
-
-    public GameObject fireBallPrefab;
-    private GameObject fireBall;
-    public Transform shootingPoint;
-    public int fireBallSpeed;
-    public float fireBallDamage;
-
-    // private bool isDead;
-    // private bool isFrozen;
-    private bool keepMoving = false;
+    [SerializeField] private GameObject fireBallPrefab;
+    [SerializeField] private Transform shootingPoint;
+    [SerializeField] private int fireBallSpeed;//10
+    
+    private bool _keepMoving = false;
     // Start is called before the first frame update
-    void Awake()
+    private void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
-        playerBehaviorScript = GameObject.Find("Player").GetComponent<PlayerBehavior>();
-
-        fireBallPrefab.GetComponent<FireBall>().attackDamage = fireBallDamage;
-
-        rb = this.gameObject.GetComponent<Rigidbody2D>();
-        rb.freezeRotation = true;//freezing rotation
-
-        // currentHealth = maxHealth;
-        // healthBar.SetMaxHealth(maxHealth);
+        fireBallPrefab.GetComponent<FireBall>().attackDamage = attackPatternList[0].attackDamage;
     }
-
-    // Update is called once per frame
+    
     void Update()
     {
-        playerCollider = Physics2D.OverlapBox(attackZone.position, attackBox, 0f, PlayerLayer);
-
-        if (this.gameObject.GetComponent<NPCVitalityHandler>().isStagger == false && this.gameObject.GetComponent<NPCVitalityHandler>().isFrozen == false && this.gameObject.GetComponent<NPCVitalityHandler>().isDead == false)
-        {
-            LookAtPlayer();
-            FollowAndAttackPlayer();
-        }
-
-        // if (isFrozen ==true){
-        //     this.gameObject.GetComponent<SpriteRenderer>().color = Color.cyan;
-        // }
+        BasicBehaviorUpdate();
     }
 
     public void Attack()
     {
-        fireBall = Instantiate(fireBallPrefab, shootingPoint.position, Quaternion.identity);
+        var fireBall = Instantiate(fireBallPrefab, shootingPoint.position, Quaternion.identity);
 
-        if(isFlipped == true){
+        if(IsFlipped){
             fireBall.GetComponent<Rigidbody2D>().velocity = transform.TransformDirection(Vector2.right * fireBallSpeed);
-        }else if (isFlipped == false){
+        }
+        else
+        {
             fireBall.GetComponent<Rigidbody2D>().velocity = transform.TransformDirection(Vector2.left * -fireBallSpeed);
             fireBall.GetComponent<SpriteRenderer>().flipX = true;
         }
@@ -81,62 +37,45 @@ public class NPC_Enemy_FireWormBehavior : NPC_Enemy_Base
 
     void AttackPlayerAnim()
     {
-        if (playerCollider != null)
+        if (attackPatternList[0].playerCollider)
         {
-            keepMoving = false;
-            animator.SetTrigger("Attack");
+            _keepMoving = false;
+            Animator.SetTrigger("Attack");
         }
-        else if (playerCollider == null)
+        else
         {
-            keepMoving = true;
+            _keepMoving = true;
         }
     }
 
-    void FollowAndAttackPlayer()
+    protected override void FollowAndAttackPlayer()
     {
-        if (Vector2.Distance(transform.position, player.position) >= attackBox.x || keepMoving == true)//Keep closing in until player in attack zone
+        var attackBox = attackPatternList[0].attackBox;
+        var distToPlayer = Vector2.Distance(transform.position, PlayerTransform.position);
+        var attackIntervalSec = attackPatternList[0].attackIntervalSec;
+        
+        if (distToPlayer >= attackBox.x || _keepMoving == true)//Keep closing in until player in attack zone
         {
-            transform.position += transform.right * runSpeed * Time.deltaTime;
-            animator.SetBool("isWalking", true);
+            transform.position += transform.right * (enemyData.runSpeed * Time.deltaTime);
+            Animator.SetBool("isWalking", true);
         }
-        if (Vector2.Distance(transform.position, player.position) < attackBox.x)//if player is in, attack animation
+        if (distToPlayer < attackBox.x)//if player is in, attack animation
         {
-            if(Time.time > elapsedTime)
+            if(Time.time > ElapsedTime)
             {
                 AttackPlayerAnim();
-                elapsedTime = Time.time + attackIntervalSec;
+                ElapsedTime = Time.time + attackIntervalSec;
             }
             
-            animator.SetBool("isWalking", false);
+            Animator.SetBool("isWalking", false);
         }
         
     }
 
-    void LookAtPlayer()
-	{
-		Vector3 flipped = transform.localScale;
-		flipped.z *= -1f;
-
-		if (transform.position.x > player.position.x && isFlipped)
-		{
-			transform.localScale = flipped;
-			transform.Rotate(0f, 180f, 0f);
-			isFlipped = !isFlipped;
-            this.gameObject.GetComponent<NPCVitalityHandler>().healthBar.Flip();
-		}
-		else if (transform.position.x < player.position.x && !isFlipped)
-		{
-			transform.localScale = flipped;
-			transform.Rotate(0f, 180f, 0f);
-			isFlipped = !isFlipped;
-            this.gameObject.GetComponent<NPCVitalityHandler>().healthBar.Flip();
-		}
-	}
-
-  
-
     void OnDrawGizmosSelected()
-    {    
+    {
+        var attackZone = attackPatternList[0].attackZone;
+        var attackBox = attackPatternList[0].attackBox;
         if (attackZone == null)
         {
             return;

@@ -576,12 +576,11 @@ MonoBehaviour:
   attackPatternList:
   - attackZone: {fileID: 1331267505401204915}
     attackBox: {x: 2, y: 2}
+    attackRadius: 0
     playerCollider: {fileID: 0}
-    attackIntervalSec: 1
-    elapsedTime: 0
+    attackIntervalSec: 2
     attackDamage: 12
-  attackIntervalSec: 1
-  attackDamage: 12
+  RunSpeed: 1
 --- !u!114 &-6652095592961566104
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1118,7 +1118,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 127532757}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 39, y: -1.98, z: -10}
+  m_LocalPosition: {x: -9.15, y: -1.98, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 525652246}
@@ -2053,7 +2053,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 252248578}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 39, y: -1.98, z: -10}
+  m_LocalPosition: {x: -9.15, y: -1.98, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1357400760}
@@ -60257,6 +60257,14 @@ PrefabInstance:
       propertyPath: _varientData
       value: 
       objectReference: {fileID: 11400000, guid: 6f5c9561fea25d64b993b25107a7c077, type: 2}
+    - target: {fileID: 4416636495718794946, guid: b13bd7511b46aee47b31e6bc9a1a8982, type: 3}
+      propertyPath: attackDamage2
+      value: 22
+      objectReference: {fileID: 0}
+    - target: {fileID: 4416636495718794946, guid: b13bd7511b46aee47b31e6bc9a1a8982, type: 3}
+      propertyPath: attackDamage3
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 4416636495768148767, guid: b13bd7511b46aee47b31e6bc9a1a8982, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -60287,7 +60295,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4416636496119890861, guid: b13bd7511b46aee47b31e6bc9a1a8982, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 39
+      value: -9.15
       objectReference: {fileID: 0}
     - target: {fileID: 4416636496119890861, guid: b13bd7511b46aee47b31e6bc9a1a8982, type: 3}
       propertyPath: m_LocalPosition.y
@@ -60447,12 +60455,28 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6117570517433788903, guid: 61e037f5a9322ab4ca67f00503491a75, type: 3}
+      propertyPath: slimeNum
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6117570517433788903, guid: 61e037f5a9322ab4ca67f00503491a75, type: 3}
       propertyPath: goblinNum
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6117570517433788903, guid: 61e037f5a9322ab4ca67f00503491a75, type: 3}
+      propertyPath: fireWormNum
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6117570517433788903, guid: 61e037f5a9322ab4ca67f00503491a75, type: 3}
+      propertyPath: mushroomNum
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6117570517433788903, guid: 61e037f5a9322ab4ca67f00503491a75, type: 3}
+      propertyPath: skeletonNum
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6117570517433788903, guid: 61e037f5a9322ab4ca67f00503491a75, type: 3}
       propertyPath: flyingEyeNum
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6117570517433788906, guid: 61e037f5a9322ab4ca67f00503491a75, type: 3}
       propertyPath: m_Name
