@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.Threading.Tasks;
-public class BossScript : MonoBehaviour
+public class BossScript : NPC_Enemy_Base
 {
 	[Serializable]
 	public enum avoidState{
@@ -69,8 +69,7 @@ public class BossScript : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-		time = Time.time;
+	{ 
 		//UpdateCurrentAttackState();
 
 		groundCollider = Physics2D.OverlapCircle(transformGround.position, radiusGroundCheck, groundLayer);
@@ -115,7 +114,7 @@ public class BossScript : MonoBehaviour
         && this.gameObject.GetComponent<NPCVitalityHandler>().isDead == false){
 			LookAtPlayer();
 			if(isRage)
-				FollowAndAttackPlayer(runSpeed*2f);
+				FollowAndAttackPlayer(runSpeed*1.8f);
 			else
 				FollowAndAttackPlayer(runSpeed);
 
