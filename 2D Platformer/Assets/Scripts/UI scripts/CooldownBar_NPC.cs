@@ -35,8 +35,8 @@ public class CooldownBar_NPC : MonoBehaviour
                 curr = EyeScript.GetAttackInterval2();
                 break;
             case OwningNPC.boss:
-                SetMaxCooldown(bossScript.avoidCooldown);
-                curr = bossScript.avoidCooldown;
+                // SetMaxCooldown(bossScript.avoidCooldown);
+                // curr = bossScript.avoidCooldown;
                 break;
             case OwningNPC.goblin:
                 SetMaxCooldown(goblinScript.GetAttackInterval2());
@@ -84,11 +84,11 @@ public class CooldownBar_NPC : MonoBehaviour
                 }
                 break;
             case OwningNPC.boss:
-                for (float i = 0; i < bossScript.avoidCooldown*10; i++)
-                {
-                    SetCoolDown(curr+=.1f);
-                    yield return new WaitForSeconds(.1f);
-                }
+                // for (float i = 0; i < bossScript.avoidCooldown*10; i++)
+                // {
+                //     SetCoolDown(curr+=.1f);
+                //     yield return new WaitForSeconds(.1f);
+                // }
                 break;
             case OwningNPC.goblin:
                 for (float i = 0; i < goblinScript.GetAttackInterval2()*10; i++)

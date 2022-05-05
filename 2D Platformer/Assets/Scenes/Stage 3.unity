@@ -283,10 +283,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f97a275b422af8d4cb4161286b17934d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyData: {fileID: 0}
-  attackPatternList: []
+  enemyData: {fileID: 11400000, guid: 758e9b5b2c7c5be4faf8139c1f1219f6, type: 2}
+  attackPatternList:
+  - attackZone: {fileID: 868038641}
+    attackBox: {x: 2, y: 1}
+    attackRadius: 0
+    playerCollider: {fileID: 0}
+    attackIntervalSec: 0
+    attackDamage: 10
+  - attackZone: {fileID: 918810600}
+    attackBox: {x: 2, y: 2}
+    attackRadius: 0
+    playerCollider: {fileID: 0}
+    attackIntervalSec: 0
+    attackDamage: 5
+  - attackZone: {fileID: 1854455619}
+    attackBox: {x: 5, y: 2}
+    attackRadius: 0
+    playerCollider: {fileID: 0}
+    attackIntervalSec: 0
+    attackDamage: 22
+  - attackZone: {fileID: 181223960}
+    attackBox: {x: 3.5, y: 3}
+    attackRadius: 0
+    playerCollider: {fileID: 0}
+    attackIntervalSec: 0
+    attackDamage: 13
   cooldown: {fileID: 0}
-  runSpeed: 4.5
   currentTarget: {fileID: 1005286334}
   jumpForce: 9
   transformGround: {fileID: 1576285970}
@@ -295,28 +318,13 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   avoidAnchor: {fileID: 2027293126}
-  attackZone: {fileID: 868038641}
-  attackZone2: {fileID: 918810600}
-  attackZone3: {fileID: 1854455619}
-  attackZoneSpecial: {fileID: 181223960}
   dodgingDetection: {x: 3.5, y: 0}
-  attackBox: {x: 2, y: 1}
-  attackBox2: {x: 2, y: 2}
-  attackBox3: {x: 5, y: 2}
-  attackBoxSpecial: {x: 3.5, y: 3}
-  PlayerLayer:
-    serializedVersion: 2
-    m_Bits: 1024
   attackState: 0
-  playerPos: {fileID: 1005286334}
-  avoidCooldown: 2
-  avoidCooldownElapsedTime: 0
   attackIntervalSec: 3
   damage1: 10
   damage2: 5
   damage3: 22
   damageSpecial: 13
-  cooldown: {fileID: 1941647348}
   dodgeState: 1
   bossStats: {fileID: 53204711}
   rageCounter: 0
@@ -324,7 +332,6 @@ MonoBehaviour:
   rageDurationSec: 10
   isRage: 0
   rageModeElapsedTime: 0
-  time: 0
   PortalSpawner: {fileID: 876015278}
 --- !u!114 &39005341
 MonoBehaviour:
@@ -4517,6 +4524,14 @@ PrefabInstance:
     - target: {fileID: 4416636495848381641, guid: b13bd7511b46aee47b31e6bc9a1a8982, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4416636496119890857, guid: b13bd7511b46aee47b31e6bc9a1a8982, type: 3}
+      propertyPath: amountHeals
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4416636496119890860, guid: b13bd7511b46aee47b31e6bc9a1a8982, type: 3}
+      propertyPath: canMove
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4416636496119890861, guid: b13bd7511b46aee47b31e6bc9a1a8982, type: 3}
       propertyPath: m_RootOrder

@@ -6,7 +6,7 @@ public class PlatforrmCheckerScript : MonoBehaviour
 {
     [Serializable]
     public enum surfaceContact{
-        L_Plat, R_Plat, Ground
+        LPlat, RPlat, Ground
     }
     [Serializable]
     public struct jumpPointHitCollider{
@@ -36,13 +36,13 @@ public class PlatforrmCheckerScript : MonoBehaviour
         if(playerSurface != bossSurface){
             switch (playerSurface){
                 case surfaceContact.Ground:
-                    if(bossSurface == surfaceContact.R_Plat || bossSurface == surfaceContact.L_Plat){
+                    if(bossSurface == surfaceContact.RPlat || bossSurface == surfaceContact.LPlat){
                         int index = GetClosestGroundJumpPointConditional(0);
                         boss.currentTarget = jumpPointArray[index].jumpPointTransform;
                         
                     }
                     break;
-                case surfaceContact.L_Plat:
+                case surfaceContact.LPlat:
                     if(bossSurface == surfaceContact.Ground){
                         int index = GetClosestGroundJumpPointConditional(-1);
                         boss.currentTarget = jumpPointArray[index].jumpPointTransform;
@@ -53,7 +53,7 @@ public class PlatforrmCheckerScript : MonoBehaviour
                         }
                     }
                     break;
-                case surfaceContact.R_Plat:
+                case surfaceContact.RPlat:
                     if(bossSurface == surfaceContact.Ground){
                         int index = GetClosestGroundJumpPointConditional(1);
                         boss.currentTarget = jumpPointArray[index].jumpPointTransform;
@@ -142,10 +142,10 @@ public class PlatforrmCheckerScript : MonoBehaviour
 
     private surfaceContact GetCurrentSurfaceContact(Collider2D other){
         if(other.IsTouching(platformLeft)){
-            return surfaceContact.L_Plat;
+            return surfaceContact.LPlat;
         }
         else if (other.IsTouching(platformRight)){
-            return surfaceContact.R_Plat;
+            return surfaceContact.RPlat;
         }
         else{
             return surfaceContact.Ground;

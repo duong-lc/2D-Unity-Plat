@@ -29,7 +29,7 @@ public class NPC_Enemy_Base : MonoBehaviour//, IEnemyBehavior
         Rb2D.freezeRotation = true;//freezing rotation
     }
     
-    protected void BasicBehaviorUpdate()
+    protected virtual void BasicBehaviorUpdate()
     {
         GenerateAttackZone();
        

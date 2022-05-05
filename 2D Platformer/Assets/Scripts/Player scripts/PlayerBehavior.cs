@@ -16,6 +16,7 @@ public class PlayerBehavior : MonoBehaviour
     public float moveInput;
 
     //Vars for checking ground contact and Jumping Mechanic
+    public bool canMove = true;
     public bool isGrounded;
     public Transform groundCheck; //transform of gameobject attached to the foot of player sprite to see if it has came in contact with the ground or not
     public float checkRadius; //check radius for that gameobject
@@ -91,11 +92,17 @@ public class PlayerBehavior : MonoBehaviour
         //setting isGrounded to whether the overlap circle has overlapped with layer "ground"
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, GroundLayer);
 
-        if(!isShootingArrow || !isInDeathAnim){
-            moveInput = Input.GetAxis("Horizontal");
-            PlayerJumping();
-        }else if(isShootingArrow)
-            moveInput = 0;
+        if (canMove)
+        {
+            if(!isShootingArrow || !isInDeathAnim){
+                moveInput = Input.GetAxis("Horizontal");
+                PlayerJumping();
+            }else if (isShootingArrow)
+                moveInput = 0;
+        }
+        
+          
+
         
         
         PlayerRunning();
@@ -379,5 +386,10 @@ public class PlayerBehavior : MonoBehaviour
     private bool IsPlayerAlive()
     {
         return isArcherAlive != false || isKatanaAlive != false || isHeavyAlive != false || isMageAlive != false;
-    }   
+    }
+
+    public void HaltMoveInput()
+    {
+        moveInput = 0;
+    }
 }
