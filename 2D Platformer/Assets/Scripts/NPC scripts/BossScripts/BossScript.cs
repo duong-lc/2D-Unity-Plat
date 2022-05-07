@@ -47,7 +47,7 @@ public class BossScript : NPC_Enemy_Base
 	//public float avoidCooldownElapsedTime;
 	//attack speed and damage
     public float attackIntervalSec;//3
-    private float elapsedTime = 0;
+    //private float elapsedTime = 0;
     //damage1 - 10
     //damage2 - 5
     //damage3 - 22
@@ -66,7 +66,8 @@ public class BossScript : NPC_Enemy_Base
 	public float rageModeElapsedTime = 0;
 
 	//public float time;
-	private bool hasReleased, isPlayerLocked = false;
+	//private bool hasReleased;
+	private bool isPlayerLocked = false;
 	public GameObject PortalSpawner;
     // Start is called before the first frame update
     void Start()
@@ -78,22 +79,10 @@ public class BossScript : NPC_Enemy_Base
 
     // Update is called once per frame
     void Update()
-	{ 
-		//UpdateCurrentAttackState();
-
+	{
+		print($"{isRage}");
 		CheckIsGrounded();
-
-		// if(attackState == currentAttackState.attack1)
-		// 	hitCollider = Physics2D.OverlapBox(attackZone.position, attackBox, 0f, PlayerLayer);
-		// else if (attackState == currentAttackState.attack2)
-		// 	hitCollider2 = Physics2D.OverlapBox(attackZone2.position, attackBox2, 0f, PlayerLayer);
-		// else if (attackState == currentAttackState.attack3)
-		// 	hitCollider3 = Physics2D.OverlapBox(attackZone3.position, attackBox3, 0f, PlayerLayer);
-		//
-		// if(isRage)
-		// 	hitColliderSpecial = Physics2D.OverlapBox(attackZoneSpecial.position, attackBoxSpecial, 0f, PlayerLayer);
 		
-
 		if(rageCounter >= maxRageCounter){
 			rageModeElapsedTime = rageDurationSec + Time.time;
 			rageCounter = 0;
@@ -108,26 +97,12 @@ public class BossScript : NPC_Enemy_Base
 		else
 		{
 			isRage = false;
-			if(hasReleased == true)
-				hasReleased = false;
+			// if(hasReleased == true)
+			// 	hasReleased = false;
 			if(isPlayerLocked == true)
 				ReleasePosition();
 		}
 		
-
-		// if (this.gameObject.GetComponent<NPCVitalityHandler>().isStagger == false 
-  //       && this.gameObject.GetComponent<NPCVitalityHandler>().isFrozen == false 
-  //       && this.gameObject.GetComponent<NPCVitalityHandler>().isDead == false){
-		// 	LookAtPlayer();
-		// 	if(isRage)
-		// 		FollowAndAttackPlayer(runSpeed*1.5f);
-		// 	else
-		// 		FollowAndAttackPlayer(runSpeed);
-  //
-		// 	
-		// 	CheckJumpAnimation();
-		// }	
-		//if(Input.GetKeyDown(KeyCode.N))
 		BasicBehaviorUpdate();
 	}
 
@@ -158,7 +133,7 @@ public class BossScript : NPC_Enemy_Base
 	private void UpdateCurrentAttackState(){
 		//Debug.Log("curr:" + currentHealth + "max: " + maxHealth);
 
-		if(isRage && hasReleased == false)
+		if(isRage /*&& hasReleased == false*/)
 		{
 			attackState = currentAttackState.attackSpecial;
 		}
@@ -183,7 +158,7 @@ public class BossScript : NPC_Enemy_Base
 	}
 
 	private void CheckJumpAnimation(){
-		if (this.gameObject.GetComponent<NPCVitalityHandler>().isStagger == false){
+		if (VitalityHandler.isStagger == false){
 			//Debug.Log(isGrounded);
             //Check vertical velocity to play falling animation
             if (Rb2D.velocity.y > 0 && _isGrounded == false){
@@ -198,7 +173,7 @@ public class BossScript : NPC_Enemy_Base
 			}
 
         }
-        else if (this.gameObject.GetComponent<NPCVitalityHandler>().isStagger == true){
+        else if (VitalityHandler.isStagger){
 			Animator.SetBool("isFalling", false);
 			Animator.SetBool("isJumping", false);
         }
@@ -208,45 +183,22 @@ public class BossScript : NPC_Enemy_Base
 		if(gameObject.GetComponent<NPCVitalityHandler>().isFrozen == false)
 			gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.up * jumpForce;  
 	}
-
- //    void LookAtPlayer()
-	// {
-	// 	Vector3 flipped = transform.localScale;
-	// 	flipped.z *= -1f;
- //
-	// 	if (transform.position.x > playerPos.position.x && isFlipped || Mathf.Abs(transform.position.x - playerPos.position.x) <= 0.1)
-	// 	{
-	// 		transform.localScale = flipped;
-	// 		transform.Rotate(0f, 180f, 0f);
-	// 		isFlipped = !isFlipped;
- //            this.gameObject.GetComponent<NPCVitalityHandler>().healthBar.Flip();
-	// 		cooldown.GetComponent<CooldownBar_NPC>().Flip();
-	// 	}
-	// 	else if (transform.position.x < playerPos.position.x && !isFlipped)
-	// 	{
-	// 		transform.localScale = flipped;
-	// 		transform.Rotate(0f, 180f, 0f);
-	// 		isFlipped = !isFlipped;
- //            this.gameObject.GetComponent<NPCVitalityHandler>().healthBar.Flip();
-	// 		cooldown.GetComponent<CooldownBar_NPC>().Flip();
-	// 	}
-	// }
-
-	private void FollowAndAttackPlayer(float speed){
-
-		if(Vector2.Distance(transform.position, PlayerTransform.position) < attackPatternList[0].attackBox.x){
-			
-			if(Time.time > elapsedTime)
+	
+	private void FollowAndAttackPlayer(float speed)
+	{
+		var distToPlayer = Vector2.Distance(transform.position, PlayerTransform.position);
+		if(distToPlayer < attackPatternList[0].attackBox.x)
+		{
+			if(Time.time > ElapsedTime)
             {
                 AttackPlayerAnim();
-                elapsedTime = Time.time + attackIntervalSec;
+                ElapsedTime = Time.time + attackIntervalSec;
             }
-			
 			
 			Animator.SetBool("isWalking", false);
 			dodgeState = avoidState.block;
 		}
-		else if (Vector2.Distance(transform.position, currentTarget.position) >= 0.5)//Keep closing in until player in attack zone
+		else if (distToPlayer >= 0.5)//Keep closing in until player in attack zone
         {
             transform.position += transform.right * speed * Time.deltaTime;
             Animator.SetBool("isWalking", true);
@@ -275,9 +227,10 @@ public class BossScript : NPC_Enemy_Base
 				}
 				break;
 			case currentAttackState.attackSpecial:
-				if(attackPatternList[3].playerCollider != null && hasReleased ==false){
-					//Debug.Log("isRage = " + isRage);
+				if(attackPatternList[3].playerCollider != null /*&& hasReleased ==false*/)
+				{
 					Animator.SetTrigger("AttackSpecial");
+					//rageCounter = 0;
 				}
 				break;
 		}
@@ -314,18 +267,20 @@ public class BossScript : NPC_Enemy_Base
 	//Locking player's position when performing special attack, called as event in animation
 	public void LockPosition(){
 		isPlayerLocked = true;
-		PlayerBehaviorScript.canMove = false;
-		PlayerBehaviorScript.HaltMoveInput();
+		//PlayerBehaviorScript.canMove = false;
+		//PlayerBehaviorScript.HaltMoveInput();
+		//PlayerBehaviorScript.RigidFreezeAll();
 
 	}
 
 	public void ReleasePosition(){
+		//PlayerBehaviorScript.Unfreeze();
 		isPlayerLocked = false;
-		PlayerBehaviorScript.canMove = true;
+		//PlayerBehaviorScript.canMove = true;
 		rageModeElapsedTime = Time.time;
-		UpdateCurrentAttackState();
-		hasReleased = true;
 		isRage = false;
+		UpdateCurrentAttackState();
+		//hasReleased = true;
 		Debug.Log("Released");
 	}
 

@@ -304,7 +304,7 @@ MonoBehaviour:
     attackIntervalSec: 0
     attackDamage: 22
   - attackZone: {fileID: 181223960}
-    attackBox: {x: 3.5, y: 3}
+    attackBox: {x: 3.5, y: 2.3}
     attackRadius: 0
     playerCollider: {fileID: 0}
     attackIntervalSec: 0

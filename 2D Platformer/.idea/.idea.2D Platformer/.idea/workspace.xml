@@ -35,6 +35,7 @@
     <property name="Discover.Launch.Via.Unity" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="rider.run.widget.enabled.cache" value="false" />
+    <property name="settings.editor.selected.configurable" value="io.unthrottled.amii.config.ui.PluginSettingsUI" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
@@ -89,6 +90,7 @@
       <workItem from="1651240338692" duration="6848000" />
       <workItem from="1651296727883" duration="22699000" />
       <workItem from="1651728209129" duration="7869000" />
+      <workItem from="1651915798881" duration="4713000" />
     </task>
     <servers />
   </component>

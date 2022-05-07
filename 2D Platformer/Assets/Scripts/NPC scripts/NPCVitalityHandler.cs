@@ -33,7 +33,7 @@ public class NPCVitalityHandler : MonoBehaviour
 
     void Update(){ 
         if (isFrozen){
-            this.gameObject.GetComponent<SpriteRenderer>().color = Color.cyan;
+            SpriteRenderer.color = Color.cyan;
         }
         
         if(gameObject.CompareTag("Enemy-Boss"))
@@ -61,8 +61,7 @@ public class NPCVitalityHandler : MonoBehaviour
         {
             var isEnemySpecial = gameObject.CompareTag("Enemy-Goblin") || gameObject.CompareTag("Enemy-Skeleton")||
                                  gameObject.CompareTag("Enemy-Boss");
-            // if (!gameObject.CompareTag("Enemy-Goblin") && !gameObject.CompareTag("Enemy-Skeleton") &&
-            //     !gameObject.CompareTag("Enemy-Boss"))
+            
             if(!isEnemySpecial)
             {
                 //print($"damaging non special");
@@ -107,7 +106,6 @@ public class NPCVitalityHandler : MonoBehaviour
             }
             else if (gameObject.CompareTag("Enemy-Boss"))//else if (gameobject.tag == boss)
             {
-                //Debug.Log(canAvoid + " " + Time.time + " " + boss.avoidCooldownElapsedTime);
                 if (canAvoid == false || isFrozen)
                 {
                     DamageInflictLogic(damageTaken, 800, Color.white, false);
@@ -126,7 +124,6 @@ public class NPCVitalityHandler : MonoBehaviour
                 }
             }
         }
-        
         if (currentHealth <= 0)
         {
             healthBar.gameObject.SetActive(false);
@@ -150,26 +147,29 @@ public class NPCVitalityHandler : MonoBehaviour
 
 
             Animator.SetBool("isWalking", false);
-            Animator.SetTrigger("TakeHit");
+
+            var bossObj = GetComponent<BossScript>();
+            if( (bossObj && !bossObj.isRage) || !bossObj)
+                Animator.SetTrigger("TakeHit");
 
             if(isFrozen == false)
             {
-                this.gameObject.GetComponent<SpriteRenderer>().color = Color.red;
-                if(this.gameObject.CompareTag("Enemy-Demon"))
-                    this.gameObject.GetComponent<NPC_Enemy_DemonBehavior>().isRedTint = true;
+                SpriteRenderer.color = Color.red;
+                if(gameObject.CompareTag("Enemy-Demon"))
+                    GetComponent<NPC_Enemy_DemonBehavior>().isRedTint = true;
                 await Task.Delay(300);
                 this.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
-                if(this.gameObject.tag == "Enemy-Demon")
-                    this.gameObject.GetComponent<NPC_Enemy_DemonBehavior>().isRedTint = false;
+                if(gameObject.CompareTag("Enemy-Demon"))
+                    GetComponent<NPC_Enemy_DemonBehavior>().isRedTint = false;
 
                 SpawnDamageText(damageTaken.ToString(), damageColor, 0.7f);
             }
             
             else if (isFrozen == true)
             {
-                this.gameObject.GetComponent<SpriteRenderer>().color = Color.cyan;
-                if(this.gameObject.tag == "Enemy-Demon")
-                    this.gameObject.GetComponent<NPC_Enemy_DemonBehavior>().isCyanTint = true;
+                SpriteRenderer.color = Color.cyan;
+                if(gameObject.CompareTag("Enemy-Demon"))
+                   GetComponent<NPC_Enemy_DemonBehavior>().isCyanTint = true;
                 
                 if(!isBurnDamage)
                     SpawnDamageText(damageTaken.ToString(), Color.cyan, 0.85f);

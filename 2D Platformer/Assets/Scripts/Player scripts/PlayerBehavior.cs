@@ -392,4 +392,15 @@ public class PlayerBehavior : MonoBehaviour
     {
         moveInput = 0;
     }
+
+    public void RigidFreezeAll()
+    { 
+        playerRB.constraints = RigidbodyConstraints2D.FreezeAll;
+    }
+
+    public void Unfreeze()
+    {
+        playerRB.constraints = RigidbodyConstraints2D.None;
+        playerRB.constraints = RigidbodyConstraints2D.FreezeRotation;
+    }
 }
