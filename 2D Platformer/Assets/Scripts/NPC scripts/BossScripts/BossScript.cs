@@ -187,18 +187,20 @@ public class BossScript : NPC_Enemy_Base
 	private void FollowAndAttackPlayer(float speed)
 	{
 		var distToPlayer = Vector2.Distance(transform.position, PlayerTransform.position);
-		if(distToPlayer < attackPatternList[0].attackBox.x)
-		{
-			if(Time.time > ElapsedTime)
-            {
-                AttackPlayerAnim();
-                ElapsedTime = Time.time + attackIntervalSec;
-            }
-			
-			Animator.SetBool("isWalking", false);
-			dodgeState = avoidState.block;
-		}
-		else if (distToPlayer >= 0.5)//Keep closing in until player in attack zone
+		var distToTarget = Vector2.Distance(transform.position, currentTarget.position);
+		// if(distToPlayer < attackPatternList[0].attackBox.x)
+		// {
+		// 	if(Time.time > ElapsedTime)
+  //           {
+  //               AttackPlayerAnim();
+  //               ElapsedTime = Time.time + attackIntervalSec;
+  //           }
+		// 	
+		// 	Animator.SetBool("isWalking", false);
+		// 	dodgeState = avoidState.block;
+		// }
+		// else 
+		if (distToTarget >= 2)//Keep closing in until player in attack zone
         {
             transform.position += transform.right * speed * Time.deltaTime;
             Animator.SetBool("isWalking", true);
