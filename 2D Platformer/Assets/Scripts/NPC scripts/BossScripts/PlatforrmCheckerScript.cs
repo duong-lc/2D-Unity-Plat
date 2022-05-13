@@ -30,45 +30,7 @@ public class PlatforrmCheckerScript : MonoBehaviour
 
     private void Update()
     {
-        // if(playerSurface != bossSurface){
-        //     switch (playerSurface){
-        //         case surfaceContact.Ground:
-        //             if(bossSurface == surfaceContact.RPlat || bossSurface == surfaceContact.LPlat){
-        //                 int index = GetClosestGroundJumpPointConditional(0);
-        //                 boss.currentTarget = jumpPointArray[index].jumpPointTransform;
-        //                 
-        //             }
-        //             break;
-        //         case surfaceContact.LPlat:
-        //             if(bossSurface == surfaceContact.Ground){
-        //                 int index = GetClosestGroundJumpPointConditional(-1);
-        //                 boss.currentTarget = jumpPointArray[index].jumpPointTransform;
-        //                 if(Vector2.Distance(jumpPointArray[index].jumpPointTransform.position, boss.currentTarget.position) <= 0.001){
-        //                     //Debug.Log("jump");
-        //                     boss.Jump();
-        //                     //boss.currentTarget = playerPosition;
-        //                 }
-        //             }
-        //             break;
-        //         case surfaceContact.RPlat:
-        //             if(bossSurface == surfaceContact.Ground){
-        //                 int index = GetClosestGroundJumpPointConditional(1);
-        //                 boss.currentTarget = jumpPointArray[index].jumpPointTransform;
-        //                 if(Vector2.Distance(jumpPointArray[index].jumpPointTransform.position, boss.currentTarget.position) <= 0.001){
-        //                     //Debug.Log("jump");
-        //                     boss.Jump();
-        //                     //boss.currentTarget = playerPosition;
-        //                 }
-        //             }
-        //             break;
-        //     }  
-        // }
-        // else
-        // {
-        //     boss.currentTarget = playerPosition;
-        // }
         UpdateCurrentTarget();
-        
     }
 
 
@@ -106,6 +68,7 @@ public class PlatforrmCheckerScript : MonoBehaviour
             if (bossSurface != surfaceContact.LPlat)
             {
                 boss.currentTarget = leftJumpPoint.jumpPointTransform;
+                print($"Hellow");
                 UpdateShouldJump();
             }
             else
@@ -125,57 +88,30 @@ public class PlatforrmCheckerScript : MonoBehaviour
                 boss.currentTarget = playerPosition;
             }
         }
+        else if (playerSurface == surfaceContact.Ground)
+        {
+            if (bossSurface == surfaceContact.LPlat)
+            {
+                boss.currentTarget = leftJumpPoint.jumpPointTransform;
+            }
+            else  if (bossSurface == surfaceContact.RPlat)
+            {
+                boss.currentTarget = rightJumpPoint.jumpPointTransform;
+            }
+        }
         else
         {
             boss.currentTarget = playerPosition;
         }
-
-        // int index = -1;
-        // switch(isLeftSided){
-        //     case 0: //this means just loop through all 4 jumpppoints and get the closest whatever
-        //         for(int i = 0; i < jumpPointArray.Length; i++){
-        //             if(index == -1)
-        //                 index = i;
-        //             else if (Vector2.Distance(jumpPointArray[index].jumpPointTransform.position, boss.gameObject.transform.position) >=
-        //                 Vector2.Distance(jumpPointArray[i].jumpPointTransform.position, boss.gameObject.transform.position)){
-        //                 index = i;
-        //             }
-        //         }
-        //         break;
-        //     case 1://the 2 right sided ground jump points
-        //         for(int i = 0; i < jumpPointArray.Length; i++){
-        //             if(jumpPointArray[i].isLeftSided == 1){
-        //                 if(index == -1){
-        //                     index = i;
-        //                 }else if (Vector2.Distance(jumpPointArray[index].jumpPointTransform.position, boss.gameObject.transform.position) >=
-        //                 Vector2.Distance(jumpPointArray[i].jumpPointTransform.position, boss.gameObject.transform.position)){
-        //                     index = i;
-        //                 }
-        //             }
-        //         }
-        //         break;
-        //     case -1://the 2 left sided ground jump points
-        //         for(int i = 0; i < jumpPointArray.Length; i++){
-        //             if(jumpPointArray[i].isLeftSided == -1){
-        //                 if(index == -1){
-        //                     index = i;
-        //                 }else if (Vector2.Distance(jumpPointArray[index].jumpPointTransform.position, boss.gameObject.transform.position) >=
-        //                 Vector2.Distance(jumpPointArray[i].jumpPointTransform.position, boss.gameObject.transform.position)){
-        //                     index = i;
-        //                 }
-        //             }
-        //         }
-        //         break;
-        // }
-        // return index;
-        //return 0;
     }
 
     private void UpdateShouldJump()
     {
-        var distance = Vector2.Distance(boss.currentTarget.position, boss.transform.position);
-        if (distance < 0.01f)//at that position
+        var distance = Mathf.Abs(boss.transform.position.x - boss.currentTarget.position.x);
+        print($"{distance}");
+        if (distance <= 1f)//at that position
         {
+            print($"hellowwwww");
             boss.Jump();
         }
     }

@@ -80,7 +80,7 @@ public class BossScript : NPC_Enemy_Base
     // Update is called once per frame
     void Update()
 	{
-		print($"{isRage}");
+//		print($"{isRage}");
 		CheckIsGrounded();
 		
 		if(rageCounter >= maxRageCounter){
@@ -187,28 +187,51 @@ public class BossScript : NPC_Enemy_Base
 	private void FollowAndAttackPlayer(float speed)
 	{
 		var distToPlayer = Vector2.Distance(transform.position, PlayerTransform.position);
-		var distToTarget = Vector2.Distance(transform.position, currentTarget.position);
-		// if(distToPlayer < attackPatternList[0].attackBox.x)
-		// {
-		// 	if(Time.time > ElapsedTime)
-  //           {
-  //               AttackPlayerAnim();
-  //               ElapsedTime = Time.time + attackIntervalSec;
-  //           }
-		// 	
-		// 	Animator.SetBool("isWalking", false);
-		// 	dodgeState = avoidState.block;
-		// }
-		// else 
-		if (distToTarget >= 2)//Keep closing in until player in attack zone
-        {
-            transform.position += transform.right * speed * Time.deltaTime;
-            Animator.SetBool("isWalking", true);
+		var distToTarget = Mathf.Abs(transform.position.x - currentTarget.position.x);
+		if(distToPlayer < attackPatternList[0].attackBox.x)
+		{
+			if(Time.time > ElapsedTime)
+            {
+                AttackPlayerAnim();
+                ElapsedTime = Time.time + attackIntervalSec;
+            }
+			
+			Animator.SetBool("isWalking", false);
+			dodgeState = avoidState.block;
+		}
+		else if (distToTarget >= 0.5f) //Keep closing in until player in attack zone
+		{
+			transform.position += transform.right * speed * Time.deltaTime;
+			Animator.SetBool("isWalking", true);
 			dodgeState = avoidState.roll;
-        }
-		
+		}
+		//print($"{distToTarget}");
 	}
 
+	protected override void LookAtPlayer()
+	{
+		Vector3 flipped = transform.localScale;
+		flipped.z *= -1f;
+		var currentTargetPosX = currentTarget.position.x;
+		
+		if (transform.position.x > currentTargetPosX && IsFlipped)
+		{
+			transform.localScale = flipped;
+			transform.Rotate(0f, 180f, 0f);
+			IsFlipped = !IsFlipped;
+			VitalityHandler.healthBar.Flip();
+			if(cooldown) cooldown.Flip();//flip cooldown bar if exists
+		}
+		else if (transform.position.x < currentTargetPosX && !IsFlipped)
+		{
+			transform.localScale = flipped;
+			transform.Rotate(0f, 180f, 0f);
+			IsFlipped = !IsFlipped;
+			VitalityHandler.healthBar.Flip();
+			if(cooldown) cooldown.Flip();//flip cooldown bar if exists
+		}
+	}
+	
 	protected override void AttackPlayerAnim(){
 		UpdateCurrentAttackState();
 	
