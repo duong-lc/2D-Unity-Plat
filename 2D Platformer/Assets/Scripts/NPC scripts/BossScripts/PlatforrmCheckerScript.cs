@@ -68,7 +68,6 @@ public class PlatforrmCheckerScript : MonoBehaviour
             if (bossSurface != surfaceContact.LPlat)
             {
                 boss.currentTarget = leftJumpPoint.jumpPointTransform;
-                print($"Hellow");
                 UpdateShouldJump();
             }
             else
@@ -97,6 +96,10 @@ public class PlatforrmCheckerScript : MonoBehaviour
             else  if (bossSurface == surfaceContact.RPlat)
             {
                 boss.currentTarget = rightJumpPoint.jumpPointTransform;
+            }
+            else
+            {
+                boss.currentTarget = playerPosition;
             }
         }
         else

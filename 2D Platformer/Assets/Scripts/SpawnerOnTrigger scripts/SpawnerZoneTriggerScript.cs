@@ -85,7 +85,7 @@ public class SpawnerZoneTriggerScript : MonoBehaviour
     {
         if (callOnce == true)
         {
-            if(other.tag == "Player")
+            if(other.CompareTag("Player"))
             {
                 foreach (enemyTypeNum enemy in enemiesArray)
                 {
@@ -96,9 +96,10 @@ public class SpawnerZoneTriggerScript : MonoBehaviour
                         //i++;
                     }
                 }
+                callOnce = false;
+                Destroy(gameObject);
             }
-            callOnce = false;
-            Destroy(this.gameObject);
+            
         }  
     }
 }

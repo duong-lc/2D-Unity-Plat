@@ -70,6 +70,7 @@ public class PlayerBehavior : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        canMove = true;
         //currentCharacter = 1;
         currentCharacter = CurrentCharacter.Katana;
         
