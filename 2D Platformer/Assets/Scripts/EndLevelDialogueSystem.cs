@@ -51,6 +51,7 @@ public class EndLevelDialogueSystem : MonoBehaviour
             print($"print text typer");
             PrintTextSequence();
             playOnce = false;
+            Destroy(GetComponent<Collider2D>());
         }
     }
 
@@ -59,56 +60,65 @@ public class EndLevelDialogueSystem : MonoBehaviour
 
         try{
             if(count < dialogueArray.Length){
-
+                
+                //Pass in the desired dialogue for current text box
                 switch (dialogueArray[count].character){
                     case characterToTalk.Player:
-                        waitTime = macroFunction(playerDialogueTextTMP, dialogueArray[count].dialogueText);
+                        waitTime = MacroFunction(playerDialogueTextTMP, dialogueArray[count].dialogueText);
                         break;
                     case characterToTalk.Golem:
-                        waitTime = macroFunction(golemDialogueTextTMP, dialogueArray[count].dialogueText);
+                        waitTime = MacroFunction(golemDialogueTextTMP, dialogueArray[count].dialogueText);
                         break;
                     case characterToTalk.Boss:
-                        waitTime = macroFunction(bossDialogueTextTMP, dialogueArray[count].dialogueText);
+                        waitTime = MacroFunction(bossDialogueTextTMP, dialogueArray[count].dialogueText);
                         break;
                 }
-
+                
+                //wait for text box to finish prompting
                 await Task.Delay(waitTime);
 
-
+                //Reset the string in the text box
                 switch (dialogueArray[count].character){
                     case characterToTalk.Player:
-                        macroFunction(playerDialogueTextTMP, "");
+                        MacroFunction(playerDialogueTextTMP, "");
                         break;
                     case characterToTalk.Golem:
-                        macroFunction(golemDialogueTextTMP, "");    
+                        MacroFunction(golemDialogueTextTMP, "");    
                         break;
                     case characterToTalk.Boss:
-                        macroFunction(bossDialogueTextTMP, "");
+                        MacroFunction(bossDialogueTextTMP, "");
                         break;
                 }
+                
+                //Wait for text box to finish loading then load the win screen
+                if(count == dialogueArray.Length - 1)
+                    print($"this is the end, turn on win screen");
             
 
-            count++;
+                count++;
 
-            PrintTextSequence();
+                PrintTextSequence();
             }
         }
         catch(Exception e){
             Debug.Log("exception caught");
         }
         
+        
+        
         // if (count >= dialogueArray.Length)
         //     playOnce = false;
 
     }
 
-    private int macroFunction(TMP_Text characterTMP, string text){
+    private int MacroFunction(TMP_Text characterTMP, string text){
         return TextEntered(text, characterTMP, dialogueArray[count].fullStringTimer, dialogueArray[count].endStringTimer);
     }
 
     private int TextEntered(string text, TMP_Text tmpComponent, float timer, float timerWaitAfterFin){
-        if(this.gameObject.GetComponent<TypeWriterEffect>()){
-            this.gameObject.GetComponent<TypeWriterEffect>().BeginEffect(text, tmpComponent, timer);
+        if(GetComponent<TypeWriterEffect>())
+        {
+            GetComponent<TypeWriterEffect>().BeginEffect(text, tmpComponent, timer);
             return (int)((timer+timerWaitAfterFin)*1000);
         }
         return 0;
