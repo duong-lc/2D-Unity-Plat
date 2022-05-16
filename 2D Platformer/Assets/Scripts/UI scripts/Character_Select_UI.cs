@@ -62,7 +62,8 @@ public class Character_Select_UI : MonoBehaviour
     {
         foreach (Text text in textList)
         {
-            text.color = activateText == text ? Color.green : Color.gray;
+            if(text)
+                text.color = activateText == text ? Color.green : Color.gray;
         }
     }
 }

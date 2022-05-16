@@ -15,16 +15,6 @@ public class IceBall_Player : MonoBehaviour
 
     public float freezePeriod;
 
-    private bool callOnce;
-    private bool callOnce_1;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        callOnce = true;
-        callOnce_1 = true;
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -33,12 +23,16 @@ public class IceBall_Player : MonoBehaviour
 
         foreach (Collider2D col in Collider)
         {
-            if(col != null && col.gameObject.tag != "_TutCollider" && col.gameObject.tag != "PickUp-Heavy" && 
-            col.gameObject.tag != "PickUp-Health" && col.gameObject.tag != "PickUp-Mage"
-            && col.gameObject.tag != "ignoreCol")
+            var canImpact = col != null && !col.gameObject.CompareTag("_TutCollider") &&
+                            !col.gameObject.CompareTag("PickUp-Heavy") &&
+                            !col.gameObject.CompareTag("PickUp-Health") &&
+                            !col.gameObject.CompareTag("PickUp-Mage") &&
+                            !col.gameObject.CompareTag("ignoreCol");
+            
+            if(canImpact)
             {
                 animator.SetTrigger("Impact");
-                this.gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+                GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
             }
         }
     }
@@ -47,36 +41,6 @@ public class IceBall_Player : MonoBehaviour
     {
         foreach(Collider2D enemy in subjectsToBePurgedArray)
         {
-            // if (enemy.tag == "Enemy-FireWorm"){
-            //     enemy.GetComponent<NPC_Enemy_FireWormBehavior>().Take_Spell_Frozen(freezePeriod);
-            //     Destroy(this.gameObject);
-            // }   
-            // else if(enemy.tag == "Enemy-Skeleton"){
-            //     enemy.GetComponent<NPC_EnemyBehavior>().Take_Spell_Frozen(freezePeriod);
-            //     Destroy(this.gameObject);
-            // }
-            // else if(enemy.tag == "Enemy-Goblin"){
-            //     enemy.GetComponent<NPC_Enemy_GoblinBehavior>().Take_Spell_Frozen(freezePeriod);
-            //     Destroy(this.gameObject);
-            // }
-            // else if(enemy.tag == "Enemy-Slime"){
-            //     enemy.GetComponent<NPC_Enemy_SlimeBehavior>().Take_Spell_Frozen(freezePeriod);
-            //     Destroy(this.gameObject);
-            // }
-            // else if (enemy.tag == "Enemy-FlyingEye"){
-            //     enemy.GetComponent<NPC_Enemy_FlyingEyeBehavior>().Take_Spell_Frozen(freezePeriod);
-            //     Destroy(this.gameObject);
-            // }
-            // else if (enemy.gameObject.tag == "Enemy-Mushroom")
-            // {
-            //     enemy.GetComponent<NPC_Enemy_MushroomBehavior>().Take_Spell_Frozen(freezePeriod);
-            //     Destroy(this.gameObject);
-            // }
-            // else if (enemy.gameObject.tag == "Enemy-Demon")
-            // {
-            //     enemy.GetComponent<NPC_Enemy_DemonBehavior>().Take_Spell_Frozen(freezePeriod);
-            //     Destroy(this.gameObject);
-            // }
             if(enemy.gameObject.GetComponent<NPCVitalityHandler>()){
                 enemy.gameObject.GetComponent<NPCVitalityHandler>().Take_Spell_Frozen(freezePeriod);
                 Destroy(this.gameObject);

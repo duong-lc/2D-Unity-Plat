@@ -93,8 +93,9 @@ public class PlayerVitalityHandler : PlayerBaseBehavior
 
         ParentPlayerBehaviorScript.SwitchToAlive();
         ParentPlayerBehaviorScript.isInDeathAnim = false;
-
-        this.enabled = false;
+        
+        if(this.enabled)
+            this.enabled = false;
     }
 
     public void Heals(float amount){

@@ -19,10 +19,10 @@ public class NPC_Enemy_MushroomBehavior : NPC_Enemy_Base
         var playerCol = attackPatternList[0].playerCollider;
         if (playerCol)
         {
-            print($"ahhaha");
+           // print($"ahhaha");
             if (playerCol.gameObject.CompareTag("Player"))
             {
-                print($"ahhaha");
+               // print($"ahhaha");
                 if(_cycleAtkAnim)
                 {
                     Animator.SetTrigger("Attack1");

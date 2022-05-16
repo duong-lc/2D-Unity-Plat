@@ -145,8 +145,8 @@ public class NPCVitalityHandler : MonoBehaviour
                 _boss.bossStats.GetComponent<BossStat>().UpdateRageCounter();
             }
 
-
-            Animator.SetBool("isWalking", false);
+            if(!gameObject.CompareTag("Enemy-Demon"))
+                Animator.SetBool("isWalking", false);
 
             var bossObj = GetComponent<BossScript>();
             if( (bossObj && !bossObj.isRage) || !bossObj)
@@ -165,7 +165,7 @@ public class NPCVitalityHandler : MonoBehaviour
                 SpawnDamageText(damageTaken.ToString(), damageColor, 0.7f);
             }
             
-            else if (isFrozen == true)
+            else if (isFrozen)
             {
                 SpriteRenderer.color = Color.cyan;
                 if(gameObject.CompareTag("Enemy-Demon"))
@@ -204,28 +204,29 @@ public class NPCVitalityHandler : MonoBehaviour
 
     public void Death(){
         isDead = true;
-        this.gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY;
+        GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY;
         
-        if(this.gameObject.tag == "Enemy-FlyingEye"){
-            this.gameObject.GetComponent<NPC_Enemy_FlyingEyeBehavior>().cooldown.gameObject.SetActive(false);
-        }else if (this.gameObject.tag == "Enemy-Goblin"){
-            this.gameObject.GetComponent<NPC_Enemy_GoblinBehavior>().cooldown.gameObject.SetActive(false);
+        if(gameObject.CompareTag("Enemy-FlyingEye")){
+            GetComponent<NPC_Enemy_FlyingEyeBehavior>().cooldown.gameObject.SetActive(false);
+        }else if (gameObject.CompareTag("Enemy-Goblin")){
+            GetComponent<NPC_Enemy_GoblinBehavior>().cooldown.gameObject.SetActive(false);
         }
 
-        if(this.gameObject.tag == "Enemy-FlyingEye"){
-            this.GetComponent<SpriteRenderer>().enabled = false;
+        if(gameObject.CompareTag("Enemy-FlyingEye")){
+            GetComponent<SpriteRenderer>().enabled = false;
             SpawnBloodEffect();
-        }else if (this.gameObject.tag == "Enemy-Demon"){
-            this.GetComponent<SpriteRenderer>().enabled = false;
-            this.gameObject.GetComponent<NPC_Enemy_DemonBehavior>().enabled = false;
+        }else if (gameObject.CompareTag("Enemy-Demon")){
+            GetComponent<SpriteRenderer>().enabled = false;
+            GetComponent<NPC_Enemy_DemonBehavior>().enabled = false;
             SpawnBloodEffect();
             SpawnChunkEffect();
         }
         
-        Animator.SetBool("isWalking", false);
+        if(!gameObject.CompareTag("Enemy-Demon"))
+            Animator.SetBool("isWalking", false);
         Animator.SetBool("isDead", true);
 
-        this.gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY;
+        GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY;
         GetComponent<Collider2D>().enabled = false;
         
         isStagger = true;
@@ -233,26 +234,26 @@ public class NPCVitalityHandler : MonoBehaviour
     }
 
     private void SpawnBloodEffect(){
-        Instantiate(bloodEffect, this.transform.position, Quaternion.identity, this.transform);
+        Instantiate(bloodEffect, transform.position, Quaternion.identity, transform);
     }
 
     private void SpawnChunkEffect(){
-        Instantiate(chunkEffect, this.transform.position, Quaternion.identity, this.transform);
+        Instantiate(chunkEffect, transform.position, Quaternion.identity, transform);
     }
 
     public void Take_Spell_Damage_Burn(float burnInterval, float burnDamage, float totalBurnTime_Loop){
         StartCoroutine(WaitAndBurn(burnInterval, burnDamage, totalBurnTime_Loop));
     }
 
-    async public void Take_Spell_Frozen(float freezePeriod){
+    public async void Take_Spell_Frozen(float freezePeriod){
         //StartCoroutine(WaitAndFreeze(freezePeriod));    
 
         isStagger = true;
         isFrozen = true;
-        this.gameObject.GetComponent<SpriteRenderer>().color = Color.cyan;
-        if(this.gameObject.tag == "Enemy-Demon")
-            this.gameObject.GetComponent<NPC_Enemy_DemonBehavior>().isCyanTint = true;
-        if(gameObject.tag == "Enemy-Boss"){
+        GetComponent<SpriteRenderer>().color = Color.cyan;
+        if(gameObject.CompareTag("Enemy-Demon"))
+            GetComponent<NPC_Enemy_DemonBehavior>().isCyanTint = true;
+        if(gameObject.CompareTag("Enemy-Boss")){
             _boss.PortalSpawner.GetComponent<PortalGeneralBehavior>().SpawnPortal();
         }
             
@@ -265,9 +266,9 @@ public class NPCVitalityHandler : MonoBehaviour
         if(Animator != null)
             Animator.speed = 1f;
         
-        this.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
-        if(this.gameObject.tag == "Enemy-Demon")
-            this.gameObject.GetComponent<NPC_Enemy_DemonBehavior>().isCyanTint = false;
+        GetComponent<SpriteRenderer>().color = Color.white;
+        if(gameObject.CompareTag("Enemy-Demon"))
+            GetComponent<NPC_Enemy_DemonBehavior>().isCyanTint = false;
     }
 
     private IEnumerator WaitAndBurn(float burnInterval, float burnDamage, float totalBurnTime_Loop)

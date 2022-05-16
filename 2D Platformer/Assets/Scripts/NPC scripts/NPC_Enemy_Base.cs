@@ -90,7 +90,7 @@ public class NPC_Enemy_Base : MonoBehaviour//, IEnemyBehavior
         {
             if(Time.time > ElapsedTime)
             {
-                print($"calling from base");
+               // print($"calling from base");
                 AttackPlayerAnim();
                 ElapsedTime = Time.time + attackIntervalSec;
             }

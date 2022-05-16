@@ -29,35 +29,36 @@ public class EndLevelDialogueSystem : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {   
-       
+        playOnce = true;
     }
 
 
     private void OnTriggerEnter2D(Collider2D other){
-        if(other.tag == "Player"){
+        if(other.CompareTag("Player")){
             count = 0;
-            playOnce = true;
             playerIsInField = true;
         }
     }
     private void OnTriggerExit2D(Collider2D other) {
-        if(other.tag == "Player"){
+        if(other.CompareTag("Player")){
             playerIsInField = false;
         }
     }
     
     void Update() {
-        if(Input.GetKeyDown(KeyCode.E)&&playerIsInField == true && playOnce){
+        if(Input.GetKeyDown(KeyCode.E) && playerIsInField && playOnce)
+        {
+            print($"print text typer");
             PrintTextSequence();
             playOnce = false;
         }
     }
 
-    async private void PrintTextSequence(){
+    private async void PrintTextSequence(){
         int waitTime = 0;
 
         try{
-            if(count < dialogueArray.Length/* && playOnce == true*/){
+            if(count < dialogueArray.Length){
 
                 switch (dialogueArray[count].character){
                     case characterToTalk.Player:

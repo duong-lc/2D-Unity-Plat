@@ -75,12 +75,9 @@ public class PlayerBehavior : MonoBehaviour
         currentCharacter = CurrentCharacter.Katana;
         
         //refreshing the system at start
-        // ActivateKatanaOnly();
-        // ActivateArcherOnly();
-        // ActivateKatanaOnly();
         ActivateOnlyCharacter(CurrentCharacter.Katana);
-        ActivateOnlyCharacter(CurrentCharacter.Archer);
-        ActivateOnlyCharacter(CurrentCharacter.Katana);
+        // ActivateOnlyCharacter(CurrentCharacter.Archer);
+        // ActivateOnlyCharacter(CurrentCharacter.Katana);
         //show off current character from the start
         character_Select_UI.SwitchCharacter();
     }
@@ -101,10 +98,6 @@ public class PlayerBehavior : MonoBehaviour
             }else if (isShootingArrow)
                 moveInput = 0;
         }
-        
-          
-
-        
         
         PlayerRunning();
         SwitchingCharacter();
@@ -156,24 +149,6 @@ public class PlayerBehavior : MonoBehaviour
             var currentCharacter = GetCurrentCharacter();
             playerRB.velocity = new Vector2(moveInput * currentCharacter.GetComponent<PlayerBaseBehavior>().Speed,  playerRB.velocity.y);
             currentCharacter.GetComponent<PlayerMovementAnimHandler>().PlayerRunning();
-            // if (currentCharacter == 1){
-            //     //move left and right
-            //     playerRB.velocity = new Vector2(moveInput * _playerKatana.GetComponent<Player_KatanaBehavior>().Speed,  playerRB.velocity.y);
-            //     _playerKatana.GetComponent<PlayerMovementAnimHandler>().PlayerRunning();   
-            // }
-            // else if (currentCharacter == 2){
-            //     //move left and right
-            //     playerRB.velocity = new Vector2(moveInput * _playerArcher.GetComponent<Player_ArcherBehavior>().Speed,  playerRB.velocity.y);
-            //     _playerArcher.GetComponent<PlayerMovementAnimHandler>().PlayerRunning();
-            // }else if (currentCharacter == 3){
-            //     //move left and right
-            //     playerRB.velocity = new Vector2(moveInput * _playerHeavy.GetComponent<Player_HeavyBehavior>().Speed,  playerRB.velocity.y);
-            //     _playerHeavy.GetComponent<PlayerMovementAnimHandler>().PlayerRunning();
-            // }else if (currentCharacter == 4){
-            //     //move left and right
-            //     playerRB.velocity = new Vector2(moveInput * _playerMage.GetComponent<Player_MageBehavior>().Speed,  playerRB.velocity.y);
-            //     _playerMage.GetComponent<PlayerMovementAnimHandler>().PlayerRunning();
-            // }
         }  
     }
 
@@ -219,7 +194,6 @@ public class PlayerBehavior : MonoBehaviour
     }
     public void SwitchToAlive()
     {
-        //if(isArcherAlive == true || isKatanaAlive == true || isHeavyAlive == true || isMageAlive == true)
         if(IsPlayerAlive())
         {
             if(isKatanaAlive){
@@ -240,7 +214,7 @@ public class PlayerBehavior : MonoBehaviour
                 //ActivateMageOnly();
             }
         }
-        else { //if (isArcherAlive == false && isKatanaAlive == false && isHeavyAlive == false && isMageAlive == false){
+        else {
             GetComponent<Collider2D>().enabled = false;
             playerRB.constraints = RigidbodyConstraints2D.FreezeAll;
             this.enabled = false;
@@ -256,35 +230,6 @@ public class PlayerBehavior : MonoBehaviour
             characterList[i].SetActive((int) character == i);
         }
     }
-    
-    // private void ActivateKatanaOnly()
-    // {
-    //     _playerKatana.SetActive(true);
-    //     _playerArcher.SetActive(false);
-    //     _playerHeavy.SetActive(false);
-    //     _playerMage.SetActive(false);
-    // }
-    // private void ActivateArcherOnly()
-    // {
-    //     _playerKatana.SetActive(false);
-    //     _playerArcher.SetActive(true);
-    //     _playerHeavy.SetActive(false);
-    //     _playerMage.SetActive(false);
-    // }
-    // private void ActivateHeavyOnly()
-    // {
-    //     _playerKatana.SetActive(false);
-    //     _playerArcher.SetActive(false);
-    //     _playerHeavy.SetActive(true);
-    //     _playerMage.SetActive(false);
-    // }
-    // private void ActivateMageOnly()
-    // {
-    //     _playerKatana.SetActive(false);
-    //     _playerArcher.SetActive(false);
-    //     _playerHeavy.SetActive(false);
-    //     _playerMage.SetActive(true);
-    // }
 
     void OnDrawGizmosSelected()
     {    
@@ -298,21 +243,7 @@ public class PlayerBehavior : MonoBehaviour
         Gizmos.DrawWireSphere(groundCheck.position, checkRadius);
         
     }
-
-
-    /*void ScanContact()
-    {
-        if (objectCollidedWith.gameObject.tag == "Spike")
-        {
-            Debug.Log("smt");
-            Vector2 difference = objectCollidedWith.gameObject.transform.position - this.gameObject.transform.position;
-            //Debug.Log(this.gameObject.transform.right * 80f * difference.normalized.x);
-            playerRB.AddForce(this.gameObject.transform.right * 80f * difference.normalized.x, ForceMode2D.Impulse);
-            playerRB.AddForce(this.gameObject.transform.up * 5f, ForceMode2D.Force);
-            //DamageCurrCharSpike();
-        }   
-    }*/
-
+    
     public void Contact()
     {
         StartCoroutine(ForceAdd());
@@ -333,21 +264,6 @@ public class PlayerBehavior : MonoBehaviour
             SpawnDamageText(damageReceived.ToString(), Color.red, 0.65f);
             
         GetCurrentCharacter().GetComponent<PlayerVitalityHandler>().TakingDamage(damageReceived);
-        // switch (currentCharacter)
-        // {
-        //     case 1:
-        //         _playerKatana.GetComponent<PlayerVitalityHandler>().TakingDamage(damageReceived);
-        //         break;
-        //     case 2:
-        //         _playerArcher.GetComponent<PlayerVitalityHandler>().TakingDamage(damageReceived);
-        //         break;
-        //     case 3:
-        //         _playerHeavy.GetComponent<PlayerVitalityHandler>().TakingDamage(damageReceived);
-        //         break;
-        //     case 4:
-        //         _playerMage.GetComponent<PlayerVitalityHandler>().TakingDamage(damageReceived);
-        //         break;
-        // }
     }
 
     public void SpawnDamageText(string strText, Color color, float duration){
@@ -368,16 +284,12 @@ public class PlayerBehavior : MonoBehaviour
         {
             case CurrentCharacter.Katana:
                 return _playerKatana;
-                break;
             case CurrentCharacter.Archer:
                 return _playerArcher;
-                break;
             case CurrentCharacter.Heavy:
                 return _playerHeavy;
-                break;
             case CurrentCharacter.Mage:
                 return _playerMage;
-                break;
             default:
                 throw new ArgumentOutOfRangeException();
         }

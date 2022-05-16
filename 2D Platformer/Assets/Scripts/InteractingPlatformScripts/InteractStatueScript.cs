@@ -6,7 +6,8 @@ public class InteractStatueScript : MonoBehaviour
 {
     // Start is called before the first frame update
     public Sprite activatedSprite, unactivatedSprite;
-    public GameObject floatingPlatform, particleSystem;
+    public GameObject floatingPlatform;
+    public GameObject particleSystem;
     public Transform startPosition, endPosition;
     public float travelTime;
     private float startTime;
@@ -19,7 +20,7 @@ public class InteractStatueScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other) 
     {
-        if(other.tag == "playerArrow")
+        if(other.CompareTag("playerArrow"))
         {
             this.gameObject.GetComponent<SpriteRenderer>().sprite = activatedSprite;
             StartCoroutine(PingPongPosition());

@@ -2451,6 +2451,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8318518312541597741, guid: b13bd7511b46aee47b31e6bc9a1a8982, type: 3}
+      propertyPath: m_Name
+      value: DialogueText (TMP)
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b13bd7511b46aee47b31e6bc9a1a8982, type: 3}
 --- !u!4 &986373929 stripped
@@ -3036,9 +3040,7 @@ GameObject:
   - component: {fileID: 1231340294}
   - component: {fileID: 1231340293}
   - component: {fileID: 1231340292}
-  - component: {fileID: 1231340297}
   - component: {fileID: 1231340296}
-  - component: {fileID: 1231340295}
   - component: {fileID: 1231340299}
   m_Layer: 0
   m_Name: NPC_EndLevelGolem
@@ -3132,43 +3134,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1231340295
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1231340291}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a1912756f378564d90302b541217bf1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  triggerBoxActivation: {fileID: 0}
-  playerDialogueTextTMP: {fileID: 0}
-  golemDialogueTextTMP: {fileID: 0}
-  bossDialogueTextTMP: {fileID: 0}
-  dialogueArray:
-  - character: 0
-    dialogueText: Hello Heroes,
-    fullStringTimer: 0.7
-    endStringTimer: 0.5
-  - character: 0
-    dialogueText: Thank you for finishing those monsters
-    fullStringTimer: 2
-    endStringTimer: 0.7
-  - character: 0
-    dialogueText: Please come to the Capital, the demon lord's Army
-    fullStringTimer: 2.5
-    endStringTimer: 1
-  - character: 0
-    dialogueText: Are ransacking the City as we speak.
-    fullStringTimer: 1.5
-    endStringTimer: 0.7
-  - character: 0
-    dialogueText: Allow me to lead you, sire.
-    fullStringTimer: 1.5
-    endStringTimer: 0.7
 --- !u!61 &1231340296
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3194,32 +3159,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   serializedVersion: 2
   m_Size: {x: 1.1589863, y: 1.4820514}
-  m_EdgeRadius: 0
---- !u!61 &1231340297
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1231340291}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.66842127, y: 0.9173099}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.5, y: 1.5}
-    newSize: {x: 1.5, y: 1.5}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 7.1887255, y: 3.3346198}
   m_EdgeRadius: 0
 --- !u!114 &1231340299
 MonoBehaviour:
@@ -4745,7 +4684,7 @@ GameObject:
   - component: {fileID: 1654274529}
   - component: {fileID: 1654274528}
   m_Layer: 0
-  m_Name: Text (TMP)
+  m_Name: DialogueText (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
