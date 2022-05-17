@@ -2367,10 +2367,6 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4416636496119890860, guid: b13bd7511b46aee47b31e6bc9a1a8982, type: 3}
-      propertyPath: canMove
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4416636496119890861, guid: b13bd7511b46aee47b31e6bc9a1a8982, type: 3}
       propertyPath: m_RootOrder
       value: 8
@@ -2450,10 +2446,6 @@ PrefabInstance:
     - target: {fileID: 4416636497441499939, guid: b13bd7511b46aee47b31e6bc9a1a8982, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8318518312541597741, guid: b13bd7511b46aee47b31e6bc9a1a8982, type: 3}
-      propertyPath: m_Name
-      value: DialogueText (TMP)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b13bd7511b46aee47b31e6bc9a1a8982, type: 3}
