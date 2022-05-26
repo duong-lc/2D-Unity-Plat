@@ -12,7 +12,7 @@ public class PlayerBehavior : MonoBehaviour
     private GameObject _playerKatana, _playerArcher, _playerHeavy, _playerMage;
     private List<GameObject> characterList = new List<GameObject>();
     
-    public Rigidbody2D playerRB;
+    public Rigidbody2D playerRB => GetComponent<Rigidbody2D>();
     public float moveInput;
 
     //Vars for checking ground contact and Jumping Mechanic
@@ -39,7 +39,8 @@ public class PlayerBehavior : MonoBehaviour
 
     public bool isShootingArrow = false, isInDeathAnim = false;
     //public int katanaTakeDamageDelayMS, archerTakeDamageDelayMS, heavyTakeDamageDelayMS, mageTakeDamageDelayMS, katanaDeathDelayMS, archerDeathDelayMS, heavyDeathDelayMS, mageDeathDelayMS;
-
+    [SerializeField] private List<GameObject> playerHUD = new List<GameObject>();
+    
     private void Awake()
     {
         Instance = this;
@@ -63,8 +64,6 @@ public class PlayerBehavior : MonoBehaviour
                 _playerHeavy,
                 _playerMage
             };
-        
-        playerRB = GetComponent<Rigidbody2D>();
     }
     
     // Start is called before the first frame update
@@ -315,5 +314,10 @@ public class PlayerBehavior : MonoBehaviour
     {
         playerRB.constraints = RigidbodyConstraints2D.None;
         playerRB.constraints = RigidbodyConstraints2D.FreezeRotation;
+    }
+
+    public List<GameObject> GetPlayerHUD()
+    {
+        return playerHUD;
     }
 }

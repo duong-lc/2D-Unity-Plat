@@ -14,7 +14,7 @@ public abstract class PlayerBaseBehavior : MonoBehaviour
     public float JumpForce => variantData.jumpForce; //jump force (up)
     public int TakeDamageDelayMS => variantData.takeDamageDelayMS;
     public int DeathDelayMS => variantData.deathDelayMS;
-    
+
     protected int[] Attacks;
     protected static int Death, Fall, Jump, Run, TakeHit;
     

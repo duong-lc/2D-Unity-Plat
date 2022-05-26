@@ -83,7 +83,7 @@ public class Player_KatanaBehavior : PlayerBaseBehavior
             {
                 if(dashTimeLeft > 0)
                 {
-                    ParentPlayerBehaviorScript.playerRB.velocity = new Vector2(dashSpeed * direction, ParentPlayerBehaviorScript.playerRB.velocity.y);
+                    ParentPlayerBehaviorScript.playerRB.AddForce(new Vector2(1500 * direction, ParentPlayerBehaviorScript.playerRB.velocity.y));
                     dashTimeLeft -= Time.deltaTime;
 
                     if (ghostDelaySeconds > 0)

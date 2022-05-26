@@ -91,8 +91,8 @@ public class EndLevelDialogueSystem : MonoBehaviour
                 }
                 
                 //Wait for text box to finish loading then load the win screen
-                if(count == dialogueArray.Length - 1)
-                    print($"this is the end, turn on win screen");
+                if (count == dialogueArray.Length - 1)
+                    EnableWinScreen();
             
 
                 count++;
@@ -115,13 +115,20 @@ public class EndLevelDialogueSystem : MonoBehaviour
         return TextEntered(text, characterTMP, dialogueArray[count].fullStringTimer, dialogueArray[count].endStringTimer);
     }
 
-    private int TextEntered(string text, TMP_Text tmpComponent, float timer, float timerWaitAfterFin){
-        if(GetComponent<TypeWriterEffect>())
+    private int TextEntered(string text, TMP_Text tmpComponent, float timer, float timerWaitAfterFin)
+    {
+        var textEffect = GetComponent<TypeWriterEffect>();
+        if(textEffect)
         {
-            GetComponent<TypeWriterEffect>().BeginEffect(text, tmpComponent, timer);
+            textEffect.BeginEffect(text, tmpComponent, timer);
             return (int)((timer+timerWaitAfterFin)*1000);
         }
         return 0;
+    }
+
+    private void EnableWinScreen()
+    {
+        GameModeManager.Instance.TurnOnWinScreen();
     }
 }
     

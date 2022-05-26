@@ -11,13 +11,14 @@ public class PlayerVitalityHandler : PlayerBaseBehavior
     public bool isPlayerTakingDamage = false;
     //public int katanaTakeDamageDelayMS, archerTakeDamageDelayMS, heavyTakeDamageDelayMS, mageTakeDamageDelayMS, katanaDeathDelayMS, archerDeathDelayMS, heavyDeathDelayMS, mageDeathDelayMS;
 
-    private Animator _animator;
+    private Animator _animator => GetComponent<Animator>();
+    private SpriteRenderer _spriteRenderer => GetComponent<SpriteRenderer>();
+
+    private PlayerBaseBehavior _playerBaseBehavior => GetComponent<PlayerBaseBehavior>();
     //private PlayerBehavior parent_PlayerBehaviorScript;
     //public GameObject popUpText;
     
     private void Start(){
-        //parent_PlayerBehaviorScript = this.gameObject.transform.parent.GetComponent<PlayerBehavior>();
-        _animator = this.gameObject.GetComponent<Animator>();
 
         //currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
@@ -26,15 +27,17 @@ public class PlayerVitalityHandler : PlayerBaseBehavior
 
     public async void TakingDamage(float damageTaken){
         isPlayerTakingDamage = true;
-        //_animator.SetBool("isTakeHit", true);
-        _animator.SetBool(TakeHit, true);
-        this.gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+ 
+        if(_animator)
+            _animator.SetBool(TakeHit, true);
+        _spriteRenderer.color = Color.red;
         
-        await Task.Delay(GetComponent<PlayerBaseBehavior>().TakeDamageDelayMS);
+        await Task.Delay(_playerBaseBehavior.TakeDamageDelayMS);
         
-        //_animator.SetBool("isTakeHit", false);
-        _animator.SetBool(TakeHit, false);
-        this.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+        if(_animator)
+            _animator.SetBool(TakeHit, false);
+        
+        _spriteRenderer.color = Color.white;
         isPlayerTakingDamage = false;
 
         currentHealth -= damageTaken;
@@ -55,7 +58,7 @@ public class PlayerVitalityHandler : PlayerBaseBehavior
         ParentPlayerBehaviorScript.gameObject.GetComponent<Collider2D>().enabled = false;
         
         try{
-            await Task.Delay(GetComponent<PlayerBaseBehavior>().DeathDelayMS);
+            await Task.Delay(_playerBaseBehavior.DeathDelayMS);
             GetComponent<PlayerMovementAnimHandler>().enabled = false;
            
             switch (ParentPlayerBehaviorScript.currentCharacter){
