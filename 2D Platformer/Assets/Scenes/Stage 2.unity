@@ -1054,7 +1054,7 @@ GameObject:
   - component: {fileID: 127532761}
   m_Layer: 0
   m_Name: Camera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26420,7 +26420,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85054868989f610479c941eaa964cb3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 127532757}
   parallaxEffect: 0.9
 --- !u!1 &583912732
 GameObject:
@@ -61156,7 +61155,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85054868989f610479c941eaa964cb3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 127532757}
   parallaxEffect: 1
 --- !u!4 &1767969691 stripped
 Transform:

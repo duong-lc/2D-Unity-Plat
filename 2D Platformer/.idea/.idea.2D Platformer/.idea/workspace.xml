@@ -2,38 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bed86a1f-fe7f-4cda-bad3-f0e2cece7366" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/WinScreenController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/WinScreenController.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.2D Platformer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.2D Platformer/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Player prefabs/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Player prefabs/Player.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Stage 1.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Stage 1.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Stage 2.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Stage 2.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Stage 3.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Stage 3.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Stage 3.unity.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Stage 3.unity.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/EndLevelDialogueSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/EndLevelDialogueSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player scripts/PlayerBehavior.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player scripts/PlayerBehavior.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player scripts/PlayerVitalityHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player scripts/PlayerVitalityHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player scripts/Player_BaseBehavior.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player scripts/Player_BaseBehavior.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player scripts/Player_KatanaBehavior.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player scripts/Player_KatanaBehavior.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Roboto-Bold SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Roboto-Bold SDF.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/ApiUpdaterCheck.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Logs/ApiUpdaterCheck.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/AssetImportWorker0-prev.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Stage 4.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Stage 4.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player scripts/PlayerInventorySystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player scripts/PlayerInventorySystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Portal scripts/PortalGeneralBehavior.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Portal scripts/PortalGeneralBehavior.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Portal scripts/PortalSpecificBehavior.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Portal scripts/PortalSpecificBehavior.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Portal scripts/ProjectileIndicator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Portal scripts/ProjectileIndicator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI scripts/CooldownBar.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI scripts/CooldownBar.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI scripts/CooldownBar_FireBall__Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI scripts/CooldownBar_FireBall__Player.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI scripts/CooldownBar_IceBall_Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI scripts/CooldownBar_IceBall_Player.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/cam parallax scripts/Parallax.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/cam parallax scripts/Parallax.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logs/AssetImportWorker0-prev.log" beforeDir="false" afterPath="$PROJECT_DIR$/Logs/AssetImportWorker0-prev.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Logs/AssetImportWorker0.log" beforeDir="false" afterPath="$PROJECT_DIR$/Logs/AssetImportWorker0.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/shadercompiler-AssetImportWorker0.log" beforeDir="false" afterPath="$PROJECT_DIR$/Logs/shadercompiler-AssetImportWorker0.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Logs/shadercompiler-UnityShaderCompiler.exe0.log" beforeDir="false" afterPath="$PROJECT_DIR$/Logs/shadercompiler-UnityShaderCompiler.exe0.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/shadercompiler-UnityShaderCompiler.exe1.log" beforeDir="false" afterPath="$PROJECT_DIR$/Logs/shadercompiler-UnityShaderCompiler.exe1.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/shadercompiler-UnityShaderCompiler.exe10.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/shadercompiler-UnityShaderCompiler.exe11.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/shadercompiler-UnityShaderCompiler.exe2.log" beforeDir="false" afterPath="$PROJECT_DIR$/Logs/shadercompiler-UnityShaderCompiler.exe2.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/shadercompiler-UnityShaderCompiler.exe3.log" beforeDir="false" afterPath="$PROJECT_DIR$/Logs/shadercompiler-UnityShaderCompiler.exe3.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/shadercompiler-UnityShaderCompiler.exe4.log" beforeDir="false" afterPath="$PROJECT_DIR$/Logs/shadercompiler-UnityShaderCompiler.exe4.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/shadercompiler-UnityShaderCompiler.exe5.log" beforeDir="false" afterPath="$PROJECT_DIR$/Logs/shadercompiler-UnityShaderCompiler.exe5.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/shadercompiler-UnityShaderCompiler.exe6.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/shadercompiler-UnityShaderCompiler.exe7.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/shadercompiler-UnityShaderCompiler.exe8.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/shadercompiler-UnityShaderCompiler.exe9.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -135,6 +120,7 @@
       <workItem from="1652692335627" duration="3432000" />
       <workItem from="1653122627006" duration="11177000" />
       <workItem from="1653302401303" duration="3369000" />
+      <workItem from="1653924419224" duration="6546000" />
     </task>
     <servers />
   </component>

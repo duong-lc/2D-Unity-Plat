@@ -13,7 +13,7 @@ public class PortalSpecificBehavior : MonoBehaviour
     public float damageToPlayer = 0;
     
     private void Awake(){
-        player =  GameObject.Find("Player").transform;
+        player =  GameObject.FindWithTag("Player").transform;
         elapsedTime = Time.time + elapsedTime+3;
     }
 

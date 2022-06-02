@@ -36,7 +36,7 @@ public class PlayerInventorySystem : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerScript = GameObject.Find("Player").GetComponent<PlayerBehavior>();
+        playerScript = GameObject.FindWithTag("Player").GetComponent<PlayerBehavior>();
     }
 
     // Update is called once per frame
@@ -44,10 +44,10 @@ public class PlayerInventorySystem : MonoBehaviour
     {   
         try
         {
-            mageScript = GameObject.Find("Player").transform.Find("Player-Mage").GetComponent<Player_MageBehavior>();//had to do it this way for some reason findobjectwithtag returns null
-            heavyScript = GameObject.Find("Player").transform.Find("Player-Heavy").GetComponent<Player_HeavyBehavior>();
-            katanaScript = GameObject.Find("Player").transform.Find("Player-Katana").GetComponent<Player_KatanaBehavior>();
-            archerScript = GameObject.Find("Player").transform.Find("Player-Archer").GetComponent<Player_ArcherBehavior>();
+            mageScript = GameObject.FindWithTag("Player").transform.Find("Player-Mage").GetComponent<Player_MageBehavior>();//had to do it this way for some reason findobjectwithtag returns null
+            heavyScript = GameObject.FindWithTag("Player").transform.Find("Player-Heavy").GetComponent<Player_HeavyBehavior>();
+            katanaScript = GameObject.FindWithTag("Player").transform.Find("Player-Katana").GetComponent<Player_KatanaBehavior>();
+            archerScript = GameObject.FindWithTag("Player").transform.Find("Player-Archer").GetComponent<Player_ArcherBehavior>();
         }
         catch(Exception e)
         {

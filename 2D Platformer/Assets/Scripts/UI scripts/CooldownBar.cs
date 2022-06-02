@@ -17,9 +17,9 @@ public class CooldownBar : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerBehaviorScript = GameObject.Find("Player").GetComponent<PlayerBehavior>();
-        playerHeavyScript = GameObject.Find("Player").transform.Find("Player-Heavy").GetComponent<Player_HeavyBehavior>();
-        inventoryScript = GameObject.Find("Player").GetComponent<PlayerInventorySystem>();
+        playerBehaviorScript = GameObject.FindWithTag("Player").GetComponent<PlayerBehavior>();
+        playerHeavyScript = GameObject.FindWithTag("Player").transform.Find("Player-Heavy").GetComponent<Player_HeavyBehavior>();
+        inventoryScript = GameObject.FindWithTag("Player").GetComponent<PlayerInventorySystem>();
         SetMaxCooldown(playerHeavyScript.attackIntervalSec);
         curr = playerHeavyScript.attackIntervalSec;
     }

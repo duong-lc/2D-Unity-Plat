@@ -15,9 +15,9 @@ public class CooldownBar_IceBall_Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _playerBehaviorScript = GameObject.Find("Player").GetComponent<PlayerBehavior>();
-        _playerMageScript = GameObject.Find("Player").transform.Find("Player-Mage").GetComponent<Player_MageBehavior>();
-        _inventoryScript = GameObject.Find("Player").GetComponent<PlayerInventorySystem>();
+        _playerBehaviorScript = GameObject.FindWithTag("Player").GetComponent<PlayerBehavior>();
+        _playerMageScript = GameObject.FindWithTag("Player").transform.Find("Player-Mage").GetComponent<Player_MageBehavior>();
+        _inventoryScript = GameObject.FindWithTag("Player").GetComponent<PlayerInventorySystem>();
         SetMaxCooldown(_playerMageScript.attackIntervalIceBallSec);
         _curr = _playerMageScript.attackIntervalIceBallSec;
     }

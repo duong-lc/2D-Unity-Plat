@@ -10,10 +10,10 @@ public class PortalGeneralBehavior : MonoBehaviour
     
 
     private void Awake() {
-        for (int i = 0; i < portalArray.Length; i++){
-            portalArray[i].x += transform.position.x;
-            portalArray[i].y += transform.position.y;
-        }
+        // for (int i = 0; i < portalArray.Length; i++){
+        //     portalArray[i].x += transform.position.x;
+        //     portalArray[i].y += transform.position.y;
+        // }
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
@@ -32,7 +32,8 @@ public class PortalGeneralBehavior : MonoBehaviour
         }
 
         for (int i = 0; i < portalArray.Length; i++){
-            Instantiate(portal, portalArray[i], Quaternion.identity).transform.SetParent(gameObject.transform);
+            print($"{portalArray[i]}'");
+            Instantiate(portal, portalArray[i], Quaternion.identity);
         }
     }
 

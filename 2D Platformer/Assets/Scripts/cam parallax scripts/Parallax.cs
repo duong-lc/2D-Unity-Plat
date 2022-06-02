@@ -6,7 +6,7 @@ public class Parallax : MonoBehaviour
 {
     //https://www.youtube.com/watch?v=zit45k6CUMk
     private float length, startpos;
-    public GameObject cam;
+    public GameObject cam => Camera.main.gameObject;
     public float parallaxEffect;
     void Start()
     {

@@ -511,7 +511,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85054868989f610479c941eaa964cb3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 1988682362}
   parallaxEffect: 0.9
 --- !u!212 &132742705
 SpriteRenderer:
@@ -1782,7 +1781,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85054868989f610479c941eaa964cb3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 1988682362}
   parallaxEffect: 0.7
 --- !u!212 &614800160
 SpriteRenderer:
@@ -4435,7 +4433,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85054868989f610479c941eaa964cb3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 1988682362}
   parallaxEffect: 1
 --- !u!212 &1607510412
 SpriteRenderer:
@@ -17321,7 +17318,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85054868989f610479c941eaa964cb3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 1988682362}
   parallaxEffect: 0.5
 --- !u!212 &1907157561
 SpriteRenderer:
@@ -17470,7 +17466,7 @@ GameObject:
   - component: {fileID: 1988682364}
   m_Layer: 0
   m_Name: Camera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17983,7 +17979,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85054868989f610479c941eaa964cb3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 1988682362}
   parallaxEffect: 0.8
 --- !u!212 &2133202694
 SpriteRenderer:
@@ -18084,7 +18079,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85054868989f610479c941eaa964cb3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 1988682362}
   parallaxEffect: 0.6
 --- !u!212 &2144584496
 SpriteRenderer:

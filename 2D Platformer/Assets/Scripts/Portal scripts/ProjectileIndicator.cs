@@ -12,7 +12,7 @@ public class ProjectileIndicator : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        target = GameObject.Find("Player");
+        target = GameObject.FindWithTag("Player");
         rd = GetComponent<Renderer>();
     }
 
