@@ -27,8 +27,13 @@ public class PortalSpecificBehavior : MonoBehaviour
         if(Time.time > elapsedTime)
         {   
             GameObject sword = Instantiate(swordPrefab, transform.position, Quaternion.identity);
-            sword.GetComponent<PortalProjectileScript>().parentPortal = this.gameObject;
-            sword.GetComponent<PortalProjectileScript>().damage = damageToPlayer;
+            var proj = sword.GetComponent<PortalProjectileScript>();
+            
+            proj.parentPortal = gameObject;
+            proj.damage = damageToPlayer;
+            
+            proj.OnHit(10.0f, false);
+            
             sword.transform.rotation = transform.rotation;
             sword.transform.Rotate(new Vector3 (sword.transform.rotation.x, sword.transform .rotation.y, sword.transform.rotation.z+90), Space.Self);
 

@@ -599,7 +599,7 @@ MonoBehaviour:
   m_CancelButton: Cancel
   m_InputActionsPerSecond: 10
   m_RepeatDelay: 0.5
-  m_ForceModuleActive: 0
+  m_ForceModuleActive: 1
 --- !u!114 &162273760
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2408,21 +2408,17 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4416636496119890858, guid: b13bd7511b46aee47b31e6bc9a1a8982, type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 4416636496119890861, guid: b13bd7511b46aee47b31e6bc9a1a8982, type: 3}
       propertyPath: m_RootOrder
       value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4416636496119890861, guid: b13bd7511b46aee47b31e6bc9a1a8982, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -81.9
+      value: -81.28
       objectReference: {fileID: 0}
     - target: {fileID: 4416636496119890861, guid: b13bd7511b46aee47b31e6bc9a1a8982, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.26
+      value: -4.24
       objectReference: {fileID: 0}
     - target: {fileID: 4416636496119890861, guid: b13bd7511b46aee47b31e6bc9a1a8982, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3078,7 +3074,6 @@ GameObject:
   - component: {fileID: 1231340293}
   - component: {fileID: 1231340292}
   - component: {fileID: 1231340296}
-  - component: {fileID: 1231340299}
   m_Layer: 0
   m_Name: NPC_EndLevelGolem
   m_TagString: Untagged
@@ -3197,26 +3192,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.1589863, y: 1.4820514}
   m_EdgeRadius: 0
---- !u!114 &1231340299
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1231340291}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c072cbf1f0b59a144a35c8de5af123be, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentHealth: 0
-  maxHealth: 0
-  healthBar: {fileID: 0}
-  isDead: 0
-  isFrozen: 0
-  isStagger: 0
-  bloodEffect: {fileID: 3242574928977728783, guid: 854bbd8d2acae244ea15dd81db67fce4, type: 3}
-  chunkEffect: {fileID: 1936493313332616412, guid: 47956b7bf90dd92488e1a03abe3f7471, type: 3}
 --- !u!1 &1256273865
 GameObject:
   m_ObjectHideFlags: 0
@@ -4378,7 +4353,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1606497621}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -81.9, y: -2.7400002, z: -10}
+  m_LocalPosition: {x: -81.28, y: -2.7199998, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1686824285}
@@ -17564,7 +17539,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1988682362}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -81.9, y: -2.7400002, z: -10}
+  m_LocalPosition: {x: -81.28, y: -2.7199998, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1795816841}

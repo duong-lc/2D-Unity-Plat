@@ -31,11 +31,11 @@ public class PortalProjectileScript : MonoBehaviour
             other.gameObject.GetComponent<PortalSpecificBehavior>().DestroySelf();
             OnHit(0f, true);
         }
-        OnHit(5f, false);
+        //OnHit(5f, false);
             
     }
 
-    private void OnHit(float delay, bool isSpawnParticle){
+    public void OnHit(float delay, bool isSpawnParticle){
         if(isSpawnParticle)
             Instantiate(impactParticle, transform.position, Quaternion.identity);
 

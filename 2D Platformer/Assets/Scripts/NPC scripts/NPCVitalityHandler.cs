@@ -8,7 +8,7 @@ using System;
 
 public class NPCVitalityHandler : MonoBehaviour
 {
-    private Animator Animator => GetComponent<Animator>();
+    private Animator Animator/* => GetComponent<Animator>()*/;
     private SpriteRenderer SpriteRenderer => GetComponent<SpriteRenderer>();
     
     /*health bar and health display of mobs*/
@@ -20,8 +20,9 @@ public class NPCVitalityHandler : MonoBehaviour
    
     private BossScript _boss;
 
-    private void Awake() {
-
+    private void Awake()
+    {
+        Animator = GetComponent<Animator>();
         if (gameObject.CompareTag("Enemy-Boss")){
             _boss = gameObject.GetComponent<BossScript>();
         }
@@ -126,7 +127,8 @@ public class NPCVitalityHandler : MonoBehaviour
         }
         if (currentHealth <= 0)
         {
-            healthBar.gameObject.SetActive(false);
+            if(healthBar)
+                healthBar.gameObject.SetActive(false);
             Death();
         }
         
@@ -230,7 +232,13 @@ public class NPCVitalityHandler : MonoBehaviour
         GetComponent<Collider2D>().enabled = false;
         
         isStagger = true;
-        Destroy(this.gameObject, 5f);
+        
+        if(!gameObject.CompareTag("Enemy-Boss"))
+            Destroy(this.gameObject, 5f);
+        else
+        {
+            GameModeManager.Instance.TurnOnWinScreen();
+        }
     }
 
     private void SpawnBloodEffect(){

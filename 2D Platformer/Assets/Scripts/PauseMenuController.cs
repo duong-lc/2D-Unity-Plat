@@ -27,12 +27,14 @@ public class PauseMenuController : MonoBehaviour
 
     public void RestartGameButton()
     {
+        print($"restart button pressed");
         Scene scene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(scene.name);
     }
 
     public void BackToMainMenuButton()
     {
+        print($"quit button pressed");
         SceneManager.LoadScene(0, LoadSceneMode.Single);
     }
 

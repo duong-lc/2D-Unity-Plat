@@ -1118,7 +1118,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 127532757}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 123.2, y: -1.98, z: -10}
+  m_LocalPosition: {x: -52.2, y: -1.98, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 525652246}
@@ -1305,7 +1305,7 @@ MonoBehaviour:
     fullStringTimer: 1
     endStringTimer: 1.5
   - character: 1
-    dialogueText: No, I'm afriad.
+    dialogueText: No, I'm afraid.
     fullStringTimer: 2
     endStringTimer: 1
   - character: 0
@@ -2169,7 +2169,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 252248578}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 123.2, y: -1.98, z: -10}
+  m_LocalPosition: {x: -52.2, y: -1.98, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1357400760}
@@ -37140,7 +37140,6 @@ GameObject:
   - component: {fileID: 1524050110}
   - component: {fileID: 1524050109}
   - component: {fileID: 1524050108}
-  - component: {fileID: 1524050107}
   m_Layer: 0
   m_Name: NPC_EndLevelGolem
   m_TagString: Untagged
@@ -37163,26 +37162,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1524050107
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1524050105}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c072cbf1f0b59a144a35c8de5af123be, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentHealth: 0
-  maxHealth: 0
-  healthBar: {fileID: 0}
-  isDead: 0
-  isFrozen: 0
-  isStagger: 0
-  bloodEffect: {fileID: 3242574928977728783, guid: 854bbd8d2acae244ea15dd81db67fce4, type: 3}
-  chunkEffect: {fileID: 1936493313332616412, guid: 47956b7bf90dd92488e1a03abe3f7471, type: 3}
 --- !u!61 &1524050108
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -62768,7 +62747,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4416636496119890861, guid: b13bd7511b46aee47b31e6bc9a1a8982, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 123.2
+      value: -52.2
       objectReference: {fileID: 0}
     - target: {fileID: 4416636496119890861, guid: b13bd7511b46aee47b31e6bc9a1a8982, type: 3}
       propertyPath: m_LocalPosition.y

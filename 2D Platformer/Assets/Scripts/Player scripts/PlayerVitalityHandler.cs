@@ -11,15 +11,17 @@ public class PlayerVitalityHandler : PlayerBaseBehavior
     public bool isPlayerTakingDamage = false;
     //public int katanaTakeDamageDelayMS, archerTakeDamageDelayMS, heavyTakeDamageDelayMS, mageTakeDamageDelayMS, katanaDeathDelayMS, archerDeathDelayMS, heavyDeathDelayMS, mageDeathDelayMS;
 
-    private Animator _animator => GetComponent<Animator>();
-    private SpriteRenderer _spriteRenderer => GetComponent<SpriteRenderer>();
+    private Animator _animator /*=> GetComponent<Animator>()*/;
+    private SpriteRenderer _spriteRenderer /*=> GetComponent<SpriteRenderer>()*/;
 
     private PlayerBaseBehavior _playerBaseBehavior => GetComponent<PlayerBaseBehavior>();
     //private PlayerBehavior parent_PlayerBehaviorScript;
     //public GameObject popUpText;
     
-    private void Start(){
-
+    private void Start()
+    {
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+        _animator = GetComponent<Animator>();
         //currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
         healthBar.SetHealth(currentHealth);

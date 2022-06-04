@@ -16,7 +16,7 @@ public class FireBall : MonoBehaviour
     private PlayerBehavior playerBehaviorScript;
     
     void Start(){
-        playerBehaviorScript = GameObject.Find("Player").GetComponent<PlayerBehavior>();
+        playerBehaviorScript = GameObject.FindWithTag("Player").GetComponent<PlayerBehavior>();
         
     }
     // Update is called once per frame
